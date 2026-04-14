@@ -1,0 +1,89 @@
+name: Label Sync
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/labels.json
+      - .github/workflows/label-sync.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  sync-labels:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Sync repository labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            const labelsPath = '.github/labels.json';
+            const desiredLabels = JSON.parse(fs.readFileSync(labelsPath, 'utf8'));
+            const desiredByName = new Map(
+              desiredLabels.map((label) => [label.name.toLowerCase(), label])
+            );
+
+            const existingLabels = await github.paginate(
+              github.rest.issues.listLabelsForRepo,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                per_page: 100,
+              }
+            );
+
+            const existingByName = new Map(
+              existingLabels.map((label) => [label.name.toLowerCase(), label])
+            );
+
+            for (const label of desiredLabels) {
+              const existing = existingByName.get(label.name.toLowerCase());
+
+              if (!existing) {
+                core.info(`Creating label: ${label.name}`);
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label.name,
+                  color: label.color,
+                  description: label.description,
+                });
+                continue;
+              }
+
+              if (
+                existing.color.toLowerCase() !== label.color.toLowerCase() ||
+                (existing.description || '') !== (label.description || '')
+              ) {
+                core.info(`Updating label: ${label.name}`);
+                await github.rest.issues.updateLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: existing.name,
+                  new_name: label.name,
+                  color: label.color,
+                  description: label.description,
+                });
+              }
+            }
+
+            for (const label of existingLabels) {
+              if (!desiredByName.has(label.name.toLowerCase())) {
+                core.info(`Deleting label: ${label.name}`);
+                await github.rest.issues.deleteLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label.name,
+                });
+              }
+            }

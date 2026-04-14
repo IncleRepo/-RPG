@@ -13,8 +13,8 @@
         <p class="eyebrow">2D Browser RPG</p>
         <h1>RPG 프로젝트</h1>
         <p class="hero-copy">
-          브라우저에서 동작하는 RPG 프로토타입입니다. 플레이어, 맵, 전투, UI 시스템을 단계적으로
-          확장해 나가는 기본 화면입니다.
+          키보드로 조작하는 기본 액션 프로토타입입니다. 간단한 스테이지 위에서 좌우 이동, 점프, 중력
+          동작을 먼저 구현하고 이후 맵과 전투 시스템으로 확장합니다.
         </p>
       </header>
 
@@ -24,34 +24,70 @@
             <h2>게임 화면</h2>
             <span id="status-badge">로딩 중</span>
           </div>
-          <canvas id="game-canvas" width="960" height="540" aria-label="게임 미리보기"></canvas>
+          <div class="game-stage" id="game-stage" aria-label="플레이 가능한 기본 스테이지">
+            <div class="stage-sun" aria-hidden="true"></div>
+            <div class="stage-hill stage-hill-left" aria-hidden="true"></div>
+            <div class="stage-hill stage-hill-right" aria-hidden="true"></div>
+            <div class="stage-cloud stage-cloud-large" aria-hidden="true"></div>
+            <div class="stage-cloud stage-cloud-small" aria-hidden="true"></div>
+
+            <div
+              class="platform platform-low"
+              data-platform
+              data-platform-label="낮은 발판"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="platform platform-high"
+              data-platform
+              data-platform-label="높은 발판"
+              aria-hidden="true"
+            ></div>
+            <div class="stage-ground" aria-hidden="true"></div>
+
+            <div class="player" id="player" aria-label="플레이어 캐릭터">
+              <div class="player-face"></div>
+            </div>
+
+            <div class="stage-overlay">
+              <p class="stage-overlay-label">Movement Prototype</p>
+              <p class="stage-overlay-copy">
+                `A` `D` 또는 방향키로 이동하고 `W` `Space`로 점프합니다.
+              </p>
+            </div>
+          </div>
+          <p class="stage-caption">간단한 발판과 바닥 충돌이 포함된 테스트 스테이지입니다.</p>
         </section>
 
         <aside class="sidebar">
           <section class="panel">
-            <h2>핵심 시스템</h2>
+            <h2>조작 방법</h2>
             <ul class="task-list">
-              <li>플레이어 이동 시스템</li>
-              <li>맵 타일 데이터 구조</li>
-              <li>적 조우와 전투 프로토타입</li>
-              <li>HUD 및 메뉴 UI</li>
+              <li>`A` `D` 또는 `←` `→` : 좌우 이동</li>
+              <li>`W` `Space` 또는 `↑` : 점프</li>
+              <li>발판 위에 착지할 수 있습니다</li>
+              <li>스테이지 밖으로는 이동할 수 없습니다</li>
             </ul>
           </section>
 
           <section class="panel">
-            <h2>현재 빌드</h2>
+            <h2>실시간 상태</h2>
             <dl class="meta-list">
               <div>
-                <dt>플레이어</dt>
-                <dd>이동 프로토타입 예정</dd>
+                <dt>가로 상태</dt>
+                <dd id="horizontal-state">정지</dd>
               </div>
               <div>
-                <dt>월드</dt>
-                <dd>타일 맵 구조 작업 중</dd>
+                <dt>세로 상태</dt>
+                <dd id="vertical-state">대기</dd>
               </div>
               <div>
-                <dt>전투</dt>
-                <dd>프로토타입 단계</dd>
+                <dt>착지 위치</dt>
+                <dd id="ground-state">바닥</dd>
+              </div>
+              <div>
+                <dt>좌표</dt>
+                <dd id="position-state">(0, 0)</dd>
               </div>
             </dl>
           </section>

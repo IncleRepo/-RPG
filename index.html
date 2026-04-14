@@ -22,19 +22,69 @@
         <section class="panel game-panel">
           <div class="panel-header">
             <h2>게임 화면</h2>
-            <span id="status-badge">로딩 중</span>
+            <span id="status-badge">준비 중</span>
           </div>
-          <canvas id="game-canvas" width="960" height="540" aria-label="게임 미리보기"></canvas>
+
+          <div class="game-stage-shell">
+            <div
+              id="game-stage"
+              class="game-stage"
+              aria-label="플레이어 이동과 점프를 테스트하는 기본 스테이지"
+            >
+              <div class="sun"></div>
+              <div class="cloud cloud-left"></div>
+              <div class="cloud cloud-right"></div>
+              <div class="mountain mountain-back"></div>
+              <div class="mountain mountain-front"></div>
+
+              <div class="platform platform-ground" data-platform data-ground></div>
+              <div class="platform platform-left" data-platform></div>
+              <div class="platform platform-middle" data-platform></div>
+              <div class="platform platform-right" data-platform></div>
+
+              <div class="signpost">
+                <span>START</span>
+              </div>
+
+              <div id="player" class="player" aria-label="플레이어 캐릭터">
+                <div class="player-shadow"></div>
+                <div class="player-body">
+                  <div class="player-head"></div>
+                  <div class="player-torso"></div>
+                  <div class="player-legs"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-hud">
+              <p class="hint-text">A, D 또는 방향키로 이동하고 W, Space, ↑로 점프합니다.</p>
+
+              <dl class="live-stats">
+                <div>
+                  <dt>상태</dt>
+                  <dd id="movement-state">대기</dd>
+                </div>
+                <div>
+                  <dt>점프</dt>
+                  <dd id="jump-state">지면</dd>
+                </div>
+                <div>
+                  <dt>좌표</dt>
+                  <dd id="player-position">0, 0</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
         </section>
 
         <aside class="sidebar">
           <section class="panel">
-            <h2>핵심 시스템</h2>
+            <h2>프로토타입 구성</h2>
             <ul class="task-list">
-              <li>플레이어 이동 시스템</li>
-              <li>맵 타일 데이터 구조</li>
-              <li>적 조우와 전투 프로토타입</li>
-              <li>HUD 및 메뉴 UI</li>
+              <li>CSS와 HTML로 만든 기본 스테이지</li>
+              <li>키보드 좌우 이동</li>
+              <li>점프와 중력 처리</li>
+              <li>실시간 상태 HUD</li>
             </ul>
           </section>
 
@@ -43,15 +93,15 @@
             <dl class="meta-list">
               <div>
                 <dt>플레이어</dt>
-                <dd>이동 프로토타입 예정</dd>
+                <dd>좌우 이동과 점프 가능</dd>
               </div>
               <div>
                 <dt>월드</dt>
-                <dd>타일 맵 구조 작업 중</dd>
+                <dd>기본 플랫폼 스테이지 적용</dd>
               </div>
               <div>
-                <dt>전투</dt>
-                <dd>프로토타입 단계</dd>
+                <dt>물리</dt>
+                <dd>중력과 착지 판정 적용</dd>
               </div>
             </dl>
           </section>

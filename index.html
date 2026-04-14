@@ -10,48 +10,86 @@
   <body>
     <div class="page-shell">
       <header class="hero">
-        <p class="eyebrow">2D Browser RPG</p>
-        <h1>RPG 프로젝트</h1>
+        <p class="eyebrow">Issue #9 Prototype</p>
+        <h1>키보드 움직임 프로토타입</h1>
         <p class="hero-copy">
-          브라우저에서 동작하는 RPG 프로토타입입니다. 플레이어, 맵, 전투, UI 시스템을 단계적으로
-          확장해 나가는 기본 화면입니다.
+          간단한 2D 스테이지 위에서 좌우 이동, 점프, 중력을 먼저 구현한 기본 빌드입니다. `A/D` 또는
+          방향키로 이동하고 `W`, `↑`, `Space`로 점프할 수 있습니다.
         </p>
       </header>
 
       <main class="layout">
         <section class="panel game-panel">
           <div class="panel-header">
-            <h2>게임 화면</h2>
-            <span id="status-badge">로딩 중</span>
+            <div>
+              <h2>연습 스테이지</h2>
+              <p class="panel-copy">발판 위를 이동하며 점프 감각과 중력을 확인할 수 있습니다.</p>
+            </div>
+            <span id="status-badge">초기화 중</span>
           </div>
-          <canvas id="game-canvas" width="960" height="540" aria-label="게임 미리보기"></canvas>
+
+          <div class="hud" aria-label="플레이 상태">
+            <div class="hud-card">
+              <span>좌표</span>
+              <strong id="position-readout">0, 0</strong>
+            </div>
+            <div class="hud-card">
+              <span>상태</span>
+              <strong id="motion-readout">대기</strong>
+            </div>
+            <div class="hud-card hud-card--wide">
+              <span>안내</span>
+              <strong id="hint-copy">키보드를 눌러 캐릭터를 움직여 보세요.</strong>
+            </div>
+          </div>
+
+          <div id="game-stage" class="game-stage" aria-label="캐릭터 이동 실험용 2D 스테이지">
+            <div class="stage-decor stage-decor--sun" aria-hidden="true"></div>
+            <div
+              class="stage-decor stage-decor--cloud stage-decor--cloud-left"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="stage-decor stage-decor--cloud stage-decor--cloud-right"
+              aria-hidden="true"
+            ></div>
+            <div class="stage-decor stage-decor--mountain-back" aria-hidden="true"></div>
+            <div class="stage-decor stage-decor--mountain-front" aria-hidden="true"></div>
+
+            <div class="platform platform--high-left" data-platform-label="왼쪽 상단 발판"></div>
+            <div class="platform platform--middle" data-platform-label="중앙 발판"></div>
+            <div class="platform platform--high-right" data-platform-label="오른쪽 상단 발판"></div>
+            <div class="platform platform--ground" data-platform-label="바닥"></div>
+
+            <div id="player" class="player" data-motion="idle" aria-label="플레이어 캐릭터"></div>
+          </div>
         </section>
 
         <aside class="sidebar">
           <section class="panel">
-            <h2>핵심 시스템</h2>
+            <h2>조작 방법</h2>
             <ul class="task-list">
-              <li>플레이어 이동 시스템</li>
-              <li>맵 타일 데이터 구조</li>
-              <li>적 조우와 전투 프로토타입</li>
-              <li>HUD 및 메뉴 UI</li>
+              <li>`A / D` 또는 `← / →`로 좌우 이동</li>
+              <li>`W`, `↑`, `Space`로 점프</li>
+              <li>점프 중에는 중력이 적용되어 다시 내려옵니다</li>
+              <li>발판 위에 착지하면 다시 점프할 수 있습니다</li>
             </ul>
           </section>
 
           <section class="panel">
-            <h2>현재 빌드</h2>
+            <h2>이번 구현 범위</h2>
             <dl class="meta-list">
               <div>
-                <dt>플레이어</dt>
-                <dd>이동 프로토타입 예정</dd>
+                <dt>스테이지</dt>
+                <dd>HTML과 CSS로 배경, 바닥, 공중 발판 구성</dd>
               </div>
               <div>
-                <dt>월드</dt>
-                <dd>타일 맵 구조 작업 중</dd>
+                <dt>캐릭터</dt>
+                <dd>DOM 요소를 사용한 간단한 플레이어 표현</dd>
               </div>
               <div>
-                <dt>전투</dt>
-                <dd>프로토타입 단계</dd>
+                <dt>물리</dt>
+                <dd>좌우 이동, 점프, 중력, 착지 판정 구현</dd>
               </div>
             </dl>
           </section>

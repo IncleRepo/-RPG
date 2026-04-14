@@ -1,0 +1,27 @@
+name: Task
+description: 작은 작업 단위용 이슈 템플릿
+title: '[Task] '
+labels: ['chore']
+body:
+  - type: input
+    id: goal
+    attributes:
+      label: 작업 목표
+      placeholder: ESLint 규칙 정리
+    validations:
+      required: true
+  - type: textarea
+    id: todos
+    attributes:
+      label: 해야 할 일
+      placeholder: |
+        - 규칙 추가
+        - 기존 경고 확인
+        - 문서 반영
+    validations:
+      required: true
+  - type: textarea
+    id: done_definition
+    attributes:
+      label: 완료 조건
+      placeholder: PR에서 lint가 통과하고 팀 합의된 규칙이 문서화되어야 합니다.

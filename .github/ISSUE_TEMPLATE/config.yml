@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 프로젝트 개요
+    url: https://github.com/IncleRepo/-RPG/blob/main/README.md
+    about: 프로젝트 소개와 실행 방법은 README에서 확인하세요.

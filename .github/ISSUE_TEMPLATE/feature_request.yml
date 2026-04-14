@@ -1,0 +1,29 @@
+name: Feature Request
+description: 기능 제안용 이슈 템플릿
+title: '[Feature] '
+labels: ['feature']
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 배경
+      description: 왜 이 기능이 필요한지 적어주세요.
+      placeholder: 전투 시작과 종료 흐름이 정리되지 않아 개발 범위가 모호합니다.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 제안 내용
+      description: 구현하고 싶은 기능을 적어주세요.
+      placeholder: 전투 진입 UI와 턴 전환 상태를 먼저 프로토타입으로 만듭니다.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 작업 범위
+      description: 이 이슈에서 어디까지 할지 정리해주세요.
+      placeholder: 전투 시작, 공격 버튼, 적 HP 표시까지
+    validations:
+      required: true

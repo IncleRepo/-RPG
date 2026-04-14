@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RPG 프로젝트</title>
+    <meta name="description" content="JavaScript, HTML, CSS로 만드는 브라우저 기반 RPG 프로젝트" />
+    <link rel="stylesheet" href="./src/styles/main.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">2D Browser RPG</p>
+        <h1>RPG 프로젝트</h1>
+        <p class="hero-copy">
+          브라우저에서 동작하는 RPG 프로토타입입니다. 플레이어, 맵, 전투, UI 시스템을 단계적으로
+          확장해 나가는 기본 화면입니다.
+        </p>
+      </header>
+
+      <main class="layout">
+        <section class="panel game-panel">
+          <div class="panel-header">
+            <h2>게임 화면</h2>
+            <span id="status-badge">로딩 중</span>
+          </div>
+          <canvas id="game-canvas" width="960" height="540" aria-label="게임 미리보기"></canvas>
+        </section>
+
+        <aside class="sidebar">
+          <section class="panel">
+            <h2>핵심 시스템</h2>
+            <ul class="task-list">
+              <li>플레이어 이동 시스템</li>
+              <li>맵 타일 데이터 구조</li>
+              <li>적 조우와 전투 프로토타입</li>
+              <li>HUD 및 메뉴 UI</li>
+            </ul>
+          </section>
+
+          <section class="panel">
+            <h2>현재 빌드</h2>
+            <dl class="meta-list">
+              <div>
+                <dt>플레이어</dt>
+                <dd>이동 프로토타입 예정</dd>
+              </div>
+              <div>
+                <dt>월드</dt>
+                <dd>타일 맵 구조 작업 중</dd>
+              </div>
+              <div>
+                <dt>전투</dt>
+                <dd>프로토타입 단계</dd>
+              </div>
+            </dl>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./src/scripts/main.js"></script>
+  </body>
+</html>

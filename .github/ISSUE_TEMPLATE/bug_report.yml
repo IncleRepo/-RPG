@@ -1,0 +1,43 @@
+name: Bug Report
+description: 버그 제보용 이슈 템플릿
+title: '[Bug] '
+labels: ['bug']
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 버그 설명
+      description: 어떤 문제가 발생했는지 간단히 적어주세요.
+      placeholder: 플레이어가 벽을 통과합니다.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 재현 방법
+      description: 같은 버그를 다시 볼 수 있도록 단계별로 적어주세요.
+      placeholder: |
+        1. 게임 실행
+        2. 특정 위치로 이동
+        3. 벽 방향으로 계속 이동
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 기대 결과
+      placeholder: 벽을 통과하지 않아야 합니다.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 실제 결과
+      placeholder: 캐릭터가 벽 안으로 들어갑니다.
+    validations:
+      required: true
+  - type: input
+    id: branch
+    attributes:
+      label: 관련 브랜치 또는 커밋
+      placeholder: feat/12-player-move

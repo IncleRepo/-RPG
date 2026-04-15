@@ -1,15 +1,20 @@
 :root {
-  --bg: #f3efe5;
-  --bg-accent: #e2d4b7;
-  --surface: rgba(255, 252, 244, 0.88);
-  --surface-strong: #fff9ed;
-  --border: rgba(79, 58, 30, 0.18);
-  --text: #2d2416;
-  --muted: #6a5a42;
-  --primary: #7f4f24;
-  --primary-strong: #5a3512;
-  --canvas-bg: #1d2d2f;
-  --shadow: 0 20px 50px rgba(58, 42, 19, 0.12);
+  --bg: #f5ecd8;
+  --bg-accent: #d9c8a6;
+  --surface: rgba(255, 250, 239, 0.88);
+  --surface-strong: rgba(255, 249, 234, 0.96);
+  --border: rgba(91, 66, 32, 0.16);
+  --text: #2c2419;
+  --muted: #6b5b45;
+  --primary: #6b4b24;
+  --primary-strong: #4b3112;
+  --stage-sky-top: #9ed8ff;
+  --stage-sky-bottom: #f4f8d0;
+  --stage-grass: #6a9c4d;
+  --stage-dirt: #7d5433;
+  --player-body: #c55d2d;
+  --player-accent: #ffe7b0;
+  --shadow: 0 22px 55px rgba(64, 42, 14, 0.14);
 }
 
 * {
@@ -22,7 +27,7 @@ body {
   font-family: 'Segoe UI', sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.55), transparent 35%),
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.65), transparent 30%),
     linear-gradient(135deg, var(--bg), var(--bg-accent));
 }
 
@@ -47,7 +52,7 @@ body {
 
 .hero h1 {
   margin: 0;
-  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  font-size: clamp(2.5rem, 5vw, 4.8rem);
   line-height: 0.95;
 }
 
@@ -105,13 +110,206 @@ body {
   font-weight: 700;
 }
 
-#game-canvas {
-  width: 100%;
-  height: auto;
+.stage-shell {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.stage-hud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(23, 34, 39, 0.22);
+}
+
+.stage-hud > div {
+  min-width: 150px;
+}
+
+.hud-label {
   display: block;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 2px;
+  color: rgba(44, 36, 25, 0.72);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--stage-sky-top), var(--stage-sky-bottom));
+}
+
+.stage-backdrop {
+  position: absolute;
+  inset: 0;
+}
+
+.sun {
+  position: absolute;
+  top: 8%;
+  right: 10%;
+  width: 14%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff7bd 0%, #ffd15e 55%, rgba(255, 209, 94, 0) 72%);
+  filter: blur(1px);
+}
+
+.mountain {
+  position: absolute;
+  bottom: 18%;
+  border-radius: 40px 40px 0 0;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+.mountain-far {
+  left: 4%;
+  width: 32%;
+  height: 38%;
+  background: rgba(112, 154, 123, 0.45);
+}
+
+.mountain-mid {
+  left: 28%;
+  width: 42%;
+  height: 48%;
+  background: rgba(82, 123, 95, 0.52);
+}
+
+.mountain-near {
+  right: -3%;
+  width: 38%;
+  height: 44%;
+  background: rgba(58, 95, 75, 0.62);
+}
+
+.platform,
+.ground {
+  position: absolute;
   border-radius: 18px;
-  background: var(--canvas-bg);
+  background: linear-gradient(180deg, #8cc26b 0 28%, #7a5734 28% 100%);
+  box-shadow: inset 0 -8px 0 rgba(77, 48, 21, 0.24);
+}
+
+.platform::before,
+.ground::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid rgba(255, 255, 255, 0.16);
+}
+
+.platform-small {
+  left: 18%;
+  bottom: 32%;
+  width: 14%;
+  height: 7%;
+}
+
+.platform-mid {
+  left: 43%;
+  bottom: 45%;
+  width: 16%;
+  height: 7%;
+}
+
+.platform-high {
+  right: 16%;
+  bottom: 34%;
+  width: 15%;
+  height: 7%;
+}
+
+.ground {
+  inset: auto 0 0;
+  height: 18%;
+  border-radius: 0;
+  background: linear-gradient(180deg, var(--stage-grass) 0 22%, var(--stage-dirt) 22% 100%);
+}
+
+.player {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 52px;
+  height: 74px;
+  pointer-events: none;
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+.player-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 72%;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(39, 28, 20, 0.22);
+  transform: translateX(-50%);
+}
+
+.player-sprite {
+  position: absolute;
+  inset: 0 8px 8px;
+  border: 3px solid rgba(84, 45, 13, 0.42);
+  border-radius: 16px 16px 12px 12px;
+  background: linear-gradient(180deg, var(--player-accent) 0 28%, var(--player-body) 28% 100%);
+}
+
+.player-sprite::before,
+.player-sprite::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  width: 10px;
+  height: 16px;
+  border-radius: 10px;
+  background: #4f3117;
+}
+
+.player-sprite::before {
+  left: 10px;
+}
+
+.player-sprite::after {
+  right: 10px;
+}
+
+.player-face {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.player-face span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #47240c;
+}
+
+.player[data-facing='left'] .player-sprite {
+  transform: scaleX(-1);
+}
+
+.player[data-grounded='false'] .player-sprite {
+  transform: translateY(-4px);
+}
+
+.player[data-facing='left'][data-grounded='false'] .player-sprite {
+  transform: translateY(-4px) scaleX(-1);
 }
 
 .task-list {
@@ -119,6 +317,21 @@ body {
   padding-left: 20px;
   color: var(--muted);
   line-height: 1.8;
+}
+
+kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.9em;
+  padding: 0.12em 0.38em;
+  border: 1px solid rgba(51, 37, 18, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--primary-strong);
+  font: inherit;
+  font-size: 0.92em;
+  font-weight: 700;
 }
 
 .meta-list {
@@ -155,5 +368,22 @@ body {
 
   .layout {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .panel {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .stage-hud {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .player {
+    width: 42px;
+    height: 62px;
   }
 }

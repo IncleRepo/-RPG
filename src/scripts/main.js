@@ -1,51 +1,291 @@
-const canvas = document.getElementById('game-canvas');
+const stage = document.getElementById('stage');
+const player = document.getElementById('player');
 const statusBadge = document.getElementById('status-badge');
+const playerState = document.getElementById('player-state');
+const playerCoords = document.getElementById('player-coords');
 
-if (canvas instanceof HTMLCanvasElement && statusBadge) {
-  const context = canvas.getContext('2d');
+if (
+  !(stage instanceof HTMLDivElement) ||
+  !(player instanceof HTMLDivElement) ||
+  !(statusBadge instanceof HTMLElement) ||
+  !(playerState instanceof HTMLElement) ||
+  !(playerCoords instanceof HTMLElement)
+) {
+  throw new Error('필수 게임 요소를 찾을 수 없습니다.');
+}
 
-  if (context) {
-    drawPlaceholderScene(context, canvas.width, canvas.height);
-    statusBadge.textContent = 'Ready';
+const keys = {
+  left: false,
+  right: false,
+};
+
+const physics = {
+  moveSpeed: 300,
+  gravity: 1800,
+  jumpVelocity: 760,
+  maxFallSpeed: 1200,
+};
+
+const playerStateData = {
+  x: 96,
+  y: 0,
+  velocityY: 0,
+  width: 52,
+  height: 74,
+  grounded: true,
+  facing: 'right',
+  supportIndex: null,
+};
+
+let stageMetrics = measureStage();
+let lastFrame = performance.now();
+let hasSpawned = false;
+
+function measureStage() {
+  const stageRect = stage.getBoundingClientRect();
+  const platforms = [...stage.querySelectorAll('[data-platform]')].map((platform) => {
+    const platformRect = platform.getBoundingClientRect();
+
+    return {
+      left: platformRect.left - stageRect.left,
+      right: platformRect.right - stageRect.left,
+      top: platformRect.top - stageRect.top,
+      bottom: platformRect.bottom - stageRect.top,
+    };
+  });
+
+  return {
+    width: stage.clientWidth,
+    height: stage.clientHeight,
+    platforms,
+  };
+}
+
+function syncPlayerSize() {
+  const playerRect = player.getBoundingClientRect();
+  playerStateData.width = playerRect.width;
+  playerStateData.height = playerRect.height;
+}
+
+function refreshMeasurements() {
+  stageMetrics = measureStage();
+  syncPlayerSize();
+  playerStateData.x = clamp(
+    playerStateData.x,
+    0,
+    Math.max(0, stageMetrics.width - playerStateData.width)
+  );
+  let surfaceIndex = null;
+
+  if (!hasSpawned) {
+    surfaceIndex = findLowestSurfaceIndex(playerStateData.x, stageMetrics.platforms);
+    hasSpawned = true;
+  } else if (playerStateData.grounded) {
+    surfaceIndex = playerStateData.supportIndex ?? findClosestSurfaceIndex(playerStateData.x);
+  }
+
+  if (surfaceIndex !== null) {
+    const surface = stageMetrics.platforms[surfaceIndex];
+    playerStateData.y = stageMetrics.height - surface.top - playerStateData.height;
+    playerStateData.supportIndex = surfaceIndex;
+    playerStateData.grounded = true;
+    playerStateData.velocityY = 0;
   } else {
-    statusBadge.textContent = 'Canvas Error';
+    playerStateData.grounded = false;
+    playerStateData.supportIndex = null;
+  }
+
+  render();
+}
+
+function onKeyDown(event) {
+  if (isMovementKey(event.code)) {
+    event.preventDefault();
+  }
+
+  if (event.repeat) {
+    return;
+  }
+
+  if (event.code === 'ArrowLeft' || event.code === 'KeyA') {
+    keys.left = true;
+    playerStateData.facing = 'left';
+  }
+
+  if (event.code === 'ArrowRight' || event.code === 'KeyD') {
+    keys.right = true;
+    playerStateData.facing = 'right';
+  }
+
+  if (event.code === 'ArrowUp' || event.code === 'KeyW' || event.code === 'Space') {
+    if (playerStateData.grounded) {
+      playerStateData.velocityY = physics.jumpVelocity;
+      playerStateData.grounded = false;
+      playerStateData.supportIndex = null;
+      statusBadge.textContent = '점프';
+    }
   }
 }
 
-function drawPlaceholderScene(context, width, height) {
-  context.fillStyle = '#112226';
-  context.fillRect(0, 0, width, height);
+function onKeyUp(event) {
+  if (event.code === 'ArrowLeft' || event.code === 'KeyA') {
+    keys.left = false;
+  }
 
-  context.fillStyle = '#18363d';
-  for (let y = 0; y < height; y += 48) {
-    for (let x = 0; x < width; x += 48) {
-      if ((x + y) % 96 === 0) {
-        context.fillRect(x, y, 48, 48);
-      }
+  if (event.code === 'ArrowRight' || event.code === 'KeyD') {
+    keys.right = false;
+  }
+}
+
+function update(deltaSeconds) {
+  const direction = Number(keys.right) - Number(keys.left);
+  playerStateData.x += direction * physics.moveSpeed * deltaSeconds;
+  playerStateData.x = clamp(
+    playerStateData.x,
+    0,
+    Math.max(0, stageMetrics.width - playerStateData.width)
+  );
+
+  if (direction < 0) {
+    playerStateData.facing = 'left';
+  } else if (direction > 0) {
+    playerStateData.facing = 'right';
+  }
+
+  const previousY = playerStateData.y;
+  playerStateData.velocityY = Math.max(
+    playerStateData.velocityY - physics.gravity * deltaSeconds,
+    -physics.maxFallSpeed
+  );
+  playerStateData.y -= playerStateData.velocityY * deltaSeconds;
+
+  resolveVerticalCollisions(previousY);
+  render(direction);
+}
+
+function resolveVerticalCollisions(previousY) {
+  const previousTop = stageMetrics.height - previousY - playerStateData.height;
+  const nextTop = stageMetrics.height - playerStateData.y - playerStateData.height;
+  const playerLeft = playerStateData.x;
+  const playerRight = playerStateData.x + playerStateData.width;
+
+  playerStateData.grounded = false;
+  playerStateData.supportIndex = null;
+
+  for (const [index, platform] of stageMetrics.platforms.entries()) {
+    const overlapsX = playerRight > platform.left && playerLeft < platform.right;
+    if (!overlapsX) {
+      continue;
+    }
+
+    const landing =
+      playerStateData.velocityY <= 0 &&
+      previousTop + playerStateData.height <= platform.top &&
+      nextTop + playerStateData.height >= platform.top;
+
+    if (landing) {
+      playerStateData.y = stageMetrics.height - platform.top - playerStateData.height;
+      playerStateData.velocityY = 0;
+      playerStateData.grounded = true;
+      playerStateData.supportIndex = index;
+      return;
+    }
+
+    const headBump =
+      playerStateData.velocityY > 0 && previousTop >= platform.bottom && nextTop <= platform.bottom;
+
+    if (headBump) {
+      playerStateData.y = stageMetrics.height - platform.bottom - playerStateData.height;
+      playerStateData.velocityY = 0;
+      return;
     }
   }
 
-  context.fillStyle = '#d6f5d0';
-  context.fillRect(144, 180, 48, 48);
-
-  context.fillStyle = '#ffd166';
-  context.fillRect(624, 276, 48, 48);
-
-  context.strokeStyle = '#ffffff22';
-  context.lineWidth = 2;
-  context.strokeRect(144, 180, 48, 48);
-  context.strokeRect(624, 276, 48, 48);
-
-  context.fillStyle = '#f8f4e8';
-  context.font = '700 42px Segoe UI';
-  context.fillText('RPG Prototype Base', 48, 72);
-
-  context.font = '400 22px Segoe UI';
-  context.fillStyle = '#b8d0c7';
-  context.fillText('Implement systems in src/scripts and assets/', 48, 114);
-
-  context.font = '700 18px Segoe UI';
-  context.fillStyle = '#f4e285';
-  context.fillText('P', 160, 212);
-  context.fillText('E', 640, 308);
+  if (playerStateData.y < 0) {
+    playerStateData.y = 0;
+    playerStateData.velocityY = 0;
+    playerStateData.grounded = true;
+  }
 }
+
+function render(direction = 0) {
+  player.dataset.facing = playerStateData.facing;
+  player.dataset.grounded = String(playerStateData.grounded);
+  player.style.transform = `translate(${playerStateData.x}px, ${-playerStateData.y}px)`;
+
+  let stateLabel = '대기';
+  if (!playerStateData.grounded) {
+    stateLabel = playerStateData.velocityY > 0 ? '상승 중' : '낙하 중';
+  } else if (direction !== 0) {
+    stateLabel = '이동 중';
+  }
+
+  playerState.textContent = stateLabel;
+  playerCoords.textContent = `x: ${Math.round(playerStateData.x)} / y: ${Math.round(playerStateData.y)}`;
+  statusBadge.textContent = playerStateData.grounded ? '이동 가능' : '공중 이동';
+}
+
+function findLowestSurfaceIndex(playerX, platforms) {
+  const playerLeft = playerX;
+  const playerRight = playerX + playerStateData.width;
+
+  return platforms.reduce((best, platform, index) => {
+    const overlapsX = playerRight > platform.left && playerLeft < platform.right;
+    if (!overlapsX) {
+      return best;
+    }
+
+    if (best === null || platform.top > platforms[best].top) {
+      return index;
+    }
+
+    return best;
+  }, null);
+}
+
+function findClosestSurfaceIndex(playerX) {
+  const playerLeft = playerX;
+  const playerRight = playerX + playerStateData.width;
+  const playerBottom = stageMetrics.height - playerStateData.y;
+
+  return stageMetrics.platforms.reduce((best, platform, index) => {
+    const overlapsX = playerRight > platform.left && playerLeft < platform.right;
+    if (!overlapsX) {
+      return best;
+    }
+
+    const distance = Math.abs(playerBottom - platform.top);
+    if (best === null) {
+      return index;
+    }
+
+    const bestDistance = Math.abs(playerBottom - stageMetrics.platforms[best].top);
+    if (distance < bestDistance) {
+      return index;
+    }
+
+    return best;
+  }, null);
+}
+
+function isMovementKey(code) {
+  return ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'KeyA', 'KeyD', 'KeyW', 'Space'].includes(code);
+}
+
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function gameLoop(now) {
+  const deltaSeconds = Math.min((now - lastFrame) / 1000, 1 / 30);
+  lastFrame = now;
+  update(deltaSeconds);
+  requestAnimationFrame(gameLoop);
+}
+
+window.addEventListener('keydown', onKeyDown);
+window.addEventListener('keyup', onKeyUp);
+window.addEventListener('resize', refreshMeasurements);
+
+refreshMeasurements();
+requestAnimationFrame(gameLoop);

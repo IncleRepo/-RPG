@@ -1,15 +1,16 @@
 :root {
-  --bg: #f5ecd8;
-  --bg-accent: #d9c8a6;
-  --surface: rgba(255, 250, 239, 0.88);
-  --surface-strong: rgba(255, 249, 234, 0.96);
-  --border: rgba(91, 66, 32, 0.16);
+  --bg: #dff1ff;
+  --bg-accent: #8ec7ff;
+  --surface: rgba(247, 252, 255, 0.84);
+  --surface-strong: rgba(255, 255, 255, 0.96);
+  --border: rgba(57, 98, 148, 0.16);
   --text: #2c2419;
   --muted: #6b5b45;
   --primary: #6b4b24;
   --primary-strong: #4b3112;
-  --stage-sky-top: #9ed8ff;
-  --stage-sky-bottom: #f4f8d0;
+  --stage-sky-top: #5eb8ff;
+  --stage-sky-mid: #8fd4ff;
+  --stage-sky-bottom: #d7f3ff;
   --stage-grass: #6a9c4d;
   --stage-dirt: #7d5433;
   --player-body: #c55d2d;
@@ -27,7 +28,8 @@ body {
   font-family: 'Segoe UI', sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.65), transparent 30%),
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.72), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 42%),
     linear-gradient(135deg, var(--bg), var(--bg-accent));
 }
 
@@ -145,12 +147,22 @@ body {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: linear-gradient(180deg, var(--stage-sky-top), var(--stage-sky-bottom));
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.38), transparent 18%),
+    linear-gradient(
+      180deg,
+      var(--stage-sky-top) 0%,
+      var(--stage-sky-mid) 52%,
+      var(--stage-sky-bottom) 100%
+    );
 }
 
 .stage-backdrop {
   position: absolute;
   inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 40%),
+    linear-gradient(180deg, transparent 62%, rgba(255, 255, 255, 0.16) 100%);
 }
 
 .sun {
@@ -164,6 +176,119 @@ body {
   filter: blur(1px);
 }
 
+.cloud-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cloud {
+  --cloud-size: 18%;
+  --cloud-top: 20%;
+  --cloud-left: -24%;
+  --cloud-duration: 28s;
+  --cloud-delay: 0s;
+  --cloud-opacity: 0.92;
+  position: absolute;
+  top: var(--cloud-top);
+  left: var(--cloud-left);
+  width: var(--cloud-size);
+  aspect-ratio: 2.3 / 1;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, var(--cloud-opacity));
+  box-shadow:
+    0 10px 18px rgba(93, 142, 181, 0.18),
+    inset 0 -8px 0 rgba(194, 233, 255, 0.28);
+  animation: cloud-drift var(--cloud-duration) linear infinite;
+  animation-delay: var(--cloud-delay);
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  bottom: 18%;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.cloud::before {
+  left: 14%;
+  width: 34%;
+  height: 92%;
+}
+
+.cloud::after {
+  right: 12%;
+  width: 42%;
+  height: 106%;
+}
+
+.cloud-layer-far {
+  opacity: 0.7;
+}
+
+.cloud-layer-far .cloud {
+  filter: blur(1px);
+}
+
+.cloud-layer-near .cloud {
+  box-shadow:
+    0 14px 24px rgba(93, 142, 181, 0.16),
+    inset 0 -10px 0 rgba(194, 233, 255, 0.28);
+}
+
+.cloud-far-1 {
+  --cloud-size: 20%;
+  --cloud-top: 16%;
+  --cloud-left: -22%;
+  --cloud-duration: 34s;
+  --cloud-delay: -12s;
+}
+
+.cloud-far-2 {
+  --cloud-size: 14%;
+  --cloud-top: 28%;
+  --cloud-left: -18%;
+  --cloud-duration: 42s;
+  --cloud-delay: -27s;
+  --cloud-opacity: 0.82;
+}
+
+.cloud-far-3 {
+  --cloud-size: 16%;
+  --cloud-top: 10%;
+  --cloud-left: -30%;
+  --cloud-duration: 38s;
+  --cloud-delay: -6s;
+  --cloud-opacity: 0.78;
+}
+
+.cloud-near-1 {
+  --cloud-size: 22%;
+  --cloud-top: 22%;
+  --cloud-left: -24%;
+  --cloud-duration: 24s;
+  --cloud-delay: -4s;
+}
+
+.cloud-near-2 {
+  --cloud-size: 18%;
+  --cloud-top: 34%;
+  --cloud-left: -14%;
+  --cloud-duration: 30s;
+  --cloud-delay: -18s;
+}
+
+.cloud-near-3 {
+  --cloud-size: 26%;
+  --cloud-top: 12%;
+  --cloud-left: -32%;
+  --cloud-duration: 27s;
+  --cloud-delay: -21s;
+  --cloud-opacity: 0.96;
+}
+
 .mountain {
   position: absolute;
   bottom: 18%;
@@ -175,21 +300,21 @@ body {
   left: 4%;
   width: 32%;
   height: 38%;
-  background: rgba(112, 154, 123, 0.45);
+  background: rgba(113, 170, 150, 0.42);
 }
 
 .mountain-mid {
   left: 28%;
   width: 42%;
   height: 48%;
-  background: rgba(82, 123, 95, 0.52);
+  background: rgba(76, 131, 104, 0.5);
 }
 
 .mountain-near {
   right: -3%;
   width: 38%;
   height: 44%;
-  background: rgba(58, 95, 75, 0.62);
+  background: rgba(51, 104, 83, 0.58);
 }
 
 .platform,
@@ -358,6 +483,16 @@ kbd {
 .meta-list dd {
   margin: 0;
   color: var(--muted);
+}
+
+@keyframes cloud-drift {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(148vw);
+  }
 }
 
 @media (max-width: 920px) {

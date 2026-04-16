@@ -1,9 +1,17 @@
+import { createPlayableCharacter } from './player-character.js';
+
 const stage = document.getElementById('stage');
 const player = document.getElementById('player');
 const statusBadge = document.getElementById('status-badge');
 const playerState = document.getElementById('player-state');
 const playerCoords = document.getElementById('player-coords');
 const worldTimeReadout = document.getElementById('world-time');
+const characterLevel = document.getElementById('character-level');
+const characterHealth = document.getElementById('character-health');
+const characterMana = document.getElementById('character-mana');
+const characterGold = document.getElementById('character-gold');
+const characterInventory = document.getElementById('character-inventory');
+const characterEquipment = document.getElementById('character-equipment');
 const cloudSprites =
   stage instanceof HTMLDivElement ? [...stage.querySelectorAll('[data-cloud]')] : [];
 
@@ -14,10 +22,18 @@ if (
   !(playerState instanceof HTMLElement) ||
   !(playerCoords instanceof HTMLElement) ||
   !(worldTimeReadout instanceof HTMLElement) ||
+  !(characterLevel instanceof HTMLElement) ||
+  !(characterHealth instanceof HTMLElement) ||
+  !(characterMana instanceof HTMLElement) ||
+  !(characterGold instanceof HTMLElement) ||
+  !(characterInventory instanceof HTMLElement) ||
+  !(characterEquipment instanceof HTMLElement) ||
   cloudSprites.some((cloud) => !(cloud instanceof HTMLImageElement))
 ) {
   throw new Error('필수 게임 요소를 찾을 수 없습니다.');
 }
+
+const playableCharacter = createPlayableCharacter();
 
 const keys = {
   left: false,
@@ -283,6 +299,7 @@ function resolveVerticalCollisions(previousY) {
 
 function render(direction = 0) {
   renderBackground();
+  renderCharacterPanel();
   player.dataset.facing = playerStateData.facing;
   player.dataset.grounded = String(playerStateData.grounded);
   player.style.transform = `translate(${playerStateData.x}px, ${-playerStateData.y}px)`;
@@ -297,6 +314,15 @@ function render(direction = 0) {
   playerState.textContent = stateLabel;
   playerCoords.textContent = `x: ${Math.round(playerStateData.x)} / y: ${Math.round(playerStateData.y)}`;
   statusBadge.textContent = playerStateData.grounded ? '이동 가능' : '공중 이동';
+}
+
+function renderCharacterPanel() {
+  characterLevel.textContent = String(playableCharacter.level);
+  characterHealth.textContent = formatResource(playableCharacter.health);
+  characterMana.textContent = formatResource(playableCharacter.mana);
+  characterGold.textContent = `${playableCharacter.gold} G`;
+  characterInventory.textContent = `${playableCharacter.getCollectionSize('inventory')} slots`;
+  characterEquipment.textContent = `${playableCharacter.getCollectionSize('equipment')} equipped`;
 }
 
 function syncBackgroundScene() {
@@ -405,6 +431,10 @@ function mixColor(from, to, amount) {
 
 function rgbToCss(rgb) {
   return `rgb(${rgb.join(', ')})`;
+}
+
+function formatResource(resource) {
+  return `${resource.current} / ${resource.max}`;
 }
 
 function getTimeLabel(progress) {

@@ -29,6 +29,7 @@ const physics = {
   gravity: 1800,
   jumpVelocity: 760,
   maxFallSpeed: 1200,
+  verticalStep: 8,
 };
 
 const playerStateData = {
@@ -37,7 +38,7 @@ const playerStateData = {
   velocityY: 0,
   width: 52,
   height: 74,
-  grounded: true,
+  grounded: false,
   facing: 'right',
   supportIndex: null,
 };
@@ -118,18 +119,23 @@ function refreshMeasurements() {
     0,
     Math.max(0, stageMetrics.width - playerStateData.width)
   );
-  let surfaceIndex = null;
 
   if (!hasSpawned) {
-    surfaceIndex = findLowestSurfaceIndex(playerStateData.x, stageMetrics.platforms);
+    spawnPlayerAboveStage();
     hasSpawned = true;
-  } else if (playerStateData.grounded) {
+    render();
+    return;
+  }
+
+  let surfaceIndex = null;
+
+  if (playerStateData.grounded) {
     surfaceIndex = playerStateData.supportIndex ?? findClosestSurfaceIndex(playerStateData.x);
   }
 
   if (surfaceIndex !== null) {
     const surface = stageMetrics.platforms[surfaceIndex];
-    playerStateData.y = stageMetrics.height - surface.top - playerStateData.height;
+    playerStateData.y = stageMetrics.height - surface.top;
     playerStateData.supportIndex = surfaceIndex;
     playerStateData.grounded = true;
     playerStateData.velocityY = 0;
@@ -139,6 +145,13 @@ function refreshMeasurements() {
   }
 
   render();
+}
+
+function spawnPlayerAboveStage() {
+  playerStateData.y = stageMetrics.height + playerStateData.height;
+  playerStateData.velocityY = 0;
+  playerStateData.grounded = false;
+  playerStateData.supportIndex = null;
 }
 
 function onKeyDown(event) {
@@ -197,15 +210,30 @@ function update(deltaSeconds) {
     playerStateData.facing = 'right';
   }
 
-  const previousY = playerStateData.y;
-  playerStateData.velocityY = Math.max(
-    playerStateData.velocityY - physics.gravity * deltaSeconds,
-    -physics.maxFallSpeed
-  );
-  playerStateData.y -= playerStateData.velocityY * deltaSeconds;
-
-  resolveVerticalCollisions(previousY);
+  stepVerticalMotion(deltaSeconds);
   render(direction);
+}
+
+function stepVerticalMotion(deltaSeconds) {
+  const estimatedTravel =
+    Math.abs(playerStateData.velocityY * deltaSeconds) + physics.gravity * deltaSeconds ** 2;
+  const stepCount = Math.max(1, Math.ceil(estimatedTravel / physics.verticalStep));
+  const stepDelta = deltaSeconds / stepCount;
+
+  for (let index = 0; index < stepCount; index += 1) {
+    const previousY = playerStateData.y;
+    playerStateData.velocityY = Math.max(
+      playerStateData.velocityY - physics.gravity * stepDelta,
+      -physics.maxFallSpeed
+    );
+    playerStateData.y += playerStateData.velocityY * stepDelta;
+
+    resolveVerticalCollisions(previousY);
+
+    if (playerStateData.grounded && playerStateData.velocityY === 0) {
+      break;
+    }
+  }
 }
 
 function resolveVerticalCollisions(previousY) {
@@ -229,7 +257,7 @@ function resolveVerticalCollisions(previousY) {
       nextTop + playerStateData.height >= platform.top;
 
     if (landing) {
-      playerStateData.y = stageMetrics.height - platform.top - playerStateData.height;
+      playerStateData.y = stageMetrics.height - platform.top;
       playerStateData.velocityY = 0;
       playerStateData.grounded = true;
       playerStateData.supportIndex = index;
@@ -327,24 +355,6 @@ function renderBackground() {
   }
 
   worldTimeReadout.textContent = getTimeLabel(cycleProgress);
-}
-
-function findLowestSurfaceIndex(playerX, platforms) {
-  const playerLeft = playerX;
-  const playerRight = playerX + playerStateData.width;
-
-  return platforms.reduce((best, platform, index) => {
-    const overlapsX = playerRight > platform.left && playerLeft < platform.right;
-    if (!overlapsX) {
-      return best;
-    }
-
-    if (best === null || platform.top > platforms[best].top) {
-      return index;
-    }
-
-    return best;
-  }, null);
 }
 
 function findClosestSurfaceIndex(playerX) {

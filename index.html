@@ -38,20 +38,110 @@
                 <span class="hud-label">좌표</span>
                 <strong id="player-coords">x: 96 / y: 0</strong>
               </div>
+              <div>
+                <span class="hud-label">시간 흐름</span>
+                <strong id="world-time">아침</strong>
+              </div>
             </div>
 
             <div class="stage" id="stage" aria-label="플레이어 이동 스테이지">
               <div class="stage-backdrop">
-                <div class="sun"></div>
+                <div class="moon" aria-hidden="true"></div>
+                <div class="sun" aria-hidden="true"></div>
+                <div class="star-layer" aria-hidden="true">
+                  <img class="star star-1" data-star src="./assets/star-sprite.svg" alt="" />
+                  <img class="star star-2" data-star src="./assets/star-sprite.svg" alt="" />
+                  <img class="star star-3" data-star src="./assets/star-sprite.svg" alt="" />
+                  <img class="star star-4" data-star src="./assets/star-sprite.svg" alt="" />
+                  <img class="star star-5" data-star src="./assets/star-sprite.svg" alt="" />
+                </div>
                 <div class="cloud-layer cloud-layer-far" aria-hidden="true">
-                  <div class="cloud cloud-far-1"></div>
-                  <div class="cloud cloud-far-2"></div>
-                  <div class="cloud cloud-far-3"></div>
+                  <img
+                    class="cloud cloud-far-1"
+                    data-cloud
+                    data-width="0.2"
+                    data-top="0.14"
+                    data-speed="18"
+                    data-start="0.1"
+                    data-bob="10"
+                    data-bob-speed="0.5"
+                    data-scale="0.96"
+                    data-phase="0.5"
+                    src="./assets/cloud-sprite.svg"
+                    alt=""
+                  />
+                  <img
+                    class="cloud cloud-far-2"
+                    data-cloud
+                    data-width="0.16"
+                    data-top="0.28"
+                    data-speed="14"
+                    data-start="0.48"
+                    data-bob="8"
+                    data-bob-speed="0.4"
+                    data-scale="0.82"
+                    data-phase="1.6"
+                    src="./assets/cloud-sprite.svg"
+                    alt=""
+                  />
+                  <img
+                    class="cloud cloud-far-3"
+                    data-cloud
+                    data-width="0.18"
+                    data-top="0.08"
+                    data-speed="16"
+                    data-start="0.78"
+                    data-bob="12"
+                    data-bob-speed="0.45"
+                    data-scale="0.88"
+                    data-phase="2.4"
+                    src="./assets/cloud-sprite.svg"
+                    alt=""
+                  />
                 </div>
                 <div class="cloud-layer cloud-layer-near" aria-hidden="true">
-                  <div class="cloud cloud-near-1"></div>
-                  <div class="cloud cloud-near-2"></div>
-                  <div class="cloud cloud-near-3"></div>
+                  <img
+                    class="cloud cloud-near-1"
+                    data-cloud
+                    data-width="0.24"
+                    data-top="0.18"
+                    data-speed="26"
+                    data-start="0.22"
+                    data-bob="14"
+                    data-bob-speed="0.72"
+                    data-scale="1.08"
+                    data-phase="0.9"
+                    src="./assets/cloud-sprite.svg"
+                    alt=""
+                  />
+                  <img
+                    class="cloud cloud-near-2"
+                    data-cloud
+                    data-width="0.2"
+                    data-top="0.34"
+                    data-speed="22"
+                    data-start="0.58"
+                    data-bob="10"
+                    data-bob-speed="0.65"
+                    data-scale="0.94"
+                    data-phase="1.9"
+                    src="./assets/cloud-sprite.svg"
+                    alt=""
+                  />
+                  <img
+                    class="cloud cloud-near-3"
+                    data-cloud
+                    data-width="0.26"
+                    data-top="0.1"
+                    data-speed="28"
+                    data-start="0.86"
+                    data-bob="16"
+                    data-bob-speed="0.78"
+                    data-scale="1.12"
+                    data-phase="2.8"
+                    src="./assets/cloud-sprite.svg"
+                    alt=""
+                  />
                 </div>
                 <div class="mountain mountain-far"></div>
                 <div class="mountain mountain-mid"></div>
@@ -91,7 +181,7 @@
             <dl class="meta-list">
               <div>
                 <dt>스테이지</dt>
-                <dd>하늘, 지면, 발판으로 구성된 단일 테스트 맵</dd>
+                <dd>시간 흐름에 따라 하늘 색과 배경 스프라이트가 변하는 테스트 맵</dd>
               </div>
               <div>
                 <dt>플레이어</dt>

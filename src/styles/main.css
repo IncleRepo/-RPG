@@ -494,6 +494,48 @@ kbd {
   color: var(--muted);
 }
 
+.character-stats {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.character-stats div,
+.collection-card {
+  padding: 14px;
+  border: 1px solid rgba(57, 98, 148, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.character-stats dt {
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.character-stats dd,
+.collection-card strong {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.collection-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.collection-card {
+  display: grid;
+  gap: 6px;
+}
+
 @keyframes star-twinkle {
   0%,
   100% {

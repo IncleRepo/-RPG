@@ -300,20 +300,16 @@ function resolveVerticalCollisions(previousY) {
 function render(direction = 0) {
   renderBackground();
   renderCharacterPanel();
+  const motionState = getMotionState(direction);
+
   player.dataset.facing = playerStateData.facing;
   player.dataset.grounded = String(playerStateData.grounded);
+  player.dataset.motion = motionState;
   player.style.transform = `translate(${playerStateData.x}px, ${-playerStateData.y}px)`;
 
-  let stateLabel = '대기';
-  if (!playerStateData.grounded) {
-    stateLabel = playerStateData.velocityY > 0 ? '상승 중' : '낙하 중';
-  } else if (direction !== 0) {
-    stateLabel = '이동 중';
-  }
-
-  playerState.textContent = stateLabel;
+  playerState.textContent = getMotionLabel(motionState);
   playerCoords.textContent = `x: ${Math.round(playerStateData.x)} / y: ${Math.round(playerStateData.y)}`;
-  statusBadge.textContent = playerStateData.grounded ? '이동 가능' : '공중 이동';
+  statusBadge.textContent = getStatusBadgeLabel(motionState);
 }
 
 function renderCharacterPanel() {
@@ -435,6 +431,44 @@ function rgbToCss(rgb) {
 
 function formatResource(resource) {
   return `${resource.current} / ${resource.max}`;
+}
+
+function getMotionState(direction) {
+  if (!playerStateData.grounded) {
+    return playerStateData.velocityY >= 0 ? 'jump' : 'fall';
+  }
+
+  if (direction !== 0) {
+    return 'run';
+  }
+
+  return 'idle';
+}
+
+function getMotionLabel(motionState) {
+  switch (motionState) {
+    case 'run':
+      return '질주 중';
+    case 'jump':
+      return '상승 중';
+    case 'fall':
+      return '낙하 중';
+    default:
+      return '대기';
+  }
+}
+
+function getStatusBadgeLabel(motionState) {
+  switch (motionState) {
+    case 'run':
+      return '전진 중';
+    case 'jump':
+      return '공중 상승';
+    case 'fall':
+      return '착지 중';
+    default:
+      return '이동 가능';
+  }
 }
 
 function getTimeLabel(progress) {

@@ -8,9 +8,9 @@
       name="description"
       content="캔버스 기반의 본 애니메이션과 IK를 적용한 2D RPG 프로토타입"
     />
-    <script type="module" crossorigin src="./assets/main-BGS2ANqE.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/canvas-animation-BiQV9G2f.js">
-    <link rel="stylesheet" crossorigin href="./assets/canvas-animation-lypNHbcH.css">
+    <script type="module" crossorigin src="./assets/main-CQ4OWB6Z.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/canvas-animation-DrWaawpM.js">
+    <link rel="stylesheet" crossorigin href="./assets/canvas-animation-C0gyEDJa.css">
   </head>
   <body>
     <div class="page-shell">
@@ -192,15 +192,27 @@
                   <span>Volume</span>
                   <output id="bgm-volume-output" for="bgm-volume">52%</output>
                 </label>
-                <input
-                  id="bgm-volume"
-                  data-bgm-control
-                  type="range"
-                  min="0"
-                  max="100"
-                  step="1"
-                  value="52"
-                />
+                <div class="channel-control__input-row">
+                  <button
+                    id="bgm-mute"
+                    class="bgm-mute-button"
+                    data-bgm-control
+                    type="button"
+                    aria-label="BGM 음소거"
+                    aria-pressed="false"
+                  >
+                    <span class="bgm-mute-button__speaker" aria-hidden="true"></span>
+                  </button>
+                  <input
+                    id="bgm-volume"
+                    data-bgm-control
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value="52"
+                  />
+                </div>
               </div>
             </div>
             <div class="button-row bgm-actions">

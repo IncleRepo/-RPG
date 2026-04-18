@@ -27,6 +27,13 @@
   --player-weapon: #e7f2ff;
   --player-weapon-shadow: #7792b5;
   --player-aura: rgba(255, 226, 124, 0.55);
+  --guest-cardigan: #f8dccd;
+  --guest-cardigan-shadow: #cf8575;
+  --guest-ribbon: #2c3467;
+  --guest-skirt: #df7f6d;
+  --guest-skirt-shadow: #8a4342;
+  --guest-stockings: #463134;
+  --guest-heels: #7f4c4b;
   --shadow: 0 22px 55px rgba(64, 42, 14, 0.14);
 }
 
@@ -791,6 +798,229 @@ body {
   transform: translateX(-50%);
 }
 
+.stage-npc {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 110px;
+  height: 170px;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 3;
+  will-change: transform;
+}
+
+.stage-npc .player {
+  left: 50%;
+  bottom: 0;
+  width: 78px;
+  height: 110px;
+  transform: translateX(-50%);
+}
+
+.npc-bubble,
+.npc-prompt {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 18px 32px rgba(53, 32, 24, 0.18);
+}
+
+.npc-bubble {
+  bottom: 122px;
+  width: min(248px, 52vw);
+  padding: 14px 16px;
+  border: 1px solid rgba(98, 56, 49, 0.14);
+  border-radius: 18px;
+  background: rgba(255, 251, 247, 0.94);
+}
+
+.npc-bubble::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 20px;
+  height: 20px;
+  border-right: 1px solid rgba(98, 56, 49, 0.14);
+  border-bottom: 1px solid rgba(98, 56, 49, 0.14);
+  background: inherit;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.npc-name {
+  display: block;
+  margin-bottom: 6px;
+  color: #773e39;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+}
+
+.npc-bubble p {
+  margin: 0;
+  color: #4a3328;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.npc-prompt {
+  bottom: 108px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid rgba(93, 52, 44, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 250, 244, 0.88);
+  color: #5c332a;
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.stage-npc[data-nearby='true'] .npc-prompt {
+  animation: chizuru-prompt-float 1.4s ease-in-out infinite;
+}
+
+.stage-npc[data-talking='true'] .guest-npc .player-shadow {
+  opacity: 0.84;
+  transform: translateX(-50%) scale(0.95);
+}
+
+.guest-npc {
+  --player-skin: #ffd5bf;
+  --player-skin-shadow: #e1a07f;
+  --player-hair: #5a312c;
+  --player-hair-shine: #8a5750;
+}
+
+.guest-npc .player-aura,
+.guest-npc .player-cape,
+.guest-npc .player-weapon {
+  display: none;
+}
+
+.guest-npc .player-head {
+  border-color: rgba(119, 70, 56, 0.35);
+  border-radius: 46% 46% 44% 44%;
+}
+
+.guest-npc .player-hair {
+  inset: -6% -4% 42%;
+}
+
+.guest-npc .player-hair::after {
+  left: 4%;
+  right: 6%;
+  bottom: -72%;
+  height: 102%;
+  border-radius: 0 0 48% 44%;
+  transform: none;
+}
+
+.guest-npc .player-eye {
+  background: #52342f;
+}
+
+.guest-npc .player-face::after {
+  width: 12px;
+  border-bottom-color: rgba(137, 76, 69, 0.72);
+}
+
+.guest-npc .player-torso {
+  top: 29%;
+  height: 38%;
+}
+
+.guest-npc .player-arm {
+  border-color: rgba(109, 71, 55, 0.28);
+  background: linear-gradient(
+    180deg,
+    #ffe5d7 0%,
+    var(--player-skin-shadow) 18%,
+    var(--guest-cardigan) 18%,
+    var(--guest-cardigan-shadow) 100%
+  );
+}
+
+.guest-npc .player-core {
+  width: 68%;
+  border-color: rgba(119, 72, 62, 0.2);
+  border-radius: 16px 16px 12px 12px;
+  background: linear-gradient(
+    180deg,
+    #fff7f2 0%,
+    var(--guest-cardigan) 30%,
+    var(--guest-cardigan-shadow) 48%,
+    var(--guest-skirt) 48%,
+    var(--guest-skirt-shadow) 100%
+  );
+  box-shadow:
+    inset 0 -8px 0 rgba(103, 49, 47, 0.22),
+    0 8px 14px rgba(99, 53, 43, 0.14);
+}
+
+.guest-npc .player-core::before {
+  left: 14%;
+  right: 14%;
+  top: 46%;
+  height: 2px;
+  background: rgba(255, 248, 240, 0.36);
+}
+
+.guest-npc .player-core::after {
+  top: 20%;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #5162c4 0%, var(--guest-ribbon) 100%);
+  box-shadow: none;
+}
+
+.guest-npc .player-collar {
+  top: 18%;
+  width: 52%;
+  height: 20%;
+  background: linear-gradient(180deg, #6a77cf 0%, var(--guest-ribbon) 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.guest-npc .player-belt {
+  left: 14%;
+  right: 14%;
+  bottom: 36%;
+  height: 8%;
+  background: rgba(255, 244, 235, 0.42);
+  box-shadow: none;
+}
+
+.guest-npc .player-belt::after {
+  display: none;
+}
+
+.guest-npc .player-legs {
+  width: 44%;
+  height: 34%;
+}
+
+.guest-npc .player-leg {
+  width: 28%;
+  border-color: rgba(66, 41, 34, 0.3);
+  background: linear-gradient(
+    180deg,
+    #624649 0%,
+    var(--guest-stockings) 72%,
+    var(--guest-heels) 100%
+  );
+}
+
+.guest-npc .player-leg::after {
+  left: -16%;
+  right: -16%;
+  bottom: -10%;
+  background: linear-gradient(180deg, #8c5a56 0%, #512728 100%);
+}
+
 .player[data-motion='idle'] .player-body {
   animation: player-idle-breath 1.8s ease-in-out infinite;
 }
@@ -1194,6 +1424,17 @@ kbd {
   }
 }
 
+@keyframes chizuru-prompt-float {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(-4px);
+  }
+}
+
 @media (max-width: 920px) {
   .page-shell {
     width: min(100% - 20px, 1200px);
@@ -1219,6 +1460,26 @@ kbd {
   .player {
     width: 62px;
     height: 88px;
+  }
+
+  .stage-npc {
+    width: 92px;
+    height: 148px;
+  }
+
+  .stage-npc .player {
+    width: 66px;
+    height: 94px;
+  }
+
+  .npc-bubble {
+    bottom: 102px;
+    width: min(216px, 60vw);
+    padding: 12px 14px;
+  }
+
+  .npc-prompt {
+    bottom: 90px;
   }
 }
 

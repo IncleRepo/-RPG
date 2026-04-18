@@ -148,10 +148,10 @@
                 <div class="mountain mountain-near"></div>
               </div>
 
-              <div class="platform platform-small" data-platform></div>
-              <div class="platform platform-mid" data-platform></div>
-              <div class="platform platform-high" data-platform></div>
-              <div class="ground" data-platform></div>
+              <div class="platform platform-small" data-platform="small"></div>
+              <div class="platform platform-mid" data-platform="mid"></div>
+              <div class="platform platform-high" data-platform="high"></div>
+              <div class="ground" data-platform="ground"></div>
 
               <div class="player" id="player" aria-hidden="true">
                 <div class="player-shadow"></div>
@@ -180,6 +180,47 @@
                     </div>
                   </div>
                   <div class="player-weapon"></div>
+                </div>
+              </div>
+
+              <div class="stage-npc" id="chizuru">
+                <div class="npc-bubble" id="chizuru-bubble" aria-live="polite" hidden>
+                  <strong class="npc-name">미즈하라 치즈루</strong>
+                  <p id="chizuru-dialogue">운메이난테~</p>
+                </div>
+                <div class="npc-prompt" id="chizuru-prompt" hidden>
+                  <kbd>E</kbd>
+                  <span id="chizuru-prompt-label">대화</span>
+                </div>
+
+                <div class="player guest-npc" id="chizuru-avatar" aria-hidden="true">
+                  <div class="player-shadow"></div>
+                  <div class="player-sprite">
+                    <div class="player-aura"></div>
+                    <div class="player-cape"></div>
+                    <div class="player-body">
+                      <div class="player-head">
+                        <div class="player-hair"></div>
+                        <div class="player-face">
+                          <span class="player-eye"></span>
+                          <span class="player-eye"></span>
+                        </div>
+                      </div>
+                      <div class="player-torso">
+                        <div class="player-arm player-arm-back"></div>
+                        <div class="player-core">
+                          <div class="player-collar"></div>
+                          <div class="player-belt"></div>
+                        </div>
+                        <div class="player-arm player-arm-front"></div>
+                      </div>
+                      <div class="player-legs">
+                        <div class="player-leg player-leg-back"></div>
+                        <div class="player-leg player-leg-front"></div>
+                      </div>
+                    </div>
+                    <div class="player-weapon"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -223,8 +264,27 @@
             <ul class="task-list">
               <li><kbd>A</kbd> / <kbd>D</kbd> 또는 <kbd>←</kbd> / <kbd>→</kbd> 로 이동</li>
               <li><kbd>W</kbd> / <kbd>↑</kbd> / <kbd>Space</kbd> 로 점프</li>
+              <li>치즈루 근처에서 <kbd>E</kbd> 로 대사를 확인할 수 있습니다</li>
               <li>플랫폼 위에 착지할 수 있으며, 낙하 중에는 중력이 적용됩니다</li>
             </ul>
+          </section>
+
+          <section class="panel">
+            <h2>Guest NPC</h2>
+            <dl class="meta-list">
+              <div>
+                <dt>이름</dt>
+                <dd>미즈하라 치즈루</dd>
+              </div>
+              <div>
+                <dt>현재 상태</dt>
+                <dd id="chizuru-status">오른쪽 풀밭에서 기다리는 중</dd>
+              </div>
+              <div>
+                <dt>대화 힌트</dt>
+                <dd id="chizuru-scene">가까이 가서 E 키를 누르면 말을 걸 수 있습니다.</dd>
+              </div>
+            </dl>
           </section>
 
           <section class="panel">
@@ -241,6 +301,10 @@
               <div>
                 <dt>물리</dt>
                 <dd>중력, 최대 낙하 속도, 경계 제한을 포함한 기본 루프</dd>
+              </div>
+              <div>
+                <dt>이벤트</dt>
+                <dd>스테이지 안에서 미즈하라 치즈루를 만나고 짧은 대화를 볼 수 있는 상호작용</dd>
               </div>
             </dl>
           </section>

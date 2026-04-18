@@ -8,9 +8,9 @@
       name="description"
       content="캔버스 기반의 본 애니메이션과 IK를 적용한 2D RPG 프로토타입"
     />
-    <script type="module" crossorigin src="./assets/main-CFf-mxOF.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/canvas-animation-Bcomf6D-.js">
-    <link rel="stylesheet" crossorigin href="./assets/canvas-animation-wrKY_3j_.css">
+    <script type="module" crossorigin src="./assets/main-Df5fNU3X.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/canvas-animation-Cq-YsmCv.js">
+    <link rel="stylesheet" crossorigin href="./assets/canvas-animation-CPuPdzzc.css">
   </head>
   <body>
     <div class="page-shell">
@@ -141,6 +141,47 @@
               <li>모바일에서는 화면 하단 터치 버튼으로 이동, 점프, 대화를 테스트할 수 있습니다</li>
               <li>뼈대 애니메이션과 발 IK는 캔버스에서 바로 반영됩니다</li>
             </ul>
+          </section>
+
+          <section class="panel">
+            <h2>Procedural BGM</h2>
+            <p class="panel-copy">
+              첫 키 입력이나 터치 이후 Web Audio 기반 생성형 배경 음악이 시작됩니다.
+            </p>
+            <dl class="meta-list bgm-meta-list">
+              <div>
+                <dt>상태</dt>
+                <dd id="bgm-status">대기 중</dd>
+              </div>
+              <div>
+                <dt>무드</dt>
+                <dd id="bgm-mood">평온한 마을</dd>
+              </div>
+              <div>
+                <dt>진행</dt>
+                <dd id="bgm-progression">대기 중</dd>
+              </div>
+            </dl>
+            <div class="channel-controls">
+              <div class="channel-control">
+                <label for="bgm-volume">
+                  <span>Volume</span>
+                  <output id="bgm-volume-output" for="bgm-volume">52%</output>
+                </label>
+                <input
+                  id="bgm-volume"
+                  data-bgm-control
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="52"
+                />
+              </div>
+            </div>
+            <div class="button-row bgm-actions">
+              <button id="bgm-toggle" data-bgm-control type="button">BGM 시작</button>
+            </div>
           </section>
 
           <section class="panel">

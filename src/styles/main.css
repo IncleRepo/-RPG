@@ -476,6 +476,18 @@ button:hover {
   font-variant-numeric: tabular-nums;
 }
 
+.bgm-meta-list {
+  margin-bottom: 14px;
+}
+
+.bgm-actions {
+  margin-bottom: 0;
+}
+
+.bgm-actions button {
+  width: 100%;
+}
+
 textarea {
   min-height: 320px;
   resize: vertical;

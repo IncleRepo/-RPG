@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RPG 프로젝트 | Animation Editor</title>
+    <meta name="description" content="본 기반 키프레임 애니메이션을 수정할 수 있는 캔버스 에디터" />
+    <script type="module" crossorigin src="./assets/animator-DfA5qhZC.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/canvas-animation-D05gBQTJ.js">
+    <link rel="stylesheet" crossorigin href="./assets/canvas-animation-DcCkrzJ2.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Frame Animation Editor</p>
+        <h1>본 리그를 프레임 단위로 수정하는 애니메이터</h1>
+        <p class="hero-copy">
+          런타임과 같은 본 구조를 사용해 포즈를 편집하고, IK가 적용된 미리보기 캔버스에서 바로
+          확인할 수 있습니다. 수정한 프레임 데이터는 JSON으로 내보낼 수 있습니다.
+        </p>
+        <nav class="page-links" aria-label="페이지 이동">
+          <a class="page-link" href="./index.html">게임 런타임</a>
+          <a class="page-link" aria-current="page" href="./animator.html">애니메이터</a>
+        </nav>
+      </header>
+
+      <main class="editor-layout">
+        <section class="editor-main">
+          <section class="panel">
+            <div class="panel-header">
+              <h2>리그 미리보기</h2>
+              <span id="editor-status">idle · frame 1</span>
+            </div>
+            <canvas
+              class="stage-canvas editor-canvas"
+              id="editor-canvas"
+              aria-label="본 애니메이션을 미리볼 수 있는 에디터 캔버스"
+            ></canvas>
+          </section>
+
+          <section class="panel">
+            <h2>애니메이션 설정</h2>
+            <div class="control-grid">
+              <label class="form-field">
+                <span>클립</span>
+                <select id="clip-select"></select>
+              </label>
+              <label class="form-field">
+                <span>프레임</span>
+                <input id="frame-slider" type="range" min="0" max="0" step="1" value="0" />
+              </label>
+              <label class="form-field">
+                <span>지형 프리뷰</span>
+                <select id="terrain-select">
+                  <option value="flat">Flat</option>
+                  <option value="step">Step</option>
+                  <option value="slope">Slope</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="button-row">
+              <button id="play-toggle" type="button">재생 시작</button>
+              <button id="reset-clip" type="button">현재 클립 초기화</button>
+            </div>
+
+            <div class="frame-strip" id="frame-strip" aria-label="프레임 선택"></div>
+          </section>
+        </section>
+
+        <aside class="editor-sidebar">
+          <section class="panel">
+            <h2>Pose Channels</h2>
+            <div class="channel-controls" id="channel-controls"></div>
+          </section>
+
+          <section class="panel">
+            <h2>Export</h2>
+            <p class="panel-copy">
+              현재 메모리 상의 클립 데이터를 내보냅니다. 같은 본 구조를 사용하는 런타임에서 그대로
+              재사용할 수 있습니다.
+            </p>
+            <textarea id="animation-json" rows="16" readonly></textarea>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+  </body>
+</html>

@@ -5,6 +5,7 @@
   "description": "Team RPG project using HTML, CSS, and JavaScript.",
   "scripts": {
     "start": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",

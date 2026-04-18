@@ -189,6 +189,7 @@ input[type='range'] {
 }
 
 .stage-shell {
+  position: relative;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 22px;
@@ -226,6 +227,71 @@ input[type='range'] {
   background:
     radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.44), transparent 18%),
     linear-gradient(180deg, #6cbdf8 0%, #dff2ff 100%);
+}
+
+.touch-controls {
+  position: absolute;
+  inset: auto 0 0;
+  display: none;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  pointer-events: none;
+}
+
+.touch-controls__cluster {
+  display: flex;
+  gap: 12px;
+}
+
+.touch-controls__cluster--action {
+  margin-left: auto;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.touch-button {
+  min-width: 68px;
+  min-height: 68px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 20px;
+  padding: 14px 16px;
+  background: rgba(20, 42, 67, 0.42);
+  box-shadow: 0 14px 28px rgba(8, 20, 43, 0.22);
+  backdrop-filter: blur(16px);
+  color: white;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.touch-button:hover {
+  transform: none;
+  background: rgba(20, 42, 67, 0.42);
+}
+
+.touch-button.is-active,
+.touch-button:active {
+  transform: scale(0.97);
+  background: rgba(21, 53, 86, 0.88);
+}
+
+.touch-button--move {
+  min-width: 64px;
+  padding-inline: 0;
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.touch-button--action {
+  min-width: 78px;
+  font-size: 0.94rem;
+}
+
+.touch-ui-enabled .touch-controls {
+  display: flex;
 }
 
 .editor-canvas {
@@ -441,5 +507,31 @@ textarea {
   .stage-hud {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .touch-controls {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .touch-controls__cluster {
+    gap: 10px;
+  }
+
+  .touch-button {
+    min-width: 58px;
+    min-height: 58px;
+    border-radius: 18px;
+    padding: 12px 14px;
+  }
+
+  .touch-button--move {
+    min-width: 56px;
+    font-size: 1.5rem;
+  }
+
+  .touch-button--action {
+    min-width: 72px;
+    font-size: 0.88rem;
   }
 }

@@ -24,6 +24,13 @@ const characterInventory = document.getElementById('character-inventory');
 const characterEquipment = document.getElementById('character-equipment');
 const chizuruStatus = document.getElementById('chizuru-status');
 const chizuruScene = document.getElementById('chizuru-scene');
+const touchControlButtons = Array.from(document.querySelectorAll('[data-touch-control]')).filter(
+  (button) => button instanceof HTMLButtonElement
+);
+const touchInputQueries = [
+  window.matchMedia('(pointer: coarse)'),
+  window.matchMedia('(hover: none)'),
+];
 
 if (
   !(stageCanvas instanceof HTMLCanvasElement) ||
@@ -135,6 +142,7 @@ const worldState = {
 let stageMetrics = measureStage();
 let lastFrame = performance.now();
 let hasSpawned = false;
+let touchUiEnabled = false;
 
 function measureStage() {
   const cssWidth = Math.max(320, Math.round(stageCanvas.clientWidth));
@@ -211,8 +219,7 @@ function onKeyDown(event) {
 
   if (event.code === 'KeyE' && chizuruState.nearby) {
     event.preventDefault();
-    advanceChizuruDialogue();
-    render(Number(keys.right) - Number(keys.left));
+    triggerInteraction();
     return;
   }
 
@@ -221,33 +228,67 @@ function onKeyDown(event) {
   }
 
   if (event.code === 'ArrowLeft' || event.code === 'KeyA') {
-    keys.left = true;
-    playerStateData.facing = 'left';
+    setMovementKey('left', true);
   }
 
   if (event.code === 'ArrowRight' || event.code === 'KeyD') {
-    keys.right = true;
-    playerStateData.facing = 'right';
+    setMovementKey('right', true);
   }
 
   if (event.code === 'ArrowUp' || event.code === 'KeyW' || event.code === 'Space') {
-    if (playerStateData.grounded) {
-      playerStateData.velocityY = physics.jumpVelocity;
-      playerStateData.grounded = false;
-      playerStateData.supportIndex = null;
-      statusBadge.textContent = '점프';
-    }
+    triggerJump();
   }
 }
 
 function onKeyUp(event) {
   if (event.code === 'ArrowLeft' || event.code === 'KeyA') {
-    keys.left = false;
+    setMovementKey('left', false);
   }
 
   if (event.code === 'ArrowRight' || event.code === 'KeyD') {
-    keys.right = false;
+    setMovementKey('right', false);
   }
+}
+
+function setMovementKey(direction, pressed) {
+  keys[direction] = pressed;
+
+  if (pressed) {
+    playerStateData.facing = direction === 'left' ? 'left' : 'right';
+  }
+}
+
+function clearMovementInputs() {
+  keys.left = false;
+  keys.right = false;
+
+  touchControlButtons.forEach((button) => {
+    if (button.dataset.touchControl === 'left' || button.dataset.touchControl === 'right') {
+      button.classList.remove('is-active');
+    }
+  });
+}
+
+function triggerJump() {
+  if (!playerStateData.grounded) {
+    return false;
+  }
+
+  playerStateData.velocityY = physics.jumpVelocity;
+  playerStateData.grounded = false;
+  playerStateData.supportIndex = null;
+  statusBadge.textContent = '점프';
+  return true;
+}
+
+function triggerInteraction() {
+  if (!chizuruState.nearby) {
+    return false;
+  }
+
+  advanceChizuruDialogue();
+  render(Number(keys.right) - Number(keys.left));
+  return true;
 }
 
 function update(deltaSeconds) {
@@ -704,7 +745,7 @@ function drawDialogueOverlay(context) {
     context.closePath();
     context.fill();
   } else {
-    const prompt = 'E 대화';
+    const prompt = touchUiEnabled ? '대화' : 'E 대화';
     context.font = '700 13px "Noto Sans KR", sans-serif';
     const textWidth = context.measureText(prompt).width;
     const width = textWidth + 34;
@@ -892,19 +933,21 @@ function getChizuruStatusLabel() {
 }
 
 function getChizuruSceneLabel() {
+  const interactionLabel = touchUiEnabled ? '대화 버튼' : 'E 키';
+
   if (chizuruState.talking) {
     return getChizuruDialogue(chizuruState.dialogueIndex);
   }
 
   if (chizuruState.nearby) {
-    return 'E 키를 누르면 다음 대사까지 이어서 볼 수 있습니다.';
+    return `${interactionLabel}를 누르면 다음 대사까지 이어서 볼 수 있습니다.`;
   }
 
   if (chizuruState.hasMet) {
-    return '다시 가까이 가서 E 키를 누르면 대화를 이어갈 수 있습니다.';
+    return `다시 가까이 가서 ${interactionLabel}를 누르면 대화를 이어갈 수 있습니다.`;
   }
 
-  return '가까이 가서 E 키를 누르면 말을 걸 수 있습니다.';
+  return `가까이 가서 ${interactionLabel}를 누르면 말을 걸 수 있습니다.`;
 }
 
 function getTimeLabel(progress) {
@@ -1024,11 +1067,88 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
+function syncTouchUiMode() {
+  const previousTouchUiEnabled = touchUiEnabled;
+  touchUiEnabled = navigator.maxTouchPoints > 0 || touchInputQueries.some((query) => query.matches);
+  document.body.classList.toggle('touch-ui-enabled', touchUiEnabled);
+
+  if (previousTouchUiEnabled && !touchUiEnabled) {
+    clearMovementInputs();
+  }
+}
+
+function pulseTouchButton(button) {
+  button.classList.add('is-active');
+  window.setTimeout(() => {
+    button.classList.remove('is-active');
+  }, 140);
+}
+
+function bindTouchControls() {
+  touchControlButtons.forEach((button) => {
+    const action = button.dataset.touchControl;
+
+    if (action === 'left' || action === 'right') {
+      const releaseButton = () => {
+        button.classList.remove('is-active');
+        setMovementKey(action, false);
+      };
+
+      button.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse' && event.button !== 0) {
+          return;
+        }
+
+        event.preventDefault();
+        button.classList.add('is-active');
+        setMovementKey(action, true);
+
+        if (button.setPointerCapture) {
+          button.setPointerCapture(event.pointerId);
+        }
+      });
+      button.addEventListener('pointerup', (event) => {
+        event.preventDefault();
+
+        if (button.hasPointerCapture?.(event.pointerId)) {
+          button.releasePointerCapture(event.pointerId);
+        }
+
+        releaseButton();
+      });
+      button.addEventListener('pointercancel', releaseButton);
+      button.addEventListener('lostpointercapture', releaseButton);
+      button.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+      });
+      return;
+    }
+
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      pulseTouchButton(button);
+
+      if (action === 'jump') {
+        triggerJump();
+        return;
+      }
+
+      triggerInteraction();
+    });
+  });
+}
+
 window.addEventListener('keydown', onKeyDown);
 window.addEventListener('keyup', onKeyUp);
 window.addEventListener('resize', refreshMeasurements);
+window.addEventListener('blur', clearMovementInputs);
 
 worldState.fieldCritters = createFieldCritters(stageMetrics);
+bindTouchControls();
+syncTouchUiMode();
+touchInputQueries.forEach((query) => {
+  query.addEventListener('change', syncTouchUiMode);
+});
 refreshMeasurements();
 worldTimeReadout.textContent = getTimeLabel(worldState.elapsedSeconds / worldState.cycleDuration);
 requestAnimationFrame(gameLoop);

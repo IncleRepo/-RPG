@@ -154,6 +154,54 @@
           </section>
 
           <section class="panel">
+            <h2>Asset Download</h2>
+            <p class="panel-copy">
+              외부 링크에서 지원되는 에셋을 내려받아 목록으로 관리합니다. CORS가 허용된 링크만
+              브라우저에서 직접 다운로드할 수 있습니다.
+            </p>
+            <label class="form-field">
+              <span>Asset Link</span>
+              <input
+                id="asset-download-url"
+                type="url"
+                placeholder="https://example.com/assets/custom-sprite.png"
+                inputmode="url"
+                autocomplete="off"
+              />
+            </label>
+            <p class="asset-download-support">
+              지원 형식: <strong>PNG</strong>, <strong>JPEG</strong>, <strong>WEBP</strong>,
+              <strong>AVIF</strong>, <strong>PY</strong>, <strong>MP3</strong>
+            </p>
+            <div class="button-row asset-download-actions">
+              <button id="asset-download-button" type="button">파일 다운로드</button>
+              <button
+                id="asset-download-toggle"
+                class="button-secondary"
+                type="button"
+                aria-expanded="false"
+                aria-controls="asset-download-list-panel"
+              >
+                다운로드 목록 보기
+              </button>
+            </div>
+            <p id="asset-download-status" class="inline-status" aria-live="polite">
+              링크를 입력하고 다운로드를 시작하세요.
+            </p>
+            <section id="asset-download-list-panel" class="asset-download-list-panel" hidden>
+              <div class="asset-download-list-header">
+                <strong id="asset-download-count" class="asset-download-count"
+                  >저장된 파일 0개</strong
+                >
+              </div>
+              <p id="asset-download-empty" class="panel-copy asset-download-empty">
+                아직 저장된 파일이 없습니다.
+              </p>
+              <ul id="asset-download-list" class="asset-download-list"></ul>
+            </section>
+          </section>
+
+          <section class="panel">
             <h2>조작법</h2>
             <ul class="task-list">
               <li><kbd>A</kbd> / <kbd>D</kbd> 또는 <kbd>←</kbd> / <kbd>→</kbd> 로 이동</li>

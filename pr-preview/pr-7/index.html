@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RPG 프로젝트</title>
+    <meta
+      name="description"
+      content="HTML, CSS, JavaScript로 구성한 간단한 2D RPG 이동 프로토타입"
+    />
+    <script type="module" crossorigin src="./assets/index-B2d6CBN9.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Bw_N_V0O.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">2D Browser RPG</p>
+        <h1>기본 이동 프로토타입</h1>
+        <p class="hero-copy">
+          간단한 스테이지 위에서 키보드로 좌우 이동과 점프를 테스트할 수 있는 초기 플레이
+          화면입니다. 브라우저에서 바로 물리 감각과 조작 반응을 확인할 수 있도록 구성했습니다.
+        </p>
+      </header>
+
+      <main class="layout">
+        <section class="panel game-panel">
+          <div class="panel-header">
+            <h2>플레이 영역</h2>
+            <span id="status-badge">입력 대기 중</span>
+          </div>
+
+          <div class="stage-shell">
+            <div class="stage-hud" aria-live="polite">
+              <div>
+                <span class="hud-label">상태</span>
+                <strong id="player-state">대기</strong>
+              </div>
+              <div>
+                <span class="hud-label">좌표</span>
+                <strong id="player-coords">x: 96 / y: 0</strong>
+              </div>
+              <div>
+                <span class="hud-label">시간 흐름</span>
+                <strong id="world-time">아침</strong>
+              </div>
+            </div>
+
+            <div class="stage" id="stage" aria-label="플레이어 이동 스테이지">
+              <div class="stage-backdrop">
+                <div class="moon" aria-hidden="true"></div>
+                <div class="sun" aria-hidden="true"></div>
+                <div class="star-layer" aria-hidden="true">
+                  <img class="star star-1" data-star src="data:image/svg+xml,%3csvg%20width='96'%20height='96'%20viewBox='0%200%2096%2096'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3cradialGradient%20id='starGlow'%20cx='0'%20cy='0'%20r='1'%20gradientUnits='userSpaceOnUse'%20gradientTransform='translate(48%2048)%20rotate(90)%20scale(44)'%3e%3cstop%20offset='0'%20stop-color='%23FFFCE0'%20/%3e%3cstop%20offset='0.5'%20stop-color='%23FFE89A'%20stop-opacity='0.88'%20/%3e%3cstop%20offset='1'%20stop-color='%23FFE89A'%20stop-opacity='0'%20/%3e%3c/radialGradient%3e%3c/defs%3e%3ccircle%20cx='48'%20cy='48'%20r='44'%20fill='url(%23starGlow)'%20/%3e%3cpath%20d='M48%2014L55%2041L82%2048L55%2055L48%2082L41%2055L14%2048L41%2041L48%2014Z'%20fill='%23FFF8C9'%20/%3e%3cpath%20d='M48%2024L52%2044L72%2048L52%2052L48%2072L44%2052L24%2048L44%2044L48%2024Z'%20fill='%23FFFDF3'%20/%3e%3c/svg%3e" alt="" />
+                  <img class="star star-2" data-star src="data:image/svg+xml,%3csvg%20width='96'%20height='96'%20viewBox='0%200%2096%2096'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3cradialGradient%20id='starGlow'%20cx='0'%20cy='0'%20r='1'%20gradientUnits='userSpaceOnUse'%20gradientTransform='translate(48%2048)%20rotate(90)%20scale(44)'%3e%3cstop%20offset='0'%20stop-color='%23FFFCE0'%20/%3e%3cstop%20offset='0.5'%20stop-color='%23FFE89A'%20stop-opacity='0.88'%20/%3e%3cstop%20offset='1'%20stop-color='%23FFE89A'%20stop-opacity='0'%20/%3e%3c/radialGradient%3e%3c/defs%3e%3ccircle%20cx='48'%20cy='48'%20r='44'%20fill='url(%23starGlow)'%20/%3e%3cpath%20d='M48%2014L55%2041L82%2048L55%2055L48%2082L41%2055L14%2048L41%2041L48%2014Z'%20fill='%23FFF8C9'%20/%3e%3cpath%20d='M48%2024L52%2044L72%2048L52%2052L48%2072L44%2052L24%2048L44%2044L48%2024Z'%20fill='%23FFFDF3'%20/%3e%3c/svg%3e" alt="" />
+                  <img class="star star-3" data-star src="data:image/svg+xml,%3csvg%20width='96'%20height='96'%20viewBox='0%200%2096%2096'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3cradialGradient%20id='starGlow'%20cx='0'%20cy='0'%20r='1'%20gradientUnits='userSpaceOnUse'%20gradientTransform='translate(48%2048)%20rotate(90)%20scale(44)'%3e%3cstop%20offset='0'%20stop-color='%23FFFCE0'%20/%3e%3cstop%20offset='0.5'%20stop-color='%23FFE89A'%20stop-opacity='0.88'%20/%3e%3cstop%20offset='1'%20stop-color='%23FFE89A'%20stop-opacity='0'%20/%3e%3c/radialGradient%3e%3c/defs%3e%3ccircle%20cx='48'%20cy='48'%20r='44'%20fill='url(%23starGlow)'%20/%3e%3cpath%20d='M48%2014L55%2041L82%2048L55%2055L48%2082L41%2055L14%2048L41%2041L48%2014Z'%20fill='%23FFF8C9'%20/%3e%3cpath%20d='M48%2024L52%2044L72%2048L52%2052L48%2072L44%2052L24%2048L44%2044L48%2024Z'%20fill='%23FFFDF3'%20/%3e%3c/svg%3e" alt="" />
+                  <img class="star star-4" data-star src="data:image/svg+xml,%3csvg%20width='96'%20height='96'%20viewBox='0%200%2096%2096'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3cradialGradient%20id='starGlow'%20cx='0'%20cy='0'%20r='1'%20gradientUnits='userSpaceOnUse'%20gradientTransform='translate(48%2048)%20rotate(90)%20scale(44)'%3e%3cstop%20offset='0'%20stop-color='%23FFFCE0'%20/%3e%3cstop%20offset='0.5'%20stop-color='%23FFE89A'%20stop-opacity='0.88'%20/%3e%3cstop%20offset='1'%20stop-color='%23FFE89A'%20stop-opacity='0'%20/%3e%3c/radialGradient%3e%3c/defs%3e%3ccircle%20cx='48'%20cy='48'%20r='44'%20fill='url(%23starGlow)'%20/%3e%3cpath%20d='M48%2014L55%2041L82%2048L55%2055L48%2082L41%2055L14%2048L41%2041L48%2014Z'%20fill='%23FFF8C9'%20/%3e%3cpath%20d='M48%2024L52%2044L72%2048L52%2052L48%2072L44%2052L24%2048L44%2044L48%2024Z'%20fill='%23FFFDF3'%20/%3e%3c/svg%3e" alt="" />
+                  <img class="star star-5" data-star src="data:image/svg+xml,%3csvg%20width='96'%20height='96'%20viewBox='0%200%2096%2096'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3cradialGradient%20id='starGlow'%20cx='0'%20cy='0'%20r='1'%20gradientUnits='userSpaceOnUse'%20gradientTransform='translate(48%2048)%20rotate(90)%20scale(44)'%3e%3cstop%20offset='0'%20stop-color='%23FFFCE0'%20/%3e%3cstop%20offset='0.5'%20stop-color='%23FFE89A'%20stop-opacity='0.88'%20/%3e%3cstop%20offset='1'%20stop-color='%23FFE89A'%20stop-opacity='0'%20/%3e%3c/radialGradient%3e%3c/defs%3e%3ccircle%20cx='48'%20cy='48'%20r='44'%20fill='url(%23starGlow)'%20/%3e%3cpath%20d='M48%2014L55%2041L82%2048L55%2055L48%2082L41%2055L14%2048L41%2041L48%2014Z'%20fill='%23FFF8C9'%20/%3e%3cpath%20d='M48%2024L52%2044L72%2048L52%2052L48%2072L44%2052L24%2048L44%2044L48%2024Z'%20fill='%23FFFDF3'%20/%3e%3c/svg%3e" alt="" />
+                </div>
+                <div class="cloud-layer cloud-layer-far" aria-hidden="true">
+                  <img
+                    class="cloud cloud-far-1"
+                    data-cloud
+                    data-width="0.2"
+                    data-top="0.14"
+                    data-speed="18"
+                    data-start="0.1"
+                    data-bob="10"
+                    data-bob-speed="0.5"
+                    data-scale="0.96"
+                    data-phase="0.5"
+                    src="data:image/svg+xml,%3csvg%20width='512'%20height='256'%20viewBox='0%200%20512%20256'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3clinearGradient%20id='cloudFill'%20x1='256'%20y1='28'%20x2='256'%20y2='212'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20offset='0'%20stop-color='%23FEFFFF'%20/%3e%3cstop%20offset='1'%20stop-color='%23CDE8F6'%20/%3e%3c/linearGradient%3e%3cfilter%20id='shadow'%20x='0'%20y='0'%20width='512'%20height='256'%20filterUnits='userSpaceOnUse'%20color-interpolation-filters='sRGB'%3e%3cfeDropShadow%20dx='0'%20dy='14'%20stdDeviation='14'%20flood-color='%235C8DAE'%20flood-opacity='0.25'%20/%3e%3c/filter%3e%3c/defs%3e%3cg%20filter='url(%23shadow)'%3e%3cellipse%20cx='176'%20cy='150'%20rx='124'%20ry='58'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='256'%20cy='102'%20rx='98'%20ry='74'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='344'%20cy='146'%20rx='118'%20ry='60'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='258'%20cy='164'%20rx='176'%20ry='54'%20fill='url(%23cloudFill)'%20/%3e%3cpath%20d='M108%20174C108%20156.327%20122.327%20142%20140%20142H372C389.673%20142%20404%20156.327%20404%20174C404%20191.673%20389.673%20206%20372%20206H140C122.327%20206%20108%20191.673%20108%20174Z'%20fill='%23BEDBEA'%20fill-opacity='0.72'%20/%3e%3c/g%3e%3c/svg%3e"
+                    alt=""
+                  />
+                  <img
+                    class="cloud cloud-far-2"
+                    data-cloud
+                    data-width="0.16"
+                    data-top="0.28"
+                    data-speed="14"
+                    data-start="0.48"
+                    data-bob="8"
+                    data-bob-speed="0.4"
+                    data-scale="0.82"
+                    data-phase="1.6"
+                    src="data:image/svg+xml,%3csvg%20width='512'%20height='256'%20viewBox='0%200%20512%20256'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3clinearGradient%20id='cloudFill'%20x1='256'%20y1='28'%20x2='256'%20y2='212'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20offset='0'%20stop-color='%23FEFFFF'%20/%3e%3cstop%20offset='1'%20stop-color='%23CDE8F6'%20/%3e%3c/linearGradient%3e%3cfilter%20id='shadow'%20x='0'%20y='0'%20width='512'%20height='256'%20filterUnits='userSpaceOnUse'%20color-interpolation-filters='sRGB'%3e%3cfeDropShadow%20dx='0'%20dy='14'%20stdDeviation='14'%20flood-color='%235C8DAE'%20flood-opacity='0.25'%20/%3e%3c/filter%3e%3c/defs%3e%3cg%20filter='url(%23shadow)'%3e%3cellipse%20cx='176'%20cy='150'%20rx='124'%20ry='58'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='256'%20cy='102'%20rx='98'%20ry='74'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='344'%20cy='146'%20rx='118'%20ry='60'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='258'%20cy='164'%20rx='176'%20ry='54'%20fill='url(%23cloudFill)'%20/%3e%3cpath%20d='M108%20174C108%20156.327%20122.327%20142%20140%20142H372C389.673%20142%20404%20156.327%20404%20174C404%20191.673%20389.673%20206%20372%20206H140C122.327%20206%20108%20191.673%20108%20174Z'%20fill='%23BEDBEA'%20fill-opacity='0.72'%20/%3e%3c/g%3e%3c/svg%3e"
+                    alt=""
+                  />
+                  <img
+                    class="cloud cloud-far-3"
+                    data-cloud
+                    data-width="0.18"
+                    data-top="0.08"
+                    data-speed="16"
+                    data-start="0.78"
+                    data-bob="12"
+                    data-bob-speed="0.45"
+                    data-scale="0.88"
+                    data-phase="2.4"
+                    src="data:image/svg+xml,%3csvg%20width='512'%20height='256'%20viewBox='0%200%20512%20256'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3clinearGradient%20id='cloudFill'%20x1='256'%20y1='28'%20x2='256'%20y2='212'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20offset='0'%20stop-color='%23FEFFFF'%20/%3e%3cstop%20offset='1'%20stop-color='%23CDE8F6'%20/%3e%3c/linearGradient%3e%3cfilter%20id='shadow'%20x='0'%20y='0'%20width='512'%20height='256'%20filterUnits='userSpaceOnUse'%20color-interpolation-filters='sRGB'%3e%3cfeDropShadow%20dx='0'%20dy='14'%20stdDeviation='14'%20flood-color='%235C8DAE'%20flood-opacity='0.25'%20/%3e%3c/filter%3e%3c/defs%3e%3cg%20filter='url(%23shadow)'%3e%3cellipse%20cx='176'%20cy='150'%20rx='124'%20ry='58'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='256'%20cy='102'%20rx='98'%20ry='74'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='344'%20cy='146'%20rx='118'%20ry='60'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='258'%20cy='164'%20rx='176'%20ry='54'%20fill='url(%23cloudFill)'%20/%3e%3cpath%20d='M108%20174C108%20156.327%20122.327%20142%20140%20142H372C389.673%20142%20404%20156.327%20404%20174C404%20191.673%20389.673%20206%20372%20206H140C122.327%20206%20108%20191.673%20108%20174Z'%20fill='%23BEDBEA'%20fill-opacity='0.72'%20/%3e%3c/g%3e%3c/svg%3e"
+                    alt=""
+                  />
+                </div>
+                <div class="cloud-layer cloud-layer-near" aria-hidden="true">
+                  <img
+                    class="cloud cloud-near-1"
+                    data-cloud
+                    data-width="0.24"
+                    data-top="0.18"
+                    data-speed="26"
+                    data-start="0.22"
+                    data-bob="14"
+                    data-bob-speed="0.72"
+                    data-scale="1.08"
+                    data-phase="0.9"
+                    src="data:image/svg+xml,%3csvg%20width='512'%20height='256'%20viewBox='0%200%20512%20256'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3clinearGradient%20id='cloudFill'%20x1='256'%20y1='28'%20x2='256'%20y2='212'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20offset='0'%20stop-color='%23FEFFFF'%20/%3e%3cstop%20offset='1'%20stop-color='%23CDE8F6'%20/%3e%3c/linearGradient%3e%3cfilter%20id='shadow'%20x='0'%20y='0'%20width='512'%20height='256'%20filterUnits='userSpaceOnUse'%20color-interpolation-filters='sRGB'%3e%3cfeDropShadow%20dx='0'%20dy='14'%20stdDeviation='14'%20flood-color='%235C8DAE'%20flood-opacity='0.25'%20/%3e%3c/filter%3e%3c/defs%3e%3cg%20filter='url(%23shadow)'%3e%3cellipse%20cx='176'%20cy='150'%20rx='124'%20ry='58'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='256'%20cy='102'%20rx='98'%20ry='74'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='344'%20cy='146'%20rx='118'%20ry='60'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='258'%20cy='164'%20rx='176'%20ry='54'%20fill='url(%23cloudFill)'%20/%3e%3cpath%20d='M108%20174C108%20156.327%20122.327%20142%20140%20142H372C389.673%20142%20404%20156.327%20404%20174C404%20191.673%20389.673%20206%20372%20206H140C122.327%20206%20108%20191.673%20108%20174Z'%20fill='%23BEDBEA'%20fill-opacity='0.72'%20/%3e%3c/g%3e%3c/svg%3e"
+                    alt=""
+                  />
+                  <img
+                    class="cloud cloud-near-2"
+                    data-cloud
+                    data-width="0.2"
+                    data-top="0.34"
+                    data-speed="22"
+                    data-start="0.58"
+                    data-bob="10"
+                    data-bob-speed="0.65"
+                    data-scale="0.94"
+                    data-phase="1.9"
+                    src="data:image/svg+xml,%3csvg%20width='512'%20height='256'%20viewBox='0%200%20512%20256'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3clinearGradient%20id='cloudFill'%20x1='256'%20y1='28'%20x2='256'%20y2='212'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20offset='0'%20stop-color='%23FEFFFF'%20/%3e%3cstop%20offset='1'%20stop-color='%23CDE8F6'%20/%3e%3c/linearGradient%3e%3cfilter%20id='shadow'%20x='0'%20y='0'%20width='512'%20height='256'%20filterUnits='userSpaceOnUse'%20color-interpolation-filters='sRGB'%3e%3cfeDropShadow%20dx='0'%20dy='14'%20stdDeviation='14'%20flood-color='%235C8DAE'%20flood-opacity='0.25'%20/%3e%3c/filter%3e%3c/defs%3e%3cg%20filter='url(%23shadow)'%3e%3cellipse%20cx='176'%20cy='150'%20rx='124'%20ry='58'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='256'%20cy='102'%20rx='98'%20ry='74'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='344'%20cy='146'%20rx='118'%20ry='60'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='258'%20cy='164'%20rx='176'%20ry='54'%20fill='url(%23cloudFill)'%20/%3e%3cpath%20d='M108%20174C108%20156.327%20122.327%20142%20140%20142H372C389.673%20142%20404%20156.327%20404%20174C404%20191.673%20389.673%20206%20372%20206H140C122.327%20206%20108%20191.673%20108%20174Z'%20fill='%23BEDBEA'%20fill-opacity='0.72'%20/%3e%3c/g%3e%3c/svg%3e"
+                    alt=""
+                  />
+                  <img
+                    class="cloud cloud-near-3"
+                    data-cloud
+                    data-width="0.26"
+                    data-top="0.1"
+                    data-speed="28"
+                    data-start="0.86"
+                    data-bob="16"
+                    data-bob-speed="0.78"
+                    data-scale="1.12"
+                    data-phase="2.8"
+                    src="data:image/svg+xml,%3csvg%20width='512'%20height='256'%20viewBox='0%200%20512%20256'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cdefs%3e%3clinearGradient%20id='cloudFill'%20x1='256'%20y1='28'%20x2='256'%20y2='212'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20offset='0'%20stop-color='%23FEFFFF'%20/%3e%3cstop%20offset='1'%20stop-color='%23CDE8F6'%20/%3e%3c/linearGradient%3e%3cfilter%20id='shadow'%20x='0'%20y='0'%20width='512'%20height='256'%20filterUnits='userSpaceOnUse'%20color-interpolation-filters='sRGB'%3e%3cfeDropShadow%20dx='0'%20dy='14'%20stdDeviation='14'%20flood-color='%235C8DAE'%20flood-opacity='0.25'%20/%3e%3c/filter%3e%3c/defs%3e%3cg%20filter='url(%23shadow)'%3e%3cellipse%20cx='176'%20cy='150'%20rx='124'%20ry='58'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='256'%20cy='102'%20rx='98'%20ry='74'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='344'%20cy='146'%20rx='118'%20ry='60'%20fill='url(%23cloudFill)'%20/%3e%3cellipse%20cx='258'%20cy='164'%20rx='176'%20ry='54'%20fill='url(%23cloudFill)'%20/%3e%3cpath%20d='M108%20174C108%20156.327%20122.327%20142%20140%20142H372C389.673%20142%20404%20156.327%20404%20174C404%20191.673%20389.673%20206%20372%20206H140C122.327%20206%20108%20191.673%20108%20174Z'%20fill='%23BEDBEA'%20fill-opacity='0.72'%20/%3e%3c/g%3e%3c/svg%3e"
+                    alt=""
+                  />
+                </div>
+                <div class="mountain mountain-far"></div>
+                <div class="mountain mountain-mid"></div>
+                <div class="mountain mountain-near"></div>
+              </div>
+
+              <div class="platform platform-small" data-platform="small"></div>
+              <div class="platform platform-mid" data-platform="mid"></div>
+              <div class="platform platform-high" data-platform="high"></div>
+              <div class="ground" data-platform="ground"></div>
+
+              <div class="player" id="player" aria-hidden="true">
+                <div class="player-shadow"></div>
+                <div class="player-sprite">
+                  <div class="player-aura"></div>
+                  <div class="player-cape"></div>
+                  <div class="player-body">
+                    <div class="player-head">
+                      <div class="player-hair"></div>
+                      <div class="player-face">
+                        <span class="player-eye"></span>
+                        <span class="player-eye"></span>
+                      </div>
+                    </div>
+                    <div class="player-torso">
+                      <div class="player-arm player-arm-back"></div>
+                      <div class="player-core">
+                        <div class="player-collar"></div>
+                        <div class="player-belt"></div>
+                      </div>
+                      <div class="player-arm player-arm-front"></div>
+                    </div>
+                    <div class="player-legs">
+                      <div class="player-leg player-leg-back"></div>
+                      <div class="player-leg player-leg-front"></div>
+                    </div>
+                  </div>
+                  <div class="player-weapon"></div>
+                </div>
+              </div>
+
+              <div class="stage-npc" id="chizuru">
+                <div class="npc-bubble" id="chizuru-bubble" aria-live="polite" hidden>
+                  <strong class="npc-name">미즈하라 치즈루</strong>
+                  <p id="chizuru-dialogue">운메이난테~</p>
+                </div>
+                <div class="npc-prompt" id="chizuru-prompt" hidden>
+                  <kbd>E</kbd>
+                  <span id="chizuru-prompt-label">대화</span>
+                </div>
+
+                <div class="player guest-npc" id="chizuru-avatar" aria-hidden="true">
+                  <div class="player-shadow"></div>
+                  <div class="player-sprite">
+                    <div class="player-aura"></div>
+                    <div class="player-cape"></div>
+                    <div class="player-body">
+                      <div class="player-head">
+                        <div class="player-hair"></div>
+                        <div class="player-face">
+                          <span class="player-eye"></span>
+                          <span class="player-eye"></span>
+                        </div>
+                      </div>
+                      <div class="player-torso">
+                        <div class="player-arm player-arm-back"></div>
+                        <div class="player-core">
+                          <div class="player-collar"></div>
+                          <div class="player-belt"></div>
+                        </div>
+                        <div class="player-arm player-arm-front"></div>
+                      </div>
+                      <div class="player-legs">
+                        <div class="player-leg player-leg-back"></div>
+                        <div class="player-leg player-leg-front"></div>
+                      </div>
+                    </div>
+                    <div class="player-weapon"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="panel">
+            <h2>Character</h2>
+            <dl class="character-stats">
+              <div>
+                <dt>LV</dt>
+                <dd id="character-level">1</dd>
+              </div>
+              <div>
+                <dt>HP</dt>
+                <dd id="character-health">100 / 100</dd>
+              </div>
+              <div>
+                <dt>MP</dt>
+                <dd id="character-mana">50 / 50</dd>
+              </div>
+              <div>
+                <dt>Gold</dt>
+                <dd id="character-gold">0 G</dd>
+              </div>
+            </dl>
+            <div class="collection-grid">
+              <div class="collection-card">
+                <span class="hud-label">Inventory</span>
+                <strong id="character-inventory">0 slots</strong>
+              </div>
+              <div class="collection-card">
+                <span class="hud-label">Equipment</span>
+                <strong id="character-equipment">0 equipped</strong>
+              </div>
+            </div>
+          </section>
+          <section class="panel">
+            <h2>조작법</h2>
+            <ul class="task-list">
+              <li><kbd>A</kbd> / <kbd>D</kbd> 또는 <kbd>←</kbd> / <kbd>→</kbd> 로 이동</li>
+              <li><kbd>W</kbd> / <kbd>↑</kbd> / <kbd>Space</kbd> 로 점프</li>
+              <li>치즈루 근처에서 <kbd>E</kbd> 로 대사를 확인할 수 있습니다</li>
+              <li>플랫폼 위에 착지할 수 있으며, 낙하 중에는 중력이 적용됩니다</li>
+            </ul>
+          </section>
+
+          <section class="panel">
+            <h2>Guest NPC</h2>
+            <dl class="meta-list">
+              <div>
+                <dt>이름</dt>
+                <dd>미즈하라 치즈루</dd>
+              </div>
+              <div>
+                <dt>현재 상태</dt>
+                <dd id="chizuru-status">오른쪽 풀밭에서 기다리는 중</dd>
+              </div>
+              <div>
+                <dt>대화 힌트</dt>
+                <dd id="chizuru-scene">가까이 가서 E 키를 누르면 말을 걸 수 있습니다.</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="panel">
+            <h2>이번 범위</h2>
+            <dl class="meta-list">
+              <div>
+                <dt>스테이지</dt>
+                <dd>시간 흐름에 따라 하늘 색과 배경 스프라이트가 변하는 테스트 맵</dd>
+              </div>
+              <div>
+                <dt>플레이어</dt>
+                <dd>좌우 이동, 점프, 착지 판정을 가진 간단한 캐릭터</dd>
+              </div>
+              <div>
+                <dt>물리</dt>
+                <dd>중력, 최대 낙하 속도, 경계 제한을 포함한 기본 루프</dd>
+              </div>
+              <div>
+                <dt>이벤트</dt>
+                <dd>스테이지 안에서 미즈하라 치즈루를 만나고 짧은 대화를 볼 수 있는 상호작용</dd>
+              </div>
+            </dl>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+  </body>
+</html>

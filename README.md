@@ -4,6 +4,10 @@
 
 HTML, CSS, JavaScript를 사용해 이동, 맵, 전투, UI 같은 핵심 시스템을 차근차근 구현합니다.
 
+## 게임 접속
+
+- GitHub Pages: https://inclerepo.github.io/-RPG/
+
 ## 프로젝트 개요
 
 - 장르: 2D RPG

@@ -1,6 +1,13 @@
 import { getAnimationClip, sampleAnimationClip, ANIMATION_LIBRARY } from './animation-data.js';
 import { CHIZURU_APPEARANCE, drawHumanoid, PLAYER_APPEARANCE } from './canvas-animation.js';
 import { CHIZURU_NPC, getChizuruDialogue } from './chizuru-npc.js';
+import {
+  createCritterRenderActor,
+  createFieldCritters,
+  drawFieldCritter,
+  resizeFieldCritters,
+  updateFieldCritters,
+} from './field-critters.js';
 import { createPlayableCharacter } from './player-character.js';
 import { measureStageLayout, sampleVisualTerrainY } from './stage-layout.js';
 
@@ -114,6 +121,7 @@ const worldState = {
   elapsedSeconds: 14,
   runtimeSeconds: 0,
   cycleDuration: 72,
+  fieldCritters: [],
   clouds: [
     createCloud(0.22, 0.16, 18, 0.12, 10, 0.5, 0.96, 0.5),
     createCloud(0.18, 0.28, 14, 0.42, 8, 0.4, 0.82, 1.6),
@@ -143,9 +151,11 @@ function measureStage() {
 }
 
 function refreshMeasurements() {
+  const previousStageMetrics = stageMetrics;
   stageMetrics = measureStage();
   positionChizuru();
   syncBackgroundScene();
+  resizeFieldCritters(worldState.fieldCritters, stageMetrics, previousStageMetrics);
   playerStateData.x = clamp(
     playerStateData.x,
     0,
@@ -242,6 +252,7 @@ function onKeyUp(event) {
 
 function update(deltaSeconds) {
   updateBackground(deltaSeconds);
+  updateFieldCritters(worldState.fieldCritters, deltaSeconds, stageMetrics);
 
   const direction = Number(keys.right) - Number(keys.left);
   playerStateData.x += direction * physics.moveSpeed * deltaSeconds;
@@ -372,9 +383,17 @@ function renderScene(motionState) {
   const entities = [
     createRenderActor(playerStateData, playerPose, PLAYER_APPEARANCE, CHARACTER_COLLIDER.scale),
     createRenderActor(chizuruState, npcPose, CHIZURU_APPEARANCE, NPC_COLLIDER.scale),
+    ...worldState.fieldCritters.map((critter) =>
+      createCritterRenderActor(critter, stageMetrics, worldState.runtimeSeconds)
+    ),
   ].sort((left, right) => left.baseY - right.baseY || left.x - right.x);
 
   for (const actor of entities) {
+    if (actor.type === 'critter') {
+      drawFieldCritter(context, actor);
+      continue;
+    }
+
     drawHumanoid(context, actor);
   }
 
@@ -1009,6 +1028,7 @@ window.addEventListener('keydown', onKeyDown);
 window.addEventListener('keyup', onKeyUp);
 window.addEventListener('resize', refreshMeasurements);
 
+worldState.fieldCritters = createFieldCritters(stageMetrics);
 refreshMeasurements();
 worldTimeReadout.textContent = getTimeLabel(worldState.elapsedSeconds / worldState.cycleDuration);
 requestAnimationFrame(gameLoop);

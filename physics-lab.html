@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RPG 프로젝트 | Physics Lab</title>
+    <meta
+      name="description"
+      content="플랫폼 충돌과 점프 물리를 기능 단위로 확인할 수 있는 테스트 페이지"
+    />
+    <link rel="stylesheet" href="./src/styles/main.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Feature Test Page</p>
+        <h1>플레이어 물리와 충돌을 별도로 검증하는 Physics Lab</h1>
+        <p class="hero-copy">
+          게임 런타임과 같은 물리 코어를 사용하는 더미 플레이어 테스트 페이지입니다. 시나리오를 바꿔
+          옆면 충돌, 천장 충돌, 착지 전환을 직접 확인할 수 있습니다.
+        </p>
+        <nav class="page-links" aria-label="페이지 이동">
+          <a class="page-link" href="./index.html">게임 런타임</a>
+          <a class="page-link" href="./animator.html">애니메이터</a>
+          <a class="page-link" aria-current="page" href="./physics-lab.html">Physics Lab</a>
+        </nav>
+      </header>
+
+      <main class="layout">
+        <section class="panel game-panel">
+          <div class="panel-header">
+            <h2>충돌 테스트 캔버스</h2>
+            <span id="status-badge">기능 단위 검증</span>
+          </div>
+
+          <div class="stage-shell">
+            <canvas
+              class="stage-canvas lab-canvas"
+              id="physics-lab-canvas"
+              aria-label="플레이어 물리 테스트 캔버스"
+            ></canvas>
+          </div>
+
+          <div class="frame-strip physics-scenario-strip" aria-label="물리 테스트 시나리오">
+            <button class="frame-button" type="button" data-physics-scenario="side-wall">
+              옆면 충돌
+            </button>
+            <button class="frame-button" type="button" data-physics-scenario="ceiling-bump">
+              천장 충돌
+            </button>
+            <button class="frame-button" type="button" data-physics-scenario="gap-landing">
+              착지 전환
+            </button>
+          </div>
+
+          <div class="button-row physics-lab-actions">
+            <button id="physics-lab-reset" type="button">현재 시나리오 리셋</button>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="panel">
+            <h2 id="physics-lab-title">옆면 충돌</h2>
+            <p id="physics-lab-description" class="panel-copy"></p>
+            <div class="meta-list">
+              <div>
+                <dt>기대 결과</dt>
+                <dd id="physics-lab-expectation"></dd>
+              </div>
+              <div>
+                <dt>현재 입력</dt>
+                <dd id="physics-lab-inputs">없음</dd>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h2>디버그 상태</h2>
+            <div class="meta-list">
+              <div>
+                <dt>플레이어 상태</dt>
+                <dd id="physics-lab-state"></dd>
+              </div>
+              <div>
+                <dt>이번 프레임 충돌</dt>
+                <dd id="physics-lab-collision"></dd>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h2>테스트 가이드</h2>
+            <ul class="task-list">
+              <li><kbd>A</kbd> / <kbd>D</kbd> 또는 <kbd>←</kbd> / <kbd>→</kbd> 로 이동</li>
+              <li><kbd>W</kbd> / <kbd>↑</kbd> / <kbd>Space</kbd> 로 점프</li>
+              <li><kbd>R</kbd> 으로 현재 시나리오를 즉시 초기화</li>
+              <li>오른쪽 패널의 디버그 상태로 support surface와 충돌 이벤트를 확인</li>
+              <li>
+                게임 런타임과 같은 물리 모듈을 공유하므로 버그 재현과 수정 확인에 바로 사용할 수
+                있음
+              </li>
+            </ul>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script type="module" src="./src/scripts/physics-lab.js"></script>
+  </body>
+</html>

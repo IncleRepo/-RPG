@@ -123,6 +123,11 @@ input[type='range'] {
   width: 100%;
 }
 
+.tool-link-group {
+  display: grid;
+  gap: 10px;
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1.9fr) minmax(300px, 1fr);
@@ -300,6 +305,12 @@ input[type='range'] {
     linear-gradient(180deg, #cfdff2 0%, #e9f3fb 100%);
 }
 
+.lab-canvas {
+  background:
+    radial-gradient(circle at 18% 16%, rgba(255, 255, 255, 0.52), transparent 18%),
+    linear-gradient(180deg, #f4fbff 0%, #d8e7f4 100%);
+}
+
 .character-stats,
 .meta-list {
   display: grid;
@@ -447,6 +458,14 @@ button:hover {
   gap: 10px;
 }
 
+.physics-scenario-strip {
+  margin-top: 18px;
+}
+
+.physics-scenario-strip .frame-button {
+  flex: 1 1 160px;
+}
+
 .frame-button {
   min-width: 62px;
   padding: 9px 12px;
@@ -585,6 +604,14 @@ button:hover {
 
 .bgm-actions {
   margin-bottom: 0;
+}
+
+.physics-lab-actions {
+  margin-bottom: 0;
+}
+
+.physics-lab-actions button {
+  width: 100%;
 }
 
 .bgm-actions button {

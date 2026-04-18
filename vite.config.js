@@ -11,6 +11,7 @@ export default defineConfig({
       input: {
         main: resolve(rootDir, 'index.html'),
         animator: resolve(rootDir, 'animator.html'),
+        physicsLab: resolve(rootDir, 'physics-lab.html'),
       },
     },
   },

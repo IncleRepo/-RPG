@@ -18,6 +18,7 @@
 
 - `index.html`: 캔버스 기반 게임 런타임
 - `animator.html`: 프레임 기반 본 애니메이션 에디터
+- `physics-lab.html`: 플레이어 충돌/점프를 기능 단위로 확인하는 테스트 페이지
 
 ## 시작하기
 
@@ -43,6 +44,7 @@ npm run format:check
 - 키프레임 클립 기반 플레이어/NPC 애니메이션
 - 지형 높이 샘플을 사용하는 발 IK 보정
 - 런타임과 동일한 리그를 미리보는 애니메이터 페이지
+- 런타임과 같은 물리 코어를 검증하는 Physics Lab 페이지
 
 ## 폴더 구조
 
@@ -51,9 +53,11 @@ npm run format:check
 |- assets/
 |- src/
 |  |- scripts/
+|  |  `- game/
 |  `- styles/
 |- animator.html
 |- index.html
+|- physics-lab.html
 `- package.json
 ```
 

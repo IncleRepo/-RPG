@@ -1,7 +1,14 @@
 import { createPlayableCharacter } from './player-character.js';
+import { CHIZURU_NPC, getChizuruDialogue } from './chizuru-npc.js';
 
 const stage = document.getElementById('stage');
 const player = document.getElementById('player');
+const chizuru = document.getElementById('chizuru');
+const chizuruAvatar = document.getElementById('chizuru-avatar');
+const chizuruBubble = document.getElementById('chizuru-bubble');
+const chizuruPrompt = document.getElementById('chizuru-prompt');
+const chizuruDialogue = document.getElementById('chizuru-dialogue');
+const chizuruPromptLabel = document.getElementById('chizuru-prompt-label');
 const statusBadge = document.getElementById('status-badge');
 const playerState = document.getElementById('player-state');
 const playerCoords = document.getElementById('player-coords');
@@ -12,12 +19,20 @@ const characterMana = document.getElementById('character-mana');
 const characterGold = document.getElementById('character-gold');
 const characterInventory = document.getElementById('character-inventory');
 const characterEquipment = document.getElementById('character-equipment');
+const chizuruStatus = document.getElementById('chizuru-status');
+const chizuruScene = document.getElementById('chizuru-scene');
 const cloudSprites =
   stage instanceof HTMLDivElement ? [...stage.querySelectorAll('[data-cloud]')] : [];
 
 if (
   !(stage instanceof HTMLDivElement) ||
   !(player instanceof HTMLDivElement) ||
+  !(chizuru instanceof HTMLDivElement) ||
+  !(chizuruAvatar instanceof HTMLDivElement) ||
+  !(chizuruBubble instanceof HTMLDivElement) ||
+  !(chizuruPrompt instanceof HTMLDivElement) ||
+  !(chizuruDialogue instanceof HTMLElement) ||
+  !(chizuruPromptLabel instanceof HTMLElement) ||
   !(statusBadge instanceof HTMLElement) ||
   !(playerState instanceof HTMLElement) ||
   !(playerCoords instanceof HTMLElement) ||
@@ -28,6 +43,8 @@ if (
   !(characterGold instanceof HTMLElement) ||
   !(characterInventory instanceof HTMLElement) ||
   !(characterEquipment instanceof HTMLElement) ||
+  !(chizuruStatus instanceof HTMLElement) ||
+  !(chizuruScene instanceof HTMLElement) ||
   cloudSprites.some((cloud) => !(cloud instanceof HTMLImageElement))
 ) {
   throw new Error('필수 게임 요소를 찾을 수 없습니다.');
@@ -57,6 +74,17 @@ const playerStateData = {
   grounded: false,
   facing: 'right',
   supportIndex: null,
+};
+
+const chizuruState = {
+  x: 0,
+  y: 0,
+  width: 0,
+  height: 0,
+  nearby: false,
+  talking: false,
+  dialogueIndex: 0,
+  hasMet: false,
 };
 
 const palette = {
@@ -106,6 +134,7 @@ function measureStage() {
     const platformRect = platform.getBoundingClientRect();
 
     return {
+      name: platform.dataset.platform ?? '',
       left: platformRect.left - stageRect.left,
       right: platformRect.right - stageRect.left,
       top: platformRect.top - stageRect.top,
@@ -126,9 +155,17 @@ function syncPlayerSize() {
   playerStateData.height = playerRect.height;
 }
 
+function syncChizuruSize() {
+  const chizuruRect = chizuruAvatar.getBoundingClientRect();
+  chizuruState.width = chizuruRect.width;
+  chizuruState.height = chizuruRect.height;
+}
+
 function refreshMeasurements() {
   stageMetrics = measureStage();
   syncPlayerSize();
+  syncChizuruSize();
+  positionChizuru();
   syncBackgroundScene();
   playerStateData.x = clamp(
     playerStateData.x,
@@ -173,6 +210,13 @@ function spawnPlayerAboveStage() {
 function onKeyDown(event) {
   if (isMovementKey(event.code)) {
     event.preventDefault();
+  }
+
+  if (event.code === 'KeyE' && chizuruState.nearby) {
+    event.preventDefault();
+    advanceChizuruDialogue();
+    render(Number(keys.right) - Number(keys.left));
+    return;
   }
 
   if (event.repeat) {
@@ -227,6 +271,7 @@ function update(deltaSeconds) {
   }
 
   stepVerticalMotion(deltaSeconds);
+  updateChizuruInteraction();
   render(direction);
 }
 
@@ -300,6 +345,7 @@ function resolveVerticalCollisions(previousY) {
 function render(direction = 0) {
   renderBackground();
   renderCharacterPanel();
+  renderChizuruEncounter();
   const motionState = getMotionState(direction);
 
   player.dataset.facing = playerStateData.facing;
@@ -321,6 +367,38 @@ function renderCharacterPanel() {
   characterEquipment.textContent = `${playableCharacter.getCollectionSize('equipment')} equipped`;
 }
 
+function renderChizuruEncounter() {
+  chizuru.style.transform = `translate(${chizuruState.x}px, ${-chizuruState.y}px)`;
+  chizuru.dataset.nearby = String(chizuruState.nearby);
+  chizuru.dataset.talking = String(chizuruState.talking);
+  chizuruAvatar.dataset.facing = 'left';
+  chizuruAvatar.dataset.grounded = 'true';
+  chizuruAvatar.dataset.motion = 'idle';
+  chizuruBubble.hidden = !chizuruState.talking;
+  chizuruPrompt.hidden = !chizuruState.nearby;
+  chizuruPromptLabel.textContent = chizuruState.talking ? '다음 대사' : '대화';
+  chizuruDialogue.textContent = getChizuruDialogue(chizuruState.dialogueIndex);
+  chizuruStatus.textContent = getChizuruStatusLabel();
+  chizuruScene.textContent = getChizuruSceneLabel();
+}
+
+function positionChizuru() {
+  const anchorPlatform =
+    stageMetrics.platforms.find((platform) => platform.name === CHIZURU_NPC.anchorPlatform) ??
+    stageMetrics.platforms.at(-1);
+
+  if (!anchorPlatform) {
+    return;
+  }
+
+  chizuruState.x = clamp(
+    stageMetrics.width * CHIZURU_NPC.xRatio - chizuruState.width / 2,
+    0,
+    Math.max(0, stageMetrics.width - chizuruState.width)
+  );
+  chizuruState.y = stageMetrics.height - anchorPlatform.top;
+}
+
 function syncBackgroundScene() {
   for (const cloud of worldState.clouds) {
     cloud.width = clamp(stageMetrics.width * cloud.widthRatio, 88, stageMetrics.width * 0.34);
@@ -340,6 +418,20 @@ function updateBackground(deltaSeconds) {
     if (cloud.x > wrapPoint) {
       cloud.x = -cloud.width * 1.35;
     }
+  }
+}
+
+function updateChizuruInteraction() {
+  const playerCenterX = playerStateData.x + playerStateData.width / 2;
+  const npcCenterX = chizuruState.x + chizuruState.width / 2;
+  const distanceX = Math.abs(playerCenterX - npcCenterX);
+  const distanceY = Math.abs(playerStateData.y - chizuruState.y);
+
+  chizuruState.nearby =
+    distanceX <= CHIZURU_NPC.interactionRadiusX && distanceY <= CHIZURU_NPC.interactionRadiusY;
+
+  if (!chizuruState.nearby) {
+    chizuruState.talking = false;
   }
 }
 
@@ -459,6 +551,14 @@ function getMotionLabel(motionState) {
 }
 
 function getStatusBadgeLabel(motionState) {
+  if (chizuruState.talking) {
+    return '치즈루와 대화 중';
+  }
+
+  if (chizuruState.nearby) {
+    return '치즈루와 상호작용 가능';
+  }
+
   switch (motionState) {
     case 'run':
       return '전진 중';
@@ -469,6 +569,48 @@ function getStatusBadgeLabel(motionState) {
     default:
       return '이동 가능';
   }
+}
+
+function advanceChizuruDialogue() {
+  if (!chizuruState.talking) {
+    chizuruState.talking = true;
+    chizuruState.hasMet = true;
+    return;
+  }
+
+  chizuruState.dialogueIndex = (chizuruState.dialogueIndex + 1) % CHIZURU_NPC.dialogues.length;
+}
+
+function getChizuruStatusLabel() {
+  if (chizuruState.talking) {
+    return '대화 중';
+  }
+
+  if (chizuruState.nearby) {
+    return '바로 앞에서 기다리는 중';
+  }
+
+  if (chizuruState.hasMet) {
+    return '잠깐 떨어져서 대기 중';
+  }
+
+  return CHIZURU_NPC.encounterHint;
+}
+
+function getChizuruSceneLabel() {
+  if (chizuruState.talking) {
+    return getChizuruDialogue(chizuruState.dialogueIndex);
+  }
+
+  if (chizuruState.nearby) {
+    return 'E 키를 누르면 다음 대사까지 이어서 볼 수 있습니다.';
+  }
+
+  if (chizuruState.hasMet) {
+    return '다시 가까이 가서 E 키를 누르면 대화를 이어갈 수 있습니다.';
+  }
+
+  return '가까이 가서 E 키를 누르면 말을 걸 수 있습니다.';
 }
 
 function getTimeLabel(progress) {

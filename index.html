@@ -190,15 +190,27 @@
                   <span>Volume</span>
                   <output id="bgm-volume-output" for="bgm-volume">52%</output>
                 </label>
-                <input
-                  id="bgm-volume"
-                  data-bgm-control
-                  type="range"
-                  min="0"
-                  max="100"
-                  step="1"
-                  value="52"
-                />
+                <div class="channel-control__input-row">
+                  <button
+                    id="bgm-mute"
+                    class="bgm-mute-button"
+                    data-bgm-control
+                    type="button"
+                    aria-label="BGM 음소거"
+                    aria-pressed="false"
+                  >
+                    <span class="bgm-mute-button__speaker" aria-hidden="true"></span>
+                  </button>
+                  <input
+                    id="bgm-volume"
+                    data-bgm-control
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value="52"
+                  />
+                </div>
               </div>
             </div>
             <div class="button-row bgm-actions">

@@ -30,6 +30,7 @@ const bgmMood = document.getElementById('bgm-mood');
 const bgmProgression = document.getElementById('bgm-progression');
 const bgmVolume = document.getElementById('bgm-volume');
 const bgmVolumeOutput = document.getElementById('bgm-volume-output');
+const bgmMute = document.getElementById('bgm-mute');
 const bgmToggle = document.getElementById('bgm-toggle');
 const touchControlButtons = Array.from(document.querySelectorAll('[data-touch-control]')).filter(
   (button) => button instanceof HTMLButtonElement
@@ -58,6 +59,7 @@ if (
   !(bgmProgression instanceof HTMLElement) ||
   !(bgmVolume instanceof HTMLInputElement) ||
   !(bgmVolumeOutput instanceof HTMLElement) ||
+  !(bgmMute instanceof HTMLButtonElement) ||
   !(bgmToggle instanceof HTMLButtonElement)
 ) {
   throw new Error('필수 게임 요소를 찾을 수 없습니다.');
@@ -156,12 +158,14 @@ const bgmManager = new BGMManager({
   initialVolume: Number(bgmVolume.value) / 100,
   onStateChange: syncBgmUi,
 });
+const DEFAULT_BGM_VOLUME = Number(bgmVolume.value) > 0 ? Number(bgmVolume.value) / 100 : 0.52;
 
 let stageMetrics = measureStage();
 let lastFrame = performance.now();
 let hasSpawned = false;
 let touchUiEnabled = false;
 let bgmAutostartArmed = false;
+let bgmLastAudibleVolume = DEFAULT_BGM_VOLUME;
 
 function measureStage() {
   const cssWidth = Math.max(320, Math.round(stageCanvas.clientWidth));
@@ -1046,23 +1050,47 @@ function syncBgmMood() {
   bgmManager.setMood(getDesiredBgmMood());
 }
 
+function clampBgmVolume(nextVolume) {
+  return Math.max(0, Math.min(nextVolume, 1));
+}
+
+function setBgmVolume(nextVolume) {
+  const clampedVolume = clampBgmVolume(nextVolume);
+
+  if (clampedVolume > 0) {
+    bgmLastAudibleVolume = clampedVolume;
+  }
+
+  bgmVolume.value = `${Math.round(clampedVolume * 100)}`;
+  bgmManager.setVolume(clampedVolume);
+}
+
 function syncBgmUi(snapshot = bgmManager.getSnapshot()) {
+  const volumePercent = Math.round(snapshot.volume * 100);
+  const isMuted = volumePercent === 0;
+
   bgmStatus.textContent = getBgmStatusLabel(snapshot.status);
   bgmMood.textContent = `${snapshot.moodLabel} · ${getModeLabel(snapshot.mode)}`;
   bgmProgression.textContent = snapshot.progressionLabel;
-  bgmVolumeOutput.textContent = `${Math.round(snapshot.volume * 100)}%`;
-  bgmToggle.disabled = !snapshot.supported;
+  bgmVolume.value = `${volumePercent}`;
+  bgmVolumeOutput.textContent = `${volumePercent}%`;
+  bgmMute.disabled = !snapshot.supported;
+  bgmMute.classList.toggle('is-muted', isMuted);
+  bgmMute.setAttribute('aria-label', isMuted ? 'BGM 음소거 해제' : 'BGM 음소거');
+  bgmMute.setAttribute('aria-pressed', `${isMuted}`);
+  bgmToggle.disabled = !snapshot.supported || snapshot.isPlaying;
 
   if (!snapshot.supported) {
     bgmToggle.textContent = '지원되지 않음';
     return;
   }
 
-  bgmToggle.textContent = snapshot.isPlaying
-    ? 'BGM 정지'
-    : snapshot.hasStarted
-      ? '다시 시작'
-      : 'BGM 시작';
+  if (snapshot.isPlaying) {
+    bgmToggle.textContent = '재생 중';
+    return;
+  }
+
+  bgmToggle.textContent = snapshot.hasStarted ? '다시 시작' : 'BGM 시작';
 }
 
 function disarmBgmAutostart() {
@@ -1101,12 +1129,22 @@ function armBgmAutostart() {
 
 function bindBgmControls() {
   bgmVolume.addEventListener('input', () => {
-    bgmManager.setVolume(Number(bgmVolume.value) / 100);
+    setBgmVolume(Number(bgmVolume.value) / 100);
+  });
+
+  bgmMute.addEventListener('click', () => {
+    const { volume } = bgmManager.getSnapshot();
+
+    if (volume === 0) {
+      setBgmVolume(bgmLastAudibleVolume);
+      return;
+    }
+
+    setBgmVolume(0);
   });
 
   bgmToggle.addEventListener('click', () => {
     if (bgmManager.getSnapshot().isPlaying) {
-      void bgmManager.stop();
       return;
     }
 

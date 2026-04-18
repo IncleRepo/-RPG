@@ -16,6 +16,7 @@ import {
   resizeFieldCritters,
   updateFieldCritters,
 } from './field-critters.js';
+import { initAssetDownloadManager } from './asset-download-manager.js';
 import { createPlayableCharacter } from './player-character.js';
 import { measureStageLayout, sampleVisualTerrainY } from './stage-layout.js';
 
@@ -1400,6 +1401,7 @@ worldState.fieldCritters = createFieldCritters(stageMetrics);
 bindTouchControls();
 bindBgmControls();
 bindAppearanceControls();
+initAssetDownloadManager();
 syncTouchUiMode();
 syncBgmMood();
 syncBgmUi();

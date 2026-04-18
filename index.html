@@ -54,6 +54,46 @@
               id="stage-canvas"
               aria-label="플레이어 이동과 애니메이션을 확인할 수 있는 캔버스 스테이지"
             ></canvas>
+
+            <div class="touch-controls" role="group" aria-label="모바일 터치 조작">
+              <div class="touch-controls__cluster touch-controls__cluster--move">
+                <button
+                  class="touch-button touch-button--move"
+                  type="button"
+                  aria-label="왼쪽으로 이동"
+                  data-touch-control="left"
+                >
+                  ←
+                </button>
+                <button
+                  class="touch-button touch-button--move"
+                  type="button"
+                  aria-label="오른쪽으로 이동"
+                  data-touch-control="right"
+                >
+                  →
+                </button>
+              </div>
+
+              <div class="touch-controls__cluster touch-controls__cluster--action">
+                <button
+                  class="touch-button touch-button--action"
+                  type="button"
+                  aria-label="상호작용"
+                  data-touch-control="interact"
+                >
+                  대화
+                </button>
+                <button
+                  class="touch-button touch-button--action"
+                  type="button"
+                  aria-label="점프"
+                  data-touch-control="jump"
+                >
+                  점프
+                </button>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -96,6 +136,7 @@
               <li><kbd>A</kbd> / <kbd>D</kbd> 또는 <kbd>←</kbd> / <kbd>→</kbd> 로 이동</li>
               <li><kbd>W</kbd> / <kbd>↑</kbd> / <kbd>Space</kbd> 로 점프</li>
               <li>치즈루 근처에서 <kbd>E</kbd> 로 대사를 확인할 수 있습니다</li>
+              <li>모바일에서는 화면 하단 터치 버튼으로 이동, 점프, 대화를 테스트할 수 있습니다</li>
               <li>뼈대 애니메이션과 발 IK는 캔버스에서 바로 반영됩니다</li>
             </ul>
           </section>

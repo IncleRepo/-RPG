@@ -6,7 +6,7 @@
     <title>RPG 프로젝트 | Physics Lab</title>
     <meta
       name="description"
-      content="플랫폼 충돌과 점프 물리를 기능 단위로 확인할 수 있는 테스트 페이지"
+      content="플랫폼 충돌, 점프 물리, 발 IK 지지 상태를 기능 단위로 확인할 수 있는 테스트 페이지"
     />
     <link rel="stylesheet" href="./src/styles/main.css" />
   </head>
@@ -17,7 +17,7 @@
         <h1>플레이어 물리와 충돌을 별도로 검증하는 Physics Lab</h1>
         <p class="hero-copy">
           게임 런타임과 같은 물리 코어를 사용하는 더미 플레이어 테스트 페이지입니다. 시나리오를 바꿔
-          옆면 충돌, 천장 충돌, 착지 전환을 직접 확인할 수 있습니다.
+          옆면 충돌, 천장 충돌, 착지 전환, 가장자리 IK 지지를 직접 확인할 수 있습니다.
         </p>
         <nav class="page-links" aria-label="페이지 이동">
           <a class="page-link" href="./index.html">게임 런타임</a>
@@ -50,6 +50,9 @@
             </button>
             <button class="frame-button" type="button" data-physics-scenario="gap-landing">
               착지 전환
+            </button>
+            <button class="frame-button" type="button" data-physics-scenario="ik-balance">
+              가장자리 IK
             </button>
           </div>
 
@@ -95,9 +98,10 @@
               <li><kbd>W</kbd> / <kbd>↑</kbd> / <kbd>Space</kbd> 로 점프</li>
               <li><kbd>R</kbd> 으로 현재 시나리오를 즉시 초기화</li>
               <li>오른쪽 패널의 디버그 상태로 support surface와 충돌 이벤트를 확인</li>
+              <li>캔버스의 초록 점선은 양발 샘플 위치, 주황 점선은 현재 지지 기준 높이를 뜻함</li>
               <li>
-                게임 런타임과 같은 물리 모듈을 공유하므로 버그 재현과 수정 확인에 바로 사용할 수
-                있음
+                게임 런타임과 같은 물리 모듈과 IK 지지 계산을 공유하므로 버그 재현과 수정 확인에
+                바로 사용할 수 있음
               </li>
             </ul>
           </section>

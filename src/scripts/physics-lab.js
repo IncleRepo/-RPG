@@ -1,3 +1,5 @@
+import { ANIMATION_LIBRARY, getAnimationClip, sampleAnimationClip } from './animation-data.js';
+import { drawHumanoid, PLAYER_APPEARANCE } from './canvas-animation.js';
 import { clamp } from './game/helpers.js';
 import {
   DEFAULT_PLATFORMER_PHYSICS,
@@ -5,7 +7,7 @@ import {
   stepPlatformerPhysics,
 } from './game/physics/platformer-physics.js';
 import { getPhysicsLabElements } from './game/runtime-dom.js';
-import { CHARACTER_COLLIDER } from './game/runtime-scene.js';
+import { CHARACTER_COLLIDER, resolveGroundedHumanoidFooting } from './game/runtime-scene.js';
 
 const LAB_STAGE = Object.freeze({
   width: 960,
@@ -66,6 +68,24 @@ const SCENARIOS = [
       createPlatform('far-step', 762, 260, 128, 22),
     ],
   },
+  {
+    id: 'ik-balance',
+    name: '가장자리 IK',
+    description:
+      '높은 발판 끝에 걸쳐 섰을 때 지지 중인 발판 기준으로 몸통 높이가 유지되는지 확인하는 시나리오입니다.',
+    expectation:
+      '리셋 직후나 오른쪽으로 조금 더 이동했을 때 support는 ledge를 유지하고, 몸통은 주저앉지 않은 채 바깥쪽 다리만 아래로 늘어나야 합니다.',
+    spawn: {
+      surface: 'ledge',
+      x: 512,
+      facing: 'right',
+    },
+    platforms: [
+      createPlatform('ground', 0, 430, 960, 110),
+      createPlatform('ledge', 360, 280, 180, 24),
+      createPlatform('far-step', 710, 344, 152, 22),
+    ],
+  },
 ];
 
 initializePhysicsLab();
@@ -81,12 +101,20 @@ function initializePhysicsLab() {
   let stageMetrics = buildStageMetrics(currentScenario);
   let playerState = createScenarioPlayerState(currentScenario, stageMetrics);
   let lastFrame = performance.now();
+  let runtimeSeconds = 0;
+  let currentDirection = 0;
   let viewport = measureCanvas(dom.canvas);
   let lastFrameEvents = {
     horizontalCollision: null,
     landedOn: null,
     hitCeiling: null,
   };
+  let lastVisualState = createVisualState(
+    playerState,
+    stageMetrics,
+    runtimeSeconds,
+    currentDirection
+  );
 
   function activateScenario(nextScenarioId) {
     const foundScenario = SCENARIOS.find((scenario) => scenario.id === nextScenarioId);
@@ -97,22 +125,40 @@ function initializePhysicsLab() {
     currentScenario = foundScenario;
     stageMetrics = buildStageMetrics(currentScenario);
     playerState = createScenarioPlayerState(currentScenario, stageMetrics);
+    runtimeSeconds = 0;
+    currentDirection = 0;
     lastFrameEvents = {
       horizontalCollision: null,
       landedOn: null,
       hitCeiling: null,
     };
+    lastVisualState = createVisualState(
+      playerState,
+      stageMetrics,
+      runtimeSeconds,
+      currentDirection
+    );
+    clearInputs();
     syncScenarioUi();
     render();
   }
 
   function resetScenario() {
     playerState = createScenarioPlayerState(currentScenario, stageMetrics);
+    runtimeSeconds = 0;
+    currentDirection = 0;
     lastFrameEvents = {
       horizontalCollision: null,
       landedOn: null,
       hitCeiling: null,
     };
+    lastVisualState = createVisualState(
+      playerState,
+      stageMetrics,
+      runtimeSeconds,
+      currentDirection
+    );
+    clearInputs();
     render();
   }
 
@@ -146,7 +192,8 @@ function initializePhysicsLab() {
     dom.stateReadout.textContent =
       `x ${Math.round(playerState.x)} / y ${Math.round(playerState.y)} / ` +
       `vY ${Math.round(playerState.velocityY)} / grounded ${playerState.grounded ? 'yes' : 'no'} / ` +
-      `support ${supportLabel}`;
+      `support ${supportLabel}` +
+      formatVisualDebugSuffix(lastVisualState.footing);
 
     const collisionParts = [];
 
@@ -168,6 +215,8 @@ function initializePhysicsLab() {
 
   function update(deltaSeconds) {
     const direction = Number(inputState.right) - Number(inputState.left);
+    currentDirection = direction;
+    runtimeSeconds += deltaSeconds;
 
     if (direction < 0) {
       playerState.facing = 'left';
@@ -186,6 +235,12 @@ function initializePhysicsLab() {
       physics: DEFAULT_PLATFORMER_PHYSICS,
       stageMetrics,
     });
+    lastVisualState = createVisualState(
+      playerState,
+      stageMetrics,
+      runtimeSeconds,
+      currentDirection
+    );
   }
 
   function render() {
@@ -209,8 +264,8 @@ function initializePhysicsLab() {
 
     drawGrid(context);
     drawPlatforms(context, stageMetrics.platforms);
-    drawPlayer(context, playerState);
-    drawHud(context, currentScenario, playerState, lastFrameEvents);
+    drawPlayer(context, playerState, lastVisualState);
+    drawHud(context, currentScenario, playerState, lastFrameEvents, lastVisualState);
 
     context.restore();
     updateReadouts();
@@ -388,17 +443,35 @@ function drawPlatforms(context, platforms) {
   }
 }
 
-function drawPlayer(context, playerState) {
+function drawPlayer(context, playerState, visualState) {
   const drawX = playerState.x;
   const drawY = LAB_STAGE.height - playerState.y - playerState.height;
+  const centerX = playerState.x + playerState.width / 2;
+  const baseY = visualState.footing?.baseY ?? LAB_STAGE.height - playerState.y;
 
   context.save();
-  context.shadowColor = 'rgba(32, 62, 98, 0.2)';
-  context.shadowBlur = 16;
-  context.fillStyle = '#2d6fa1';
+  drawHumanoid(context, {
+    x: centerX,
+    baseY,
+    pose: visualState.pose,
+    appearance: PLAYER_APPEARANCE,
+    facing: playerState.facing,
+    scale: CHARACTER_COLLIDER.scale,
+    footHeights: visualState.footing?.footHeights ?? { left: 0, right: 0 },
+    grounded: playerState.grounded,
+    shadowOpacity: playerState.grounded ? 0.24 : 0.16,
+  });
+
+  drawFootingGuides(context, playerState, visualState);
+
+  context.fillStyle = 'rgba(45, 111, 161, 0.12)';
+  context.strokeStyle = 'rgba(45, 111, 161, 0.6)';
+  context.lineWidth = 2;
+  context.setLineDash([8, 6]);
   context.beginPath();
   context.roundRect(drawX, drawY, playerState.width, playerState.height, 18);
   context.fill();
+  context.stroke();
   context.restore();
 
   context.fillStyle = '#f8fbff';
@@ -416,13 +489,55 @@ function drawPlayer(context, playerState) {
   context.fill();
 }
 
-function drawHud(context, scenario, playerState, frameEvents) {
+function drawFootingGuides(context, playerState, visualState) {
+  if (!playerState.grounded || !visualState.footing) {
+    return;
+  }
+
+  const { leftFootWorldX, rightFootWorldX, leftGroundY, rightGroundY, supportGroundY } =
+    visualState.footing;
+
+  context.save();
+  context.lineWidth = 2;
+  context.setLineDash([6, 6]);
+
+  context.strokeStyle = 'rgba(67, 138, 86, 0.55)';
+  context.beginPath();
+  context.moveTo(leftFootWorldX, LAB_STAGE.height - playerState.y);
+  context.lineTo(leftFootWorldX, leftGroundY);
+  context.stroke();
+
+  context.beginPath();
+  context.moveTo(rightFootWorldX, LAB_STAGE.height - playerState.y);
+  context.lineTo(rightFootWorldX, rightGroundY);
+  context.stroke();
+
+  context.setLineDash([10, 8]);
+  context.strokeStyle = 'rgba(203, 126, 56, 0.5)';
+  context.beginPath();
+  context.moveTo(playerState.x - 18, supportGroundY);
+  context.lineTo(playerState.x + playerState.width + 18, supportGroundY);
+  context.stroke();
+  context.restore();
+
+  context.save();
+  context.fillStyle = '#438a56';
+  context.beginPath();
+  context.arc(leftFootWorldX, leftGroundY, 4, 0, Math.PI * 2);
+  context.fill();
+  context.beginPath();
+  context.arc(rightFootWorldX, rightGroundY, 4, 0, Math.PI * 2);
+  context.fill();
+  context.restore();
+}
+
+function drawHud(context, scenario, playerState, frameEvents, visualState) {
   context.save();
   context.fillStyle = 'rgba(255, 255, 255, 0.88)';
   context.strokeStyle = 'rgba(25, 48, 74, 0.08)';
   context.lineWidth = 1;
   context.beginPath();
-  context.roundRect(24, 24, 356, 88, 18);
+  context.roundRect(24, 24, 428, 108, 18);
   context.fill();
   context.stroke();
 
@@ -436,6 +551,7 @@ function drawHud(context, scenario, playerState, frameEvents) {
     42,
     94
   );
+  context.fillText(`motion: ${visualState.motionState}`, 42, 114);
 
   const eventLabel =
     frameEvents.horizontalCollision || frameEvents.landedOn || frameEvents.hitCeiling
@@ -448,12 +564,64 @@ function drawHud(context, scenario, playerState, frameEvents) {
           .join(' / ')
       : 'frame event 없음';
   context.fillText(eventLabel, 186, 74);
-  context.fillText('R로 리셋 / A,D,W 또는 방향키 사용', 186, 94);
+  context.fillText(
+    visualState.footing
+      ? `foot offset L ${formatSigned(Math.round(visualState.footing.footHeights.left))} / R ${formatSigned(Math.round(visualState.footing.footHeights.right))}`
+      : 'foot offset 없음',
+    186,
+    94
+  );
+  context.fillText('R로 리셋 / A,D,W 또는 방향키 사용', 186, 114);
   context.restore();
+}
+
+function createVisualState(playerState, stageMetrics, runtimeSeconds, direction) {
+  const motionState = getMotionState(playerState, direction);
+  const pose = sampleAnimationClip(
+    getAnimationClip(ANIMATION_LIBRARY, motionState),
+    runtimeSeconds
+  );
+  const footing = playerState.grounded
+    ? resolveGroundedHumanoidFooting(playerState, pose, stageMetrics)
+    : null;
+
+  return {
+    motionState,
+    pose,
+    footing,
+  };
 }
 
 function stageMetricsLabel(scenario, playerState) {
   return scenario.platforms[playerState.supportIndex]?.name ?? 'none';
+}
+
+function getMotionState(playerState, direction) {
+  if (!playerState.grounded) {
+    return playerState.velocityY >= 0 ? 'jump' : 'fall';
+  }
+
+  if (direction !== 0) {
+    return 'run';
+  }
+
+  return 'idle';
+}
+
+function formatVisualDebugSuffix(footing) {
+  if (!footing) {
+    return '';
+  }
+
+  return (
+    ` / base ${Math.round(footing.baseY)}` +
+    ` / foot L ${formatSigned(Math.round(footing.footHeights.left))}` +
+    ` / foot R ${formatSigned(Math.round(footing.footHeights.right))}`
+  );
+}
+
+function formatSigned(value) {
+  return value > 0 ? `+${value}` : `${value}`;
 }
 
 function createPlatform(name, left, top, width, height) {

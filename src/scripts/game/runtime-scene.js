@@ -205,11 +205,43 @@ export function getTimeLabel(progress) {
   return '밤';
 }
 
-function createRenderActor(entityState, pose, appearance, scale, stageMetrics) {
+export function resolveGroundedHumanoidFooting(entityState, pose, stageMetrics) {
   const centerX = entityState.x + entityState.width / 2;
+  const facingSign = entityState.facing === 'left' ? -1 : 1;
+  const leftFootWorldX = clamp(centerX + pose.footLeftX * facingSign, 0, stageMetrics.width);
+  const rightFootWorldX = clamp(centerX + pose.footRightX * facingSign, 0, stageMetrics.width);
+  const leftGroundY = sampleVisualTerrainY(leftFootWorldX, stageMetrics.platforms);
+  const rightGroundY = sampleVisualTerrainY(rightFootWorldX, stageMetrics.platforms);
+  const support =
+    entityState.supportIndex !== null && entityState.supportIndex !== undefined
+      ? stageMetrics.platforms[entityState.supportIndex]
+      : null;
+  const supportGroundY = support
+    ? sampleVisualTerrainY(clamp(centerX, support.left, support.right), [support])
+    : Math.min(leftGroundY, rightGroundY);
+  const baseY = Math.min(leftGroundY, rightGroundY, supportGroundY);
+
+  return {
+    centerX,
+    leftFootWorldX,
+    rightFootWorldX,
+    leftGroundY,
+    rightGroundY,
+    supportGroundY,
+    baseY,
+    footHeights: {
+      left: baseY - leftGroundY,
+      right: baseY - rightGroundY,
+    },
+  };
+}
+
+function createRenderActor(entityState, pose, appearance, scale, stageMetrics) {
   const grounded = entityState.grounded ?? true;
 
   if (!grounded) {
+    const centerX = entityState.x + entityState.width / 2;
+
     return {
       x: centerX,
       baseY: stageMetrics.height - entityState.y,
@@ -223,24 +255,16 @@ function createRenderActor(entityState, pose, appearance, scale, stageMetrics) {
     };
   }
 
-  const facingSign = entityState.facing === 'left' ? -1 : 1;
-  const leftFootWorldX = clamp(centerX + pose.footLeftX * facingSign, 0, stageMetrics.width);
-  const rightFootWorldX = clamp(centerX + pose.footRightX * facingSign, 0, stageMetrics.width);
-  const leftGroundY = sampleVisualTerrainY(leftFootWorldX, stageMetrics.platforms);
-  const rightGroundY = sampleVisualTerrainY(rightFootWorldX, stageMetrics.platforms);
-  const baseY = (leftGroundY + rightGroundY) / 2;
+  const groundedFooting = resolveGroundedHumanoidFooting(entityState, pose, stageMetrics);
 
   return {
-    x: centerX,
-    baseY,
+    x: groundedFooting.centerX,
+    baseY: groundedFooting.baseY,
     pose,
     appearance,
     facing: entityState.facing,
     scale,
-    footHeights: {
-      left: baseY - leftGroundY,
-      right: baseY - rightGroundY,
-    },
+    footHeights: groundedFooting.footHeights,
     shadowOpacity: 0.24,
     grounded: true,
   };

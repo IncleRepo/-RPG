@@ -19,6 +19,9 @@ import {
 import { createPlayableCharacter } from './player-character.js';
 import { measureStageLayout, sampleVisualTerrainY } from './stage-layout.js';
 
+const chizuruIdleSpriteUrl = new URL('../../assets/chizuru-idle.png', import.meta.url).href;
+const chizuruTalkingSpriteUrl = new URL('../../assets/chizuru-talking.png', import.meta.url).href;
+
 const stageCanvas = document.getElementById('stage-canvas');
 const statusBadge = document.getElementById('status-badge');
 const playerState = document.getElementById('player-state');
@@ -98,6 +101,13 @@ const NPC_COLLIDER = Object.freeze({
   scale: 1.04,
 });
 
+const CHIZURU_SPRITE_LAYOUT = Object.freeze({
+  height: 172,
+  talkingHeight: 176,
+  groundSink: 8,
+  bubbleAnchorHeight: 154,
+});
+
 const keys = {
   left: false,
   right: false,
@@ -166,6 +176,11 @@ const worldState = {
     createCloud(0.26, 0.12, 28, 0.84, 16, 0.78, 1.12, 2.8),
   ],
 };
+
+const chizuruSprites = Object.freeze({
+  idle: createSpriteImage(chizuruIdleSpriteUrl),
+  talking: createSpriteImage(chizuruTalkingSpriteUrl),
+});
 
 const bgmManager = new BGMManager({
   initialVolume: Number(bgmVolume.value) / 100,
@@ -465,7 +480,7 @@ function renderScene(motionState) {
       getResolvedPlayerAppearance(),
       CHARACTER_COLLIDER.scale
     ),
-    createRenderActor(chizuruState, npcPose, CHIZURU_APPEARANCE, NPC_COLLIDER.scale),
+    createChizuruRenderActor(npcPose),
     ...worldState.fieldCritters.map((critter) =>
       createCritterRenderActor(critter, stageMetrics, worldState.runtimeSeconds)
     ),
@@ -474,6 +489,11 @@ function renderScene(motionState) {
   for (const actor of entities) {
     if (actor.type === 'critter') {
       drawFieldCritter(context, actor);
+      continue;
+    }
+
+    if (actor.type === 'chizuru-sprite') {
+      drawChizuruSprite(context, actor);
       continue;
     }
 
@@ -759,7 +779,7 @@ function drawDialogueOverlay(context) {
   }
 
   const npcCenterX = chizuruState.x + chizuruState.width / 2;
-  const npcTopY = stageMetrics.height - chizuruState.y - chizuruState.height * 1.1;
+  const npcTopY = stageMetrics.height - chizuruState.y - getChizuruBubbleAnchorHeight();
 
   if (chizuruState.talking) {
     const bubbleWidth = Math.min(300, stageMetrics.width * 0.42);
@@ -858,6 +878,63 @@ function createRenderActor(entityState, pose, appearance, scale) {
     shadowOpacity: 0.24,
     grounded: true,
   };
+}
+
+function createChizuruRenderActor(pose) {
+  if (!isChizuruSpriteReady()) {
+    return createRenderActor(chizuruState, pose, CHIZURU_APPEARANCE, NPC_COLLIDER.scale);
+  }
+
+  const centerX = chizuruState.x + chizuruState.width / 2;
+  const baseY = sampleVisualTerrainY(centerX, stageMetrics.platforms);
+
+  return {
+    type: 'chizuru-sprite',
+    x: centerX,
+    baseY,
+    runtimeSeconds: worldState.runtimeSeconds,
+    sprite: getActiveChizuruSprite(),
+    talking: chizuruState.talking,
+  };
+}
+
+function drawChizuruSprite(context, actor) {
+  const { sprite, runtimeSeconds, talking } = actor;
+  const renderHeight = talking ? CHIZURU_SPRITE_LAYOUT.talkingHeight : CHIZURU_SPRITE_LAYOUT.height;
+  const renderWidth = renderHeight * (sprite.naturalWidth / sprite.naturalHeight);
+  const sway = Math.sin(runtimeSeconds * (talking ? 3.8 : 1.6)) * (talking ? 1.8 : 0.8);
+  const bob = Math.sin(runtimeSeconds * (talking ? 4.2 : 2.1)) * (talking ? 2.4 : 1.2);
+  const drawX = Math.round(actor.x - renderWidth / 2 + sway);
+  const drawY = Math.round(actor.baseY - renderHeight + CHIZURU_SPRITE_LAYOUT.groundSink - bob);
+
+  context.save();
+  context.imageSmoothingEnabled = false;
+  context.drawImage(sprite, drawX, drawY, Math.round(renderWidth), renderHeight);
+  context.restore();
+}
+
+function createSpriteImage(source) {
+  const image = new Image();
+  image.decoding = 'async';
+  image.src = source;
+  return image;
+}
+
+function getActiveChizuruSprite() {
+  return chizuruState.talking ? chizuruSprites.talking : chizuruSprites.idle;
+}
+
+function isChizuruSpriteReady() {
+  const activeSprite = getActiveChizuruSprite();
+  return activeSprite.complete && activeSprite.naturalWidth > 0 && activeSprite.naturalHeight > 0;
+}
+
+function getChizuruBubbleAnchorHeight() {
+  if (isChizuruSpriteReady()) {
+    return CHIZURU_SPRITE_LAYOUT.bubbleAnchorHeight;
+  }
+
+  return chizuruState.height * 1.1;
 }
 
 function findClosestSurfaceIndex(playerX) {

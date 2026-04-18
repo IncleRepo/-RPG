@@ -1,4 +1,5 @@
 import { getAnimationClip, sampleAnimationClip, ANIMATION_LIBRARY } from './animation-data.js';
+import { BGMManager } from './bgm-manager.js';
 import { CHIZURU_APPEARANCE, drawHumanoid, PLAYER_APPEARANCE } from './canvas-animation.js';
 import { CHIZURU_NPC, getChizuruDialogue } from './chizuru-npc.js';
 import {
@@ -24,6 +25,12 @@ const characterInventory = document.getElementById('character-inventory');
 const characterEquipment = document.getElementById('character-equipment');
 const chizuruStatus = document.getElementById('chizuru-status');
 const chizuruScene = document.getElementById('chizuru-scene');
+const bgmStatus = document.getElementById('bgm-status');
+const bgmMood = document.getElementById('bgm-mood');
+const bgmProgression = document.getElementById('bgm-progression');
+const bgmVolume = document.getElementById('bgm-volume');
+const bgmVolumeOutput = document.getElementById('bgm-volume-output');
+const bgmToggle = document.getElementById('bgm-toggle');
 const touchControlButtons = Array.from(document.querySelectorAll('[data-touch-control]')).filter(
   (button) => button instanceof HTMLButtonElement
 );
@@ -45,7 +52,13 @@ if (
   !(characterInventory instanceof HTMLElement) ||
   !(characterEquipment instanceof HTMLElement) ||
   !(chizuruStatus instanceof HTMLElement) ||
-  !(chizuruScene instanceof HTMLElement)
+  !(chizuruScene instanceof HTMLElement) ||
+  !(bgmStatus instanceof HTMLElement) ||
+  !(bgmMood instanceof HTMLElement) ||
+  !(bgmProgression instanceof HTMLElement) ||
+  !(bgmVolume instanceof HTMLInputElement) ||
+  !(bgmVolumeOutput instanceof HTMLElement) ||
+  !(bgmToggle instanceof HTMLButtonElement)
 ) {
   throw new Error('필수 게임 요소를 찾을 수 없습니다.');
 }
@@ -139,10 +152,16 @@ const worldState = {
   ],
 };
 
+const bgmManager = new BGMManager({
+  initialVolume: Number(bgmVolume.value) / 100,
+  onStateChange: syncBgmUi,
+});
+
 let stageMetrics = measureStage();
 let lastFrame = performance.now();
 let hasSpawned = false;
 let touchUiEnabled = false;
+let bgmAutostartArmed = false;
 
 function measureStage() {
   const cssWidth = Math.max(320, Math.round(stageCanvas.clientWidth));
@@ -311,6 +330,7 @@ function update(deltaSeconds) {
 
   stepVerticalMotion(deltaSeconds);
   updateChizuruInteraction();
+  syncBgmMood();
   render(direction);
 }
 
@@ -974,6 +994,129 @@ function getTimeLabel(progress) {
   return '밤';
 }
 
+function getBgmStatusLabel(status) {
+  switch (status) {
+    case 'playing':
+      return '재생 중';
+    case 'stopped':
+      return '정지됨';
+    case 'unsupported':
+      return '브라우저 미지원';
+    default:
+      return '대기 중';
+  }
+}
+
+function getModeLabel(mode) {
+  switch (mode) {
+    case 'ionian':
+      return 'Ionian';
+    case 'dorian':
+      return 'Dorian';
+    case 'aeolian':
+      return 'Aeolian';
+    case 'lydian':
+      return 'Lydian';
+    case 'mixolydian':
+      return 'Mixolydian';
+    default:
+      return mode;
+  }
+}
+
+function getDesiredBgmMood() {
+  const cycleProgress = worldState.elapsedSeconds / worldState.cycleDuration;
+
+  if (chizuruState.talking) {
+    return 'encounter';
+  }
+
+  if (cycleProgress < 0.22 || cycleProgress >= 0.84) {
+    return 'night';
+  }
+
+  if (cycleProgress < 0.34 || cycleProgress >= 0.68) {
+    return 'twilight';
+  }
+
+  return 'town';
+}
+
+function syncBgmMood() {
+  bgmManager.setMood(getDesiredBgmMood());
+}
+
+function syncBgmUi(snapshot = bgmManager.getSnapshot()) {
+  bgmStatus.textContent = getBgmStatusLabel(snapshot.status);
+  bgmMood.textContent = `${snapshot.moodLabel} · ${getModeLabel(snapshot.mode)}`;
+  bgmProgression.textContent = snapshot.progressionLabel;
+  bgmVolumeOutput.textContent = `${Math.round(snapshot.volume * 100)}%`;
+  bgmToggle.disabled = !snapshot.supported;
+
+  if (!snapshot.supported) {
+    bgmToggle.textContent = '지원되지 않음';
+    return;
+  }
+
+  bgmToggle.textContent = snapshot.isPlaying
+    ? 'BGM 정지'
+    : snapshot.hasStarted
+      ? '다시 시작'
+      : 'BGM 시작';
+}
+
+function disarmBgmAutostart() {
+  if (!bgmAutostartArmed) {
+    return;
+  }
+
+  bgmAutostartArmed = false;
+  window.removeEventListener('keydown', handleBgmAutostart, true);
+  window.removeEventListener('pointerdown', handleBgmAutostart, true);
+  window.removeEventListener('touchstart', handleBgmAutostart, true);
+}
+
+function handleBgmAutostart(event) {
+  if (event.target instanceof Element && event.target.closest('[data-bgm-control]')) {
+    return;
+  }
+
+  disarmBgmAutostart();
+  void bgmManager.resumeFromGesture().then(
+    () => syncBgmUi(),
+    () => syncBgmUi()
+  );
+}
+
+function armBgmAutostart() {
+  if (bgmAutostartArmed || !bgmManager.getSnapshot().supported) {
+    return;
+  }
+
+  bgmAutostartArmed = true;
+  window.addEventListener('keydown', handleBgmAutostart, { capture: true });
+  window.addEventListener('pointerdown', handleBgmAutostart, { capture: true, passive: true });
+  window.addEventListener('touchstart', handleBgmAutostart, { capture: true, passive: true });
+}
+
+function bindBgmControls() {
+  bgmVolume.addEventListener('input', () => {
+    bgmManager.setVolume(Number(bgmVolume.value) / 100);
+  });
+
+  bgmToggle.addEventListener('click', () => {
+    if (bgmManager.getSnapshot().isPlaying) {
+      void bgmManager.stop();
+      return;
+    }
+
+    void bgmManager.resumeFromGesture().then(
+      () => syncBgmUi(),
+      () => syncBgmUi()
+    );
+  });
+}
+
 function gameLoop(now) {
   const deltaSeconds = Math.min((now - lastFrame) / 1000, 1 / 30);
   lastFrame = now;
@@ -1145,9 +1288,17 @@ window.addEventListener('blur', clearMovementInputs);
 
 worldState.fieldCritters = createFieldCritters(stageMetrics);
 bindTouchControls();
+bindBgmControls();
 syncTouchUiMode();
+syncBgmMood();
+syncBgmUi();
+armBgmAutostart();
 touchInputQueries.forEach((query) => {
   query.addEventListener('change', syncTouchUiMode);
+});
+window.addEventListener('pagehide', () => {
+  disarmBgmAutostart();
+  bgmManager.destroy();
 });
 refreshMeasurements();
 worldTimeReadout.textContent = getTimeLabel(worldState.elapsedSeconds / worldState.cycleDuration);

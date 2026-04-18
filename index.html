@@ -142,6 +142,47 @@
           </section>
 
           <section class="panel">
+            <h2>Procedural BGM</h2>
+            <p class="panel-copy">
+              첫 키 입력이나 터치 이후 Web Audio 기반 생성형 배경 음악이 시작됩니다.
+            </p>
+            <dl class="meta-list bgm-meta-list">
+              <div>
+                <dt>상태</dt>
+                <dd id="bgm-status">대기 중</dd>
+              </div>
+              <div>
+                <dt>무드</dt>
+                <dd id="bgm-mood">평온한 마을</dd>
+              </div>
+              <div>
+                <dt>진행</dt>
+                <dd id="bgm-progression">대기 중</dd>
+              </div>
+            </dl>
+            <div class="channel-controls">
+              <div class="channel-control">
+                <label for="bgm-volume">
+                  <span>Volume</span>
+                  <output id="bgm-volume-output" for="bgm-volume">52%</output>
+                </label>
+                <input
+                  id="bgm-volume"
+                  data-bgm-control
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="52"
+                />
+              </div>
+            </div>
+            <div class="button-row bgm-actions">
+              <button id="bgm-toggle" data-bgm-control type="button">BGM 시작</button>
+            </div>
+          </section>
+
+          <section class="panel">
             <h2>Guest NPC</h2>
             <dl class="meta-list">
               <div>

@@ -137,6 +137,7 @@ export class BGMManager {
     this.masterGain = null;
     this.compressor = null;
     this.schedulerTimerId = null;
+    this.stopTimerId = null;
     this.lookAheadMs = 120;
     this.scheduleAheadSeconds = 0.32;
     this.currentMoodId = MOOD_LIBRARY[initialMood] ? initialMood : DEFAULT_MOOD;
@@ -203,6 +204,11 @@ export class BGMManager {
       return false;
     }
 
+    if (this.stopTimerId) {
+      window.clearTimeout(this.stopTimerId);
+      this.stopTimerId = null;
+    }
+
     this.ensureAudioGraph();
 
     if (!this.audioContext) {
@@ -223,6 +229,16 @@ export class BGMManager {
   startScheduling() {
     if (!this.audioContext || !this.masterGain) {
       return;
+    }
+
+    if (this.stopTimerId) {
+      window.clearTimeout(this.stopTimerId);
+      this.stopTimerId = null;
+    }
+
+    if (this.schedulerTimerId) {
+      window.clearTimeout(this.schedulerTimerId);
+      this.schedulerTimerId = null;
     }
 
     this.hasStarted = true;
@@ -263,6 +279,24 @@ export class BGMManager {
     this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
     this.masterGain.gain.linearRampToValueAtTime(0, now + 0.2);
 
+    if (this.stopTimerId) {
+      window.clearTimeout(this.stopTimerId);
+    }
+
+    this.stopTimerId = window.setTimeout(() => {
+      this.stopTimerId = null;
+
+      if (!this.audioContext || this.isPlaying || this.audioContext.state !== 'running') {
+        return;
+      }
+
+      const suspendPromise = this.audioContext.suspend();
+
+      if (typeof suspendPromise?.catch === 'function') {
+        suspendPromise.catch(() => {});
+      }
+    }, 240);
+
     this.notifyState();
   }
 
@@ -272,12 +306,23 @@ export class BGMManager {
       this.schedulerTimerId = null;
     }
 
+    if (this.stopTimerId) {
+      window.clearTimeout(this.stopTimerId);
+      this.stopTimerId = null;
+    }
+
+    this.isPlaying = false;
+
     if (this.audioContext) {
       const closePromise = this.audioContext.close();
 
       if (typeof closePromise?.catch === 'function') {
         closePromise.catch(() => {});
       }
+
+      this.audioContext = null;
+      this.masterGain = null;
+      this.compressor = null;
     }
   }
 

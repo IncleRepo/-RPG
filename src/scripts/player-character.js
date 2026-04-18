@@ -176,6 +176,12 @@ export function createPlayableCharacter(initialState = {}) {
             accessory: null,
           },
         },
+        attributes: {
+          appearance: {
+            hairStyle: 'adventurer',
+            hairColor: 'chestnut',
+          },
+        },
       },
       initialState
     )

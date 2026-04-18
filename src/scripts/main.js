@@ -1,6 +1,13 @@
 import { getAnimationClip, sampleAnimationClip, ANIMATION_LIBRARY } from './animation-data.js';
 import { BGMManager } from './bgm-manager.js';
-import { CHIZURU_APPEARANCE, drawHumanoid, PLAYER_APPEARANCE } from './canvas-animation.js';
+import {
+  CHIZURU_APPEARANCE,
+  DEFAULT_PLAYER_APPEARANCE_CONFIG,
+  drawHumanoid,
+  HAIR_COLOR_OPTIONS,
+  HAIR_STYLE_OPTIONS,
+  resolvePlayerAppearance,
+} from './canvas-animation.js';
 import { CHIZURU_NPC, getChizuruDialogue } from './chizuru-npc.js';
 import {
   createCritterRenderActor,
@@ -23,6 +30,9 @@ const characterMana = document.getElementById('character-mana');
 const characterGold = document.getElementById('character-gold');
 const characterInventory = document.getElementById('character-inventory');
 const characterEquipment = document.getElementById('character-equipment');
+const characterAppearance = document.getElementById('character-appearance');
+const playerHairStyle = document.getElementById('player-hair-style');
+const playerHairColor = document.getElementById('player-hair-color');
 const chizuruStatus = document.getElementById('chizuru-status');
 const chizuruScene = document.getElementById('chizuru-scene');
 const bgmStatus = document.getElementById('bgm-status');
@@ -51,6 +61,9 @@ if (
   !(characterGold instanceof HTMLElement) ||
   !(characterInventory instanceof HTMLElement) ||
   !(characterEquipment instanceof HTMLElement) ||
+  !(characterAppearance instanceof HTMLElement) ||
+  !(playerHairStyle instanceof HTMLSelectElement) ||
+  !(playerHairColor instanceof HTMLSelectElement) ||
   !(chizuruStatus instanceof HTMLElement) ||
   !(chizuruScene instanceof HTMLElement) ||
   !(bgmStatus instanceof HTMLElement) ||
@@ -442,7 +455,12 @@ function renderScene(motionState) {
   };
 
   const entities = [
-    createRenderActor(playerStateData, playerPose, PLAYER_APPEARANCE, CHARACTER_COLLIDER.scale),
+    createRenderActor(
+      playerStateData,
+      playerPose,
+      getResolvedPlayerAppearance(),
+      CHARACTER_COLLIDER.scale
+    ),
     createRenderActor(chizuruState, npcPose, CHIZURU_APPEARANCE, NPC_COLLIDER.scale),
     ...worldState.fieldCritters.map((critter) =>
       createCritterRenderActor(critter, stageMetrics, worldState.runtimeSeconds)
@@ -468,6 +486,22 @@ function renderCharacterPanel() {
   characterGold.textContent = `${playableCharacter.gold} G`;
   characterInventory.textContent = `${playableCharacter.getCollectionSize('inventory')} slots`;
   characterEquipment.textContent = `${playableCharacter.getCollectionSize('equipment')} equipped`;
+
+  const appearance = getResolvedPlayerAppearance();
+  characterAppearance.textContent = `${appearance.hairStyleLabel} · ${appearance.hairColorLabel}`;
+}
+
+function getPlayerAppearanceState() {
+  const savedAppearance = playableCharacter.attributes.appearance;
+
+  return {
+    ...DEFAULT_PLAYER_APPEARANCE_CONFIG,
+    ...(savedAppearance && typeof savedAppearance === 'object' ? savedAppearance : {}),
+  };
+}
+
+function getResolvedPlayerAppearance() {
+  return resolvePlayerAppearance(getPlayerAppearanceState());
 }
 
 function renderChizuruEncounter() {
@@ -795,6 +829,7 @@ function createRenderActor(entityState, pose, appearance, scale) {
       scale,
       footHeights: { left: 0, right: 0 },
       shadowOpacity: 0.16,
+      grounded: false,
     };
   }
 
@@ -817,6 +852,7 @@ function createRenderActor(entityState, pose, appearance, scale) {
       right: baseY - rightGroundY,
     },
     shadowOpacity: 0.24,
+    grounded: true,
   };
 }
 
@@ -1117,6 +1153,31 @@ function bindBgmControls() {
   });
 }
 
+function bindAppearanceControls() {
+  populateAppearanceSelect(playerHairStyle, HAIR_STYLE_OPTIONS);
+  populateAppearanceSelect(playerHairColor, HAIR_COLOR_OPTIONS);
+
+  const appearanceState = getPlayerAppearanceState();
+  playerHairStyle.value = appearanceState.hairStyle;
+  playerHairColor.value = appearanceState.hairColor;
+
+  playerHairStyle.addEventListener('change', () => {
+    playableCharacter.setAttribute('appearance', {
+      ...getPlayerAppearanceState(),
+      hairStyle: playerHairStyle.value,
+    });
+    render(Number(keys.right) - Number(keys.left));
+  });
+
+  playerHairColor.addEventListener('change', () => {
+    playableCharacter.setAttribute('appearance', {
+      ...getPlayerAppearanceState(),
+      hairColor: playerHairColor.value,
+    });
+    render(Number(keys.right) - Number(keys.left));
+  });
+}
+
 function gameLoop(now) {
   const deltaSeconds = Math.min((now - lastFrame) / 1000, 1 / 30);
   lastFrame = now;
@@ -1206,6 +1267,17 @@ function isMovementKey(code) {
   return ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'KeyA', 'KeyD', 'KeyW', 'Space'].includes(code);
 }
 
+function populateAppearanceSelect(select, options) {
+  select.replaceChildren();
+
+  for (const optionDefinition of options) {
+    const option = document.createElement('option');
+    option.value = optionDefinition.value;
+    option.textContent = optionDefinition.label;
+    select.append(option);
+  }
+}
+
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
@@ -1289,6 +1361,7 @@ window.addEventListener('blur', clearMovementInputs);
 worldState.fieldCritters = createFieldCritters(stageMetrics);
 bindTouchControls();
 bindBgmControls();
+bindAppearanceControls();
 syncTouchUiMode();
 syncBgmMood();
 syncBgmUi();

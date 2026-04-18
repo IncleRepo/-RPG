@@ -346,6 +346,11 @@ input[type='range'] {
   gap: 12px;
 }
 
+.collection-grid--single {
+  grid-template-columns: 1fr;
+  margin-top: 12px;
+}
+
 .collection-card strong {
   display: block;
   font-size: 1.05rem;
@@ -378,6 +383,10 @@ kbd {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 12px;
   margin-bottom: 14px;
+}
+
+.appearance-grid {
+  margin-bottom: 0;
 }
 
 .form-field {

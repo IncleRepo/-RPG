@@ -16,9 +16,9 @@
         <p class="eyebrow">Canvas Animation Runtime</p>
         <h1>게임 렌더링을 캔버스 중심으로 전환했습니다.</h1>
         <p class="hero-copy">
-          플레이 화면은 이제 DOM 파츠 대신 캔버스에서 직접 렌더링됩니다. 플레이어와 NPC는 동일한 본
-          리그를 공유하고, 지형 높이에 맞춰 발 위치를 보정하는 간단한 IK를 적용해 애니메이션을
-          그립니다.
+          플레이 화면은 캔버스에서 직접 렌더링되며, 캐릭터는 개선된 본 리그와 무릎/발목 관절, 경사
+          대응 IK를 사용합니다. 플레이어 머리 스타일과 색상은 실시간으로 바꿀 수 있고, 동일한 리그가
+          NPC와 애니메이터에도 그대로 반영됩니다.
         </p>
         <nav class="page-links" aria-label="페이지 이동">
           <a class="page-link" aria-current="page" href="./index.html">게임 런타임</a>
@@ -128,6 +128,29 @@
                 <strong id="character-equipment">0 equipped</strong>
               </div>
             </div>
+            <div class="collection-grid collection-grid--single">
+              <div class="collection-card">
+                <span class="hud-label">Appearance</span>
+                <strong id="character-appearance">어드벤처 레이어 · 체스트넛</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h2>Appearance Lab</h2>
+            <p class="panel-copy">
+              머리 스타일과 색상을 바꾸면 런타임 캐릭터와 상태 패널에 즉시 반영됩니다.
+            </p>
+            <div class="control-grid appearance-grid">
+              <label class="form-field">
+                <span>Hair Style</span>
+                <select id="player-hair-style"></select>
+              </label>
+              <label class="form-field">
+                <span>Hair Color</span>
+                <select id="player-hair-color"></select>
+              </label>
+            </div>
           </section>
 
           <section class="panel">
@@ -137,7 +160,8 @@
               <li><kbd>W</kbd> / <kbd>↑</kbd> / <kbd>Space</kbd> 로 점프</li>
               <li>치즈루 근처에서 <kbd>E</kbd> 로 대사를 확인할 수 있습니다</li>
               <li>모바일에서는 화면 하단 터치 버튼으로 이동, 점프, 대화를 테스트할 수 있습니다</li>
-              <li>뼈대 애니메이션과 발 IK는 캔버스에서 바로 반영됩니다</li>
+              <li>개선된 무릎/발목 관절과 지형 대응 IK가 캔버스에 바로 반영됩니다</li>
+              <li>오른쪽 Appearance Lab에서 머리 스타일과 색상을 실시간으로 바꿀 수 있습니다</li>
             </ul>
           </section>
 
@@ -209,11 +233,16 @@
               </div>
               <div>
                 <dt>애니메이션</dt>
-                <dd>본 기반 포즈와 키프레임 클립으로 대기, 질주, 점프, 낙하를 표현합니다.</dd>
+                <dd>
+                  추가된 무릎/발목 채널과 새 키프레임으로 더 자연스러운 걷기와 점프를 표현합니다.
+                </dd>
               </div>
               <div>
                 <dt>IK</dt>
-                <dd>지형 높이를 샘플링해 발목 위치를 보정하고 무릎 각도를 다시 계산합니다.</dd>
+                <dd>
+                  지형 높이를 샘플링해 발목 위치를 보정하고, 최대 신장 제한으로 공중 찢어짐을
+                  줄입니다.
+                </dd>
               </div>
               <div>
                 <dt>툴</dt>

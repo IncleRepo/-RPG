@@ -72,9 +72,9 @@ const SCENARIOS = [
     id: 'ik-balance',
     name: '가장자리 IK',
     description:
-      '높은 발판 끝에 걸쳐 섰을 때 지지 중인 발판 기준으로 몸통 높이가 유지되는지 확인하는 시나리오입니다.',
+      '높은 발판 끝에 걸쳐 섰을 때 support surface 기준선이 유지되고, 바깥쪽 다리만 아래로 늘어나는지 확인하는 시나리오입니다.',
     expectation:
-      '리셋 직후나 오른쪽으로 조금 더 이동했을 때 support는 ledge를 유지하고, 몸통은 주저앉지 않은 채 바깥쪽 다리만 아래로 늘어나야 합니다.',
+      '리셋 직후나 오른쪽으로 조금 더 이동했을 때 support는 ledge를 유지하고, 휴머노이드 기준선은 ledge 높이에 고정된 채 바깥쪽 다리만 아래로 늘어나야 합니다.',
     spawn: {
       surface: 'ledge',
       x: 512,
@@ -494,8 +494,16 @@ function drawFootingGuides(context, playerState, visualState) {
     return;
   }
 
-  const { leftFootWorldX, rightFootWorldX, leftGroundY, rightGroundY, supportGroundY } =
-    visualState.footing;
+  const {
+    centerX,
+    baseY,
+    leftFootWorldX,
+    rightFootWorldX,
+    leftGroundY,
+    rightGroundY,
+    supportSampleX,
+    supportGroundY,
+  } = visualState.footing;
 
   context.save();
   context.lineWidth = 2;
@@ -512,11 +520,22 @@ function drawFootingGuides(context, playerState, visualState) {
   context.lineTo(rightFootWorldX, rightGroundY);
   context.stroke();
 
+  context.setLineDash([4, 6]);
+  context.strokeStyle = 'rgba(45, 111, 161, 0.56)';
+  context.beginPath();
+  context.moveTo(centerX, LAB_STAGE.height - playerState.y);
+  context.lineTo(centerX, baseY);
+  context.stroke();
+
   context.setLineDash([10, 8]);
   context.strokeStyle = 'rgba(203, 126, 56, 0.5)';
   context.beginPath();
   context.moveTo(playerState.x - 18, supportGroundY);
   context.lineTo(playerState.x + playerState.width + 18, supportGroundY);
+  context.stroke();
+  context.beginPath();
+  context.moveTo(supportSampleX, LAB_STAGE.height - playerState.y);
+  context.lineTo(supportSampleX, supportGroundY);
   context.stroke();
   context.restore();
 
@@ -528,6 +547,22 @@ function drawFootingGuides(context, playerState, visualState) {
   context.beginPath();
   context.arc(rightFootWorldX, rightGroundY, 4, 0, Math.PI * 2);
   context.fill();
+  context.fillStyle = '#cb7e38';
+  context.beginPath();
+  context.arc(supportSampleX, supportGroundY, 4, 0, Math.PI * 2);
+  context.fill();
+  context.fillStyle = '#2d6fa1';
+  context.beginPath();
+  context.arc(centerX, baseY, 4, 0, Math.PI * 2);
+  context.fill();
+  context.font = '12px "Noto Sans KR", sans-serif';
+  context.fillStyle = '#357345';
+  context.fillText('L', leftFootWorldX + 8, leftGroundY - 8);
+  context.fillText('R', rightFootWorldX + 8, rightGroundY - 8);
+  context.fillStyle = '#cb7e38';
+  context.fillText('S', supportSampleX + 8, supportGroundY - 8);
+  context.fillStyle = '#2d6fa1';
+  context.fillText('H', centerX + 8, baseY - 8);
   context.restore();
 }
 
@@ -537,7 +572,7 @@ function drawHud(context, scenario, playerState, frameEvents, visualState) {
   context.strokeStyle = 'rgba(25, 48, 74, 0.08)';
   context.lineWidth = 1;
   context.beginPath();
-  context.roundRect(24, 24, 428, 108, 18);
+  context.roundRect(24, 24, 428, 128, 18);
   context.fill();
   context.stroke();
 
@@ -571,7 +606,8 @@ function drawHud(context, scenario, playerState, frameEvents, visualState) {
     186,
     94
   );
-  context.fillText('R로 리셋 / A,D,W 또는 방향키 사용', 186, 114);
+  context.fillText(getHudSampleLabel(visualState.footing), 186, 114);
+  context.fillText('R로 리셋 / A,D,W 또는 방향키 사용', 186, 134);
   context.restore();
 }
 
@@ -615,8 +651,20 @@ function formatVisualDebugSuffix(footing) {
 
   return (
     ` / base ${Math.round(footing.baseY)}` +
+    ` / support ${Math.round(footing.supportGroundY)} @ ${Math.round(footing.supportSampleX)}` +
     ` / foot L ${formatSigned(Math.round(footing.footHeights.left))}` +
     ` / foot R ${formatSigned(Math.round(footing.footHeights.right))}`
+  );
+}
+
+function getHudSampleLabel(footing) {
+  if (!footing) {
+    return 'sample 없음';
+  }
+
+  return (
+    `H ${Math.round(footing.centerX)},${Math.round(footing.baseY)} / ` +
+    `S ${Math.round(footing.supportSampleX)},${Math.round(footing.supportGroundY)}`
   );
 }
 

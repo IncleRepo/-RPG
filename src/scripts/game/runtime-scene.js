@@ -216,10 +216,11 @@ export function resolveGroundedHumanoidFooting(entityState, pose, stageMetrics) 
     entityState.supportIndex !== null && entityState.supportIndex !== undefined
       ? stageMetrics.platforms[entityState.supportIndex]
       : null;
+  const supportSampleX = support ? clamp(centerX, support.left, support.right) : centerX;
   const supportGroundY = support
-    ? sampleVisualTerrainY(clamp(centerX, support.left, support.right), [support])
+    ? sampleVisualTerrainY(supportSampleX, [support])
     : Math.min(leftGroundY, rightGroundY);
-  const baseY = Math.min(leftGroundY, rightGroundY, supportGroundY);
+  const baseY = support ? supportGroundY : Math.min(leftGroundY, rightGroundY);
 
   return {
     centerX,
@@ -227,6 +228,7 @@ export function resolveGroundedHumanoidFooting(entityState, pose, stageMetrics) 
     rightFootWorldX,
     leftGroundY,
     rightGroundY,
+    supportSampleX,
     supportGroundY,
     baseY,
     footHeights: {

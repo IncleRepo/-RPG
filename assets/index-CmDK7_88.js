@@ -1,4 +1,4 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const r of s)if(r.type==="childList")for(const c of r.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&n(c)}).observe(document,{childList:!0,subtree:!0});function a(s){const r={};return s.integrity&&(r.integrity=s.integrity),s.referrerPolicy&&(r.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?r.credentials="include":s.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function n(s){if(s.ep)return;s.ep=!0;const r=a(s);fetch(s.href,r)}})();const P=""+new URL("01-tides-of-the-unarrived-dawn-s_Ku7bdq.mp3",import.meta.url).href,I=""+new URL("02-twilight-over-mirajin-Bp0rsTe1.mp3",import.meta.url).href,O=""+new URL("03-saltglass-horizon-DWtSCHK_.mp3",import.meta.url).href,C=""+new URL("04-inverted-harbor-of-kadel-C4m1LfRM.mp3",import.meta.url).href,B=""+new URL("05-fracture-chase-CD2c6Hvv.mp3",import.meta.url).href,j=""+new URL("06-bellshard-skirmish-_gbuKm7S.mp3",import.meta.url).href,U=""+new URL("07-whispers-beneath-the-orchard-C9gNFPhc.mp3",import.meta.url).href,A=""+new URL("08-abyssal-choir-reborn-dIGgSxeB.mp3",import.meta.url).href,h=Object.freeze([{id:"main-theme",title:"Tides Of The Unarrived Dawn",koreanTitle:"반향해 연대기 메인 테마",category:"타이틀 / 메인 테마",accent:"gold",durationLabel:"1:50",chapters:"전체 공통",sceneUse:"타이틀, 핵심 컷신 회고, 메인 메뉴 대표곡",mood:"장엄한 바다 판타지, 비터스위트한 상실, 앞으로 나아가야 하는 의지",instrumentation:"현악, 피아노, 호른, 유리 질감 벨, 깊은 저역 퍼커션",summary:"세계관의 규모감과 플레이어의 책임감을 동시에 들려주는 대표 테마입니다.",src:P,fileName:"assets/audio/01-tides-of-the-unarrived-dawn.mp3"},{id:"mirajin-hub",title:"Twilight Over Mirajin",koreanTitle:"미라진 황혼 허브",category:"마을 / 허브 지역",accent:"coral",durationLabel:"2:40",chapters:"프롤로그",sceneUse:"항구 조사, 출항 전 대화, 미라진 탐색",mood:"사라진 새벽의 정적, 조용한 죄책감, 아직 남아 있는 희망",instrumentation:"펠트 피아노, 저목관, 부드러운 현, 먼 종소리",summary:"영원한 황혼에 잠긴 항구의 쓸쓸함을 허브 탐색에 맞는 밀도로 정리한 곡입니다.",src:I,fileName:"assets/audio/02-twilight-over-mirajin.mp3"},{id:"glass-salt-exploration",title:"Saltglass Horizon",koreanTitle:"유리염 사구 탐험",category:"탐험",accent:"teal",durationLabel:"3:14",chapters:"챕터 1",sceneUse:"사구 필드 이동, 폐채굴 첨탑 전 탐험, 구조 동선 이동",mood:"황량함, 생존감, 묻힌 기억의 메아리, 넓은 수평선",instrumentation:"공기감 있는 현, 부드러운 타악, 유리성 타건, 낮은 첼로",summary:"미래가 메마른 땅의 공허함과 탐험 리듬을 함께 살리는 메인 필드 테마입니다.",src:O,fileName:"assets/audio/03-saltglass-horizon.mp3"},{id:"kadel-city",title:"Inverted Harbor Of Kadel",koreanTitle:"역항도 카델",category:"도시 / 정치 긴장",accent:"plum",durationLabel:"4:05",chapters:"챕터 2",sceneUse:"카델 진입, 도시 조사, 협상 이후 이동 구간",mood:"우아한 압박감, 불안한 균형, 규율의 아름다움과 냉기",instrumentation:"말렛 오스티나토, 절제된 브라스, 정교한 현, 기계 펄스",summary:"질서로 떠받친 도시의 위압감을 과도한 소음 없이 유지하도록 설계한 곡입니다.",src:C,fileName:"assets/audio/04-inverted-harbor-of-kadel.mp3"},{id:"crisis-pursuit",title:"Fracture Chase",koreanTitle:"붕괴 추적과 긴장",category:"긴장 / 추적",accent:"slate",durationLabel:"3:20",chapters:"프롤로그, 챕터 1, 챕터 2, 엔딩",sceneUse:"시계탑 탈출, 구조전 직전, 카델 붕괴, 산호궁 붕괴 구간",mood:"급박한 이동, 무너지는 구조물, 사람을 먼저 구해야 하는 압력",instrumentation:"빠른 현 리듬, 깊은 탐, 절제된 신스 펄스, 짧은 금관 액센트",summary:"추격과 재난 상황에서 긴장을 끌어올리되 피로한 자극음으로 흐르지 않게 조정한 액션 트랙입니다.",src:B,fileName:"assets/audio/05-fracture-chase.mp3"},{id:"battle-skirmish",title:"Bellshard Skirmish",koreanTitle:"일반 전투",category:"전투",accent:"rose",durationLabel:"2:52",chapters:"전 챕터 공통",sceneUse:"일반 전투, 균열 생물 교전, 중간 보스 전 전반",mood:"전투 추진력, 영웅성, 비극의 그림자가 남아 있는 긴장감",instrumentation:"리듬 현, 브라스, 저역 타격, 어두운 드론",summary:"스토리 중심 RPG에 맞춰 추진력은 확보하되 과도한 공격성은 피한 공용 전투 곡입니다.",src:j,fileName:"assets/audio/06-bellshard-skirmish.mp3"},{id:"orchard-revelation",title:"Whispers Beneath The Orchard",koreanTitle:"감정 이벤트와 진실",category:"감정 이벤트",accent:"teal",durationLabel:"3:05",chapters:"챕터 3",sceneUse:"속삭임 과수원, 사야 렌 고백, 척추탑 진실 공개",mood:"친밀감, 후회, 신뢰, 돌이킬 수 없는 진실의 무게",instrumentation:"피아노, 솔로 첼로, 하프, 유리 하모닉, 숨 쉬는 듯한 현",summary:"관계와 진실이 동시에 무너져 내리는 장면을 위해 설계한 감정 축 중심 테마입니다.",src:U,fileName:"assets/audio/07-whispers-beneath-the-orchard.mp3"},{id:"boss-ending",title:"Abyssal Choir Reborn",koreanTitle:"최종 결전과 엔딩",category:"보스전 / 엔딩",accent:"gold",durationLabel:"3:05",chapters:"엔딩",sceneUse:"심연의 합창기 보스전, 마지막 선택, 엔딩 크레딧",mood:"압도적 결전, 세계의 무게, 비터스위트한 새벽과 후일담",instrumentation:"거대한 저현, 브라스, 깊은 종소리, 피아노, 열리는 현 합주",summary:"최종 보스전의 중압감에서 엔딩의 여운까지 한 곡 안에서 아우르는 대서사 트랙입니다.",src:A,fileName:"assets/audio/08-abyssal-choir-reborn.mp3"}]),M=`# 반향해 연대기
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const r of s)if(r.type==="childList")for(const c of r.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&n(c)}).observe(document,{childList:!0,subtree:!0});function a(s){const r={};return s.integrity&&(r.integrity=s.integrity),s.referrerPolicy&&(r.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?r.credentials="include":s.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function n(s){if(s.ep)return;s.ep=!0;const r=a(s);fetch(s.href,r)}})();const I=""+new URL("01-tides-of-the-unarrived-dawn-s_Ku7bdq.mp3",import.meta.url).href,N=""+new URL("02-twilight-over-mirajin-Bp0rsTe1.mp3",import.meta.url).href,H=""+new URL("03-saltglass-horizon-DWtSCHK_.mp3",import.meta.url).href,U=""+new URL("04-inverted-harbor-of-kadel-C4m1LfRM.mp3",import.meta.url).href,O=""+new URL("05-fracture-chase-CD2c6Hvv.mp3",import.meta.url).href,C=""+new URL("06-bellshard-skirmish-_gbuKm7S.mp3",import.meta.url).href,B=""+new URL("07-whispers-beneath-the-orchard-C9gNFPhc.mp3",import.meta.url).href,j=""+new URL("08-abyssal-choir-reborn-dIGgSxeB.mp3",import.meta.url).href,h=Object.freeze([{id:"main-theme",title:"Tides Of The Unarrived Dawn",koreanTitle:"반향해 연대기 메인 테마",category:"타이틀 / 메인 테마",accent:"gold",durationLabel:"1:50",chapters:"전체 공통",sceneUse:"타이틀, 핵심 컷신 회고, 메인 메뉴 대표곡",mood:"장엄한 바다 판타지, 비터스위트한 상실, 앞으로 나아가야 하는 의지",instrumentation:"현악, 피아노, 호른, 유리 질감 벨, 깊은 저역 퍼커션",summary:"세계관의 규모감과 플레이어의 책임감을 동시에 들려주는 대표 테마입니다.",src:I,fileName:"assets/audio/01-tides-of-the-unarrived-dawn.mp3"},{id:"mirajin-hub",title:"Twilight Over Mirajin",koreanTitle:"미라진 황혼 허브",category:"마을 / 허브 지역",accent:"coral",durationLabel:"2:40",chapters:"프롤로그",sceneUse:"항구 조사, 출항 전 대화, 미라진 탐색",mood:"사라진 새벽의 정적, 조용한 죄책감, 아직 남아 있는 희망",instrumentation:"펠트 피아노, 저목관, 부드러운 현, 먼 종소리",summary:"영원한 황혼에 잠긴 항구의 쓸쓸함을 허브 탐색에 맞는 밀도로 정리한 곡입니다.",src:N,fileName:"assets/audio/02-twilight-over-mirajin.mp3"},{id:"glass-salt-exploration",title:"Saltglass Horizon",koreanTitle:"유리염 사구 탐험",category:"탐험",accent:"teal",durationLabel:"3:14",chapters:"챕터 1",sceneUse:"사구 필드 이동, 폐채굴 첨탑 전 탐험, 구조 동선 이동",mood:"황량함, 생존감, 묻힌 기억의 메아리, 넓은 수평선",instrumentation:"공기감 있는 현, 부드러운 타악, 유리성 타건, 낮은 첼로",summary:"미래가 메마른 땅의 공허함과 탐험 리듬을 함께 살리는 메인 필드 테마입니다.",src:H,fileName:"assets/audio/03-saltglass-horizon.mp3"},{id:"kadel-city",title:"Inverted Harbor Of Kadel",koreanTitle:"역항도 카델",category:"도시 / 정치 긴장",accent:"plum",durationLabel:"4:05",chapters:"챕터 2",sceneUse:"카델 진입, 도시 조사, 협상 이후 이동 구간",mood:"우아한 압박감, 불안한 균형, 규율의 아름다움과 냉기",instrumentation:"말렛 오스티나토, 절제된 브라스, 정교한 현, 기계 펄스",summary:"질서로 떠받친 도시의 위압감을 과도한 소음 없이 유지하도록 설계한 곡입니다.",src:U,fileName:"assets/audio/04-inverted-harbor-of-kadel.mp3"},{id:"crisis-pursuit",title:"Fracture Chase",koreanTitle:"붕괴 추적과 긴장",category:"긴장 / 추적",accent:"slate",durationLabel:"3:20",chapters:"프롤로그, 챕터 1, 챕터 2, 엔딩",sceneUse:"시계탑 탈출, 구조전 직전, 카델 붕괴, 산호궁 붕괴 구간",mood:"급박한 이동, 무너지는 구조물, 사람을 먼저 구해야 하는 압력",instrumentation:"빠른 현 리듬, 깊은 탐, 절제된 신스 펄스, 짧은 금관 액센트",summary:"추격과 재난 상황에서 긴장을 끌어올리되 피로한 자극음으로 흐르지 않게 조정한 액션 트랙입니다.",src:O,fileName:"assets/audio/05-fracture-chase.mp3"},{id:"battle-skirmish",title:"Bellshard Skirmish",koreanTitle:"일반 전투",category:"전투",accent:"rose",durationLabel:"2:52",chapters:"전 챕터 공통",sceneUse:"일반 전투, 균열 생물 교전, 중간 보스 전 전반",mood:"전투 추진력, 영웅성, 비극의 그림자가 남아 있는 긴장감",instrumentation:"리듬 현, 브라스, 저역 타격, 어두운 드론",summary:"스토리 중심 RPG에 맞춰 추진력은 확보하되 과도한 공격성은 피한 공용 전투 곡입니다.",src:C,fileName:"assets/audio/06-bellshard-skirmish.mp3"},{id:"orchard-revelation",title:"Whispers Beneath The Orchard",koreanTitle:"감정 이벤트와 진실",category:"감정 이벤트",accent:"teal",durationLabel:"3:05",chapters:"챕터 3",sceneUse:"속삭임 과수원, 사야 렌 고백, 척추탑 진실 공개",mood:"친밀감, 후회, 신뢰, 돌이킬 수 없는 진실의 무게",instrumentation:"피아노, 솔로 첼로, 하프, 유리 하모닉, 숨 쉬는 듯한 현",summary:"관계와 진실이 동시에 무너져 내리는 장면을 위해 설계한 감정 축 중심 테마입니다.",src:B,fileName:"assets/audio/07-whispers-beneath-the-orchard.mp3"},{id:"boss-ending",title:"Abyssal Choir Reborn",koreanTitle:"최종 결전과 엔딩",category:"보스전 / 엔딩",accent:"gold",durationLabel:"3:05",chapters:"엔딩",sceneUse:"심연의 합창기 보스전, 마지막 선택, 엔딩 크레딧",mood:"압도적 결전, 세계의 무게, 비터스위트한 새벽과 후일담",instrumentation:"거대한 저현, 브라스, 깊은 종소리, 피아노, 열리는 현 합주",summary:"최종 보스전의 중압감에서 엔딩의 여운까지 한 곡 안에서 아우르는 대서사 트랙입니다.",src:j,fileName:"assets/audio/08-abyssal-choir-reborn.mp3"}]),R=`# 반향해 연대기
 
 ## 한 줄 개요
 
@@ -49,7 +49,7 @@
 - 큰 힘을 사용할수록 플레이어는 기억을 잃기 때문에,
   강한 선택과 정체성 보존 사이의 긴장이 핵심 시스템이 된다.
 - 지역마다 시간이 흐르는 방식이 달라 던전 구조와 퍼즐 규칙이 달라질 수 있다.
-`,H=`# 메인 스토리 구조
+`,A=`# 메인 스토리 구조
 
 ## 프롤로그: 내일이 오지 않은 항구
 
@@ -121,7 +121,534 @@
 - 플레이어가 잃어버린 기억 속에서 반복 등장하는 정체불명의 아이
 - 과거에 멈춘 채 주민들이 늙지 않는 어시장
 - 한 번도 오지 않은 겨울을 기다리는 북쪽 등대 마을
-`,R=`# 메인 시나리오 챕터 설계 개요
+`,M=`# 코어 게임 시스템 설계
+
+## 문서 목적
+
+이 문서는 \`반향해 연대기\`를 실제 플레이 가능한 게임으로 만들기 위해
+반드시 먼저 고정해야 하는 핵심 규칙을 정리한 기준안이다.
+
+이 문서를 기준으로 이후 구현자는 맵, 전투, UI, 세이브, 성장 시스템을
+같은 전제 위에서 나눠 개발해야 한다.
+
+이번 문서에서 우선 고정하는 것은 다음과 같다.
+
+- 게임 장르와 기본 조작 체계
+- 탐험과 전투가 이어지는 기본 플레이 루프
+- 플레이어 이동과 필드 상호작용 규칙
+- 전투 구조와 스킬 슬롯 체계
+- HP, 공명, 기억 부담 같은 핵심 자원
+- 성장, 장비, 강화, 세이브, 실패 패널티
+- 챕터별 시스템 해금 순서
+
+## 핵심 설계 원칙
+
+1. 이 게임은 \`짧은 전투 반복\`보다 \`탐험, 구조, 선택, 종편 회수\`가 중심인 스토리형 액션 RPG로 설계한다.
+2. 플레이어는 강해지되, 강한 힘을 쓸수록 \`기억 부담\`이 쌓이는 구조를 유지한다.
+3. 일반 적과 필드 기믹은 챕터 보스전의 규칙을 미리 연습시키는 역할을 가져야 한다.
+4. 성장 방식은 \`몬스터 사냥 노가다\`가 아니라 \`챕터 진행과 종편 회수\` 중심으로 설계한다.
+5. 실패는 긴장감을 주되 플레이 리듬을 끊으면 안 되므로, 강한 벌금이나 긴 복귀 동선은 두지 않는다.
+
+## 게임 장르와 조작 방식
+
+- 장르 기준: \`싱글 플레이 2D 횡스크롤 탐험형 액션 RPG\`
+- 플레이 감각 기준: 필드 탐험, 조사, 짧은 실시간 전투, 기믹 퍼즐, 보스전, 챕터형 서사 진행
+- 카메라 기준: 한 화면 또는 인접 구역 단위로 이어지는 횡스크롤 카메라
+- 전투 방식: 별도 전투 화면 전환 없는 \`필드 실시간 전투\`
+- 조작 대상: 플레이어 1인 직접 조작
+- 동료 운용: 사야 렌, 라오 템, 유라 베인은 풀 파티 직접 조작 캐릭터가 아니라 \`동행 AI + 지원 스킬\` 구조로 처리한다.
+
+## 기본 입력 기준
+
+- 좌우 이동
+- 점프 1회
+- 짧은 회피 이동
+- 상호작용
+- 기본 공격
+- 장착 스킬 3종
+- 동행 지원 스킬 1종
+- 종편 공명 스킬 1종
+
+키 배치는 구현 단계에서 조정 가능하지만,
+기본 액션 수는 위 범위를 넘기지 않는 것을 원칙으로 한다.
+
+이유는 다음과 같다.
+
+- 브라우저 환경에서 과도한 입력 수는 피로도가 높다.
+- 이 프로젝트는 정밀 콤보 액션보다 탐험과 연출이 더 중요하다.
+- 추후 모바일 대응 시 가상 패드로도 축약 가능한 구조가 필요하다.
+
+## 기본 플레이 루프
+
+메인 플레이 루프는 아래 순서로 고정한다.
+
+1. 허브 또는 안전 구역에서 장비와 스킬을 정비한다.
+2. 챕터 지역에 진입해 조사, 구조, 대화, 환경 기믹을 수행한다.
+3. 일반 전투와 엘리트 전투를 통해 지역 규칙을 익힌다.
+4. 메인 던전 또는 핵심 구간에서 챕터 기믹을 확장한다.
+5. 보스전 또는 대형 전투 연출을 넘긴 뒤 \`종편\` 또는 핵심 기록을 회수한다.
+6. 회수한 종편으로 플레이어 성장 선택지를 해금하고 다음 항로로 이동한다.
+
+## 챕터 단위 루프
+
+각 메인 챕터는 아래 구성으로 맞춘다.
+
+1. 도착 연출과 지역 규칙 소개
+2. 주민 구조 또는 정보 조사 같은 비전투 목표
+3. 필드 탐험 구간
+4. 챕터 전용 기믹 구간
+5. 보스 또는 방어전
+6. 종편 회수와 감정 장면
+7. 다음 지역 좌표 개방
+
+이 구조를 유지하면 시나리오 문서에 적힌 장면과 시스템 구현이 자연스럽게 대응된다.
+
+## 플레이어 이동 구조
+
+플레이어 이동은 \`정밀 플랫포머\`가 아니라 \`탐험형 횡스크롤 액션\` 기준으로 설계한다.
+
+필수 이동 액션은 다음 다섯 가지다.
+
+- 걷기 또는 달리기
+- 점프 1회
+- 낙하 중 방향 제어
+- 짧은 회피 이동
+- 사다리, 밧줄, 승강 장치 상호작용
+
+## 이동 설계 원칙
+
+- 점프는 좁은 발판을 수십 번 반복하는 난도보다 \`지형 읽기\`와 \`타이밍\` 중심으로 사용한다.
+- 낙사 구간은 최소화하고, 대신 시간 균열 피해나 원위치 복귀형 위험 지형을 사용한다.
+- 맵은 \`넓은 수평 진행 + 짧은 수직 갈래\` 구조를 기본으로 삼는다.
+- 벽타기, 이단 점프, 복잡한 공중 콤보 이동은 기본 시스템에서 제외한다.
+- 챕터 기믹으로 일시적 중력 변화나 발판 고정이 들어가더라도 기본 입력 체계는 유지한다.
+
+## 탐험용 능력 구조
+
+여명 인양사 능력은 전투 전용이 아니라 필드 탐험에도 직접 연결한다.
+
+초기 기본 능력은 다음 셋으로 고정한다.
+
+### 선행 발자국
+
+- 용도: 짧은 거리 순간 이동 또는 잔향 발판 생성
+- 탐험 활용: 좁은 틈 건너기, 움직이는 발판 선점, 추격 구간 통과
+- 전투 활용: 적 후방 회피, 짧은 거리 위치 변경
+
+### 기억 닻
+
+- 용도: 짧은 시간 동안 특정 오브젝트나 상태를 고정
+- 탐험 활용: 무너지는 발판 유지, 이동 기믹 정지, 문 개방 타이밍 확보
+- 전투 활용: 적 패턴 지연, 투사체 묶기, 브레이크 보조
+
+### 미도착 상처
+
+- 용도: 받은 피해 일부를 지연
+- 탐험 활용: 위험 지형 강행 통과, 탈출 시퀀스 생존
+- 전투 활용: 큰 패턴을 한 번 버티고 반격 기회 확보
+
+이 세 능력은 프롤로그부터 차례로 소개하며,
+이후 종편 회수에 따라 강화형 파생 효과를 해금한다.
+
+## 전투 방식
+
+전투는 \`필드 실시간 전투\`로 고정한다.
+
+즉, 적과 접촉하면 별도 장면으로 전환되는 구조가 아니라
+현재 맵 안에서 바로 전투 상태로 들어간다.
+
+## 전투 기본 규칙
+
+- 일반 적은 짧고 빠르게 끝나는 교전이 기본이다.
+- 엘리트 적은 챕터 기믹 이해도를 검사하는 미니 보스 역할을 한다.
+- 보스는 패턴 학습, 환경 기믹, 종편 능력 활용을 모두 요구해야 한다.
+- 전투 중에는 일부 문이 잠기거나 카메라가 고정돼 \`전투 구역\`이 명확히 드러나야 한다.
+- 구조전, 방어전, 추격전도 모두 같은 기본 전투 시스템 위에 얹는다.
+
+## 기본 공격 구조
+
+플레이어는 \`주무기 1종\`을 끝까지 사용한다.
+무기를 여러 개 바꾸는 구조는 이번 프로젝트 범위에서 제외한다.
+
+대신 하나의 주무기에 모듈식 확장을 붙인다.
+
+기본 공격 세트는 다음과 같다.
+
+- 지상 기본 연타 3단
+- 눌러서 쓰는 강공격 1종
+- 점프 공격 1종
+- 낙하 공격 1종
+
+기본 공격의 역할은 다음과 같다.
+
+- 공명 게이지 수급
+- 적의 균열 게이지 누적
+- 스킬 쿨다운을 기다리는 동안의 기본 화력 유지
+
+## 적 브레이크 구조
+
+모든 엘리트와 보스는 \`균열 게이지\`를 가진다.
+
+- 기본 공격과 일부 스킬로 균열 게이지를 누적한다.
+- 게이지가 가득 차면 적이 \`붕괴 상태\`가 된다.
+- 붕괴 상태에서는 잠깐 행동이 멈추고 큰 피해를 받을 수 있다.
+
+이 구조를 두는 이유는 다음과 같다.
+
+- 버튼 연타만으로 끝나는 전투를 막는다.
+- 종편 능력 사용 타이밍을 분명하게 만든다.
+- 보스전에서 패턴 회피와 공격 기회를 자연스럽게 교차시킨다.
+
+## 스킬 구조
+
+스킬은 총 다섯 슬롯으로 정리한다.
+
+1. 장착 액티브 스킬 3종
+2. 동행 지원 스킬 1종
+3. 종편 공명 스킬 1종
+
+## 액티브 스킬 3종
+
+액티브 스킬은 아래 세 카테고리에서 고르게 한다.
+
+- 공격형: 직선 참격, 범위 파동, 표식 폭발
+- 제어형: 속박, 브레이크 가속, 투사체 정지
+- 생존형: 회복 보조, 보호막, 피해 지연 강화
+
+구현 기준은 다음과 같다.
+
+- 플레이어는 전투 전 메뉴에서 3종만 장착 가능하다.
+- 전투 중 교체는 불가하다.
+- 각 스킬은 \`공명 소모 + 쿨다운\`을 동시에 가진다.
+- 같은 역할군 스킬을 중복 장착할 수는 있지만, 기본 추천 조합은 공격 1, 제어 1, 생존 1이다.
+
+## 동행 지원 스킬 1종
+
+동료는 상시 플레이어 옆에서 난전을 만들기보다
+짧은 지원 액션을 호출하는 방식이 적합하다.
+
+예시 기준은 다음과 같다.
+
+- 사야 렌: 분석 표식, 적 약점 노출, 기록 장치로 범위 슬로우
+- 라오 템: 구조 와이어 투척, 보호막, 적 밀쳐내기
+- 유라 베인: 정지 장 생성, 탄막 차단, 광역 제어
+
+동행 지원은 쿨다운이 길고 위력이 확실해야 한다.
+그래야 동료가 서사상 중요한 존재로 느껴진다.
+
+## 종편 공명 스킬 1종
+
+종편 공명 스킬은 이 게임의 \`강한 힘 = 대가\`를 대표하는 핵심 슬롯이다.
+
+- 매우 강력한 효과를 가진다.
+- 일반 공명보다 큰 자원 소모를 요구한다.
+- 사용 시 \`기억 부담\`이 누적된다.
+- 챕터 종편 회수에 따라 새로운 공명 스킬이나 강화 효과가 열린다.
+
+종편 공명은 보스전 마무리용 필살기라기보다
+전투 흐름을 뒤집는 결정적인 선택지로 설계해야 한다.
+
+## HP 및 자원 개념
+
+플레이어의 핵심 자원은 세 가지다.
+
+### HP
+
+- 캐릭터 생존 자원
+- 0이 되면 전투 불능
+- 회복은 회복 아이템, 안전 구역, 특정 스킬로 가능
+
+### 공명
+
+- 기본 스킬 사용 자원
+- 기본 공격 적중, 정밀 회피 성공, 특정 오브젝트 파괴 시 일부 회복
+- 일반 전투 후에는 자동으로 일정 비율 회복
+
+### 기억 부담
+
+- 강한 미래 개입의 대가를 표현하는 누적 자원
+- 종편 공명 사용, 강제 부활, 특정 스토리 이벤트에서 증가
+- 일반 휴식만으로는 완전히 사라지지 않고 \`닻 포인트\`에서만 크게 정리된다.
+
+## 기억 부담 단계 규칙
+
+기억 부담은 단순 연출 수치가 아니라 실제 플레이에 영향을 줘야 한다.
+
+세 단계로 나누는 것을 기준으로 한다.
+
+1. 낮음: 연출 변화만 발생
+2. 중간: 공명 회복 효율 감소 또는 종편 공명 쿨다운 증가
+3. 높음: 최대 HP 소폭 감소, 화면 왜곡, 일부 대사 반응 변화
+
+단, 기억 부담 때문에 게임이 막히면 안 된다.
+
+따라서 다음 제한을 둔다.
+
+- 기억 부담으로 스토리 진행이 봉쇄되지는 않는다.
+- 벌점은 \`불편하지만 감당 가능한 수준\`에 그쳐야 한다.
+- 닻 포인트에 도달하면 한 단계 이상 완화된다.
+
+## 회복 아이템 구조
+
+소모품은 많게 늘리지 않는다.
+
+기본 분류는 다음 두 가지면 충분하다.
+
+- 응급 회복제: HP 회복
+- 공명 소금결: 공명 일부 회복
+
+회복 아이템은 들고 다니는 수량 제한을 둔다.
+대량 파밍보다 \`다음 안전 구역까지 버틴다\`는 긴장을 만드는 방향이 맞다.
+
+## 경험치와 레벨링 유무
+
+이 게임은 \`적 처치 경험치 기반 레벨업\`을 사용하지 않는다.
+
+대신 아래 구조를 사용한다.
+
+- 메인 성장 축: 종편 회수
+- 보조 성장 축: 기억 조각, 지역 기록, 구조 목표 달성
+
+즉, 일반 적을 반복해서 잡아 레벨을 올리는 구조는 배제한다.
+
+## 성장 구조
+
+플레이어 성장은 \`인양 등급\`과 \`공명 노드\` 두 축으로 정리한다.
+
+### 인양 등급
+
+- 프롤로그 포함 총 5단계
+- 각 메인 챕터 완료 시 한 단계 상승
+- 상승 효과: 최대 HP 증가, 액티브 스킬 강화 포인트 지급, 장비 강화 상한 해금
+
+### 공명 노드
+
+- 종편 회수 또는 선택형 목표 달성 시 해금
+- 세 갈래 중 하나에 투자
+- 공격, 생존, 조율 세 계통으로 구분
+
+예시 기준은 다음과 같다.
+
+- 공격: 강공격 강화, 붕괴 피해 증가, 종편 공명 공격력 증가
+- 생존: 최대 HP 증가, 지연 피해 감소, 회피 무적 시간 소폭 증가
+- 조율: 공명 회복량 증가, 기억 닻 지속 시간 증가, 지원 스킬 쿨다운 감소
+
+이 구조를 쓰면 구현 난도가 지나치게 커지지 않으면서도
+플레이어 빌드 차이를 만들 수 있다.
+
+## 장비 및 강화 방식
+
+장비는 \`드랍 파밍 RPG\`가 아니라 \`정해진 장비 슬롯을 강화하는 방식\`으로 설계한다.
+
+장비 슬롯은 세 개로 고정한다.
+
+1. 주무기 모듈
+2. 공명 장치
+3. 항해 부적
+
+## 주무기 모듈
+
+- 기본 공격 감각을 바꾸는 핵심 장비
+- 연타 속도형, 브레이크형, 강공격형 같은 방향성 차이를 준다.
+
+## 공명 장치
+
+- 스킬 성질을 바꾼다.
+- 예: \`기억 닻 지속 증가\`, \`선행 발자국 이동 거리 증가\`, \`공명 소모 감소\`
+
+## 항해 부적
+
+- 패시브 성능 슬롯
+- 예: 구조 대상 회복량 증가, 환경 피해 감소, 보스전 첫 붕괴 피해 증가
+
+## 강화 재화 기준
+
+강화 재화는 네 종류 이상으로 늘리지 않는다.
+
+- 소금결 파편: 기본 공용 재화
+- 종편 잔향: 주요 강화 재화
+- 지역 특산 재료: 챕터별 강화 재료
+
+일반 적은 기본 공용 재화를 주고,
+탐험 보상과 구조 보상이 주요 강화 재화를 주는 쪽이 이 게임 방향에 맞다.
+
+## 장비 설계 원칙
+
+- 랜덤 옵션 장비는 넣지 않는다.
+- 희귀 장비 파밍보다 \`고정 장비를 어떻게 개조할지\`가 더 중요해야 한다.
+- 지역 보상은 장비 자체보다 \`개조 부품\`이나 \`새 스킬 설계도\`가 적합하다.
+
+## 세이브 및 체크포인트 방식
+
+세이브는 브라우저 환경을 고려해 \`자동 저장 + 제한적 수동 저장\` 조합으로 간다.
+
+## 자동 저장 기준
+
+아래 시점마다 자동 저장한다.
+
+- 챕터 시작
+- 새 지역 진입
+- 보스전 직전
+- 종편 회수 직후
+- 챕터 종료 직전 선택 장면
+
+## 수동 저장 기준
+
+- 허브 선실
+- 닻 포인트
+
+수동 저장 슬롯은 \`3개\`를 기본으로 하고,
+별도 \`자동 저장 슬롯 1개\`를 둔다.
+
+## 닻 포인트 규칙
+
+닻 포인트는 다음 기능을 함께 가진다.
+
+- 체크포인트
+- HP 및 공명 대량 회복
+- 기억 부담 완화
+- 장비 교체
+- 스킬 재장착
+- 빠른 이동 해금
+
+즉, 다크 판타지식 반복 사망 루프의 휴식 포인트가 아니라
+\`챕터 진행을 정리하는 안전 구역\`에 더 가깝다.
+
+## 게임오버와 실패 패널티
+
+플레이어가 쓰러지면 마지막 닻 포인트나 직전 전투 체크포인트로 복귀한다.
+
+실패 패널티는 아래처럼 고정한다.
+
+- 메인 퀘스트 진행도 유지
+- 종편, 기록 문서, 해금한 지름길 유지
+- 직전 체크포인트 이후 얻은 기본 재화 일부만 손실
+- 기억 부담 소폭 증가
+
+## 실패 패널티를 이렇게 두는 이유
+
+- 이 게임의 핵심 재미는 재도전보다 이야기와 지역 규칙 체험에 있다.
+- 긴 시체 회수 동선은 템포를 해친다.
+- 대신 \`재화 일부 손실 + 기억 부담 증가\`로 긴장감만 남긴다.
+
+## 구조 임무 실패 규칙
+
+일반 전투 실패와 별도로,
+구조전이나 방어전은 \`부분 실패\`를 허용하는 편이 좋다.
+
+예를 들어 다음처럼 처리한다.
+
+- 주민 일부 구조 실패
+- 추가 보상 감소
+- 다음 대사와 기록 문서 변화
+- 특정 상점 재고 또는 지원 효과 감소
+
+즉, 무조건 게임오버보다 \`서사와 보상 변화\`로 반응하는 시스템이 이 작품에 더 어울린다.
+
+## 챕터형 진행 구조와 시스템 연결
+
+챕터는 스토리 구분선이자 시스템 해금 단위다.
+
+각 챕터에서 반드시 하나의 \`새 지역 기믹\`과 하나의 \`성장 해금\`이 발생해야 한다.
+
+## 프롤로그
+
+- 해금: 선행 발자국, 미도착 상처
+- 역할: 이동, 조사, 기본 전투, 새벽 청취 튜토리얼
+
+## 챕터 1 유리염 사구
+
+- 해금: 기억 닻 기본형
+- 지역 기믹: 무너지는 지형, 구조 임무, 환경 피해
+- 시스템 강조점: 넓은 필드 탐험, 구조형 목표, 첫 종편 성장
+
+## 챕터 2 역항도 카델
+
+- 해금: 중력 변화 대응 강화 또는 지원 스킬 확장
+- 지역 기믹: 중력 반전, 시민 보호전, 입체 경로
+- 시스템 강조점: 전투와 구조 우선순위 압박, 동행 지원 활용
+
+## 챕터 3 속삭임 과수원 / 척추탑
+
+- 해금: 감정 잔향 추적 강화, 종편 공명 고급 효과
+- 지역 기믹: 선택되지 않은 경로 퍼즐, 대사 기반 단서 수집
+- 시스템 강조점: 감정 이벤트와 전투 기믹 통합, 기억 부담 체감 강화
+
+## 엔딩 침묵 산호궁
+
+- 해금: 모든 종편 공명 완성
+- 지역 기믹: 복합 패턴, 동료 입장 회수, 최종 선택
+- 시스템 강조점: 지금까지 배운 이동, 제어, 지원, 공명 스킬의 종합 평가
+
+## 동료 시스템 기준
+
+동료는 전투력보다 \`상황 해결 방식\`의 차이를 보여 주는 시스템으로 설계한다.
+
+기본 규칙은 다음과 같다.
+
+- 챕터별 주동행 동료는 1명 또는 2명
+- 동료는 자동 전투 보조보다 지원 호출 비중이 크다.
+- 주요 감정 장면 이후 동료 지원 스킬이 강화되거나 변형된다.
+- 동료 호감도 수치를 별도 RPG 시스템처럼 세분화하지는 않는다.
+
+대신 챕터 선택과 구조 성공 여부에 따라
+\`동료 신뢰 상태\`를 서브 플래그로 관리하는 구조가 적합하다.
+
+## 퀘스트 구조 기준
+
+퀘스트는 세 종류로 나눈다.
+
+- 메인 퀘스트: 종편 회수와 챕터 진행
+- 지역 퀘스트: 주민 구조, 기록 복원, 지역 문제 해결
+- 정서 퀘스트: 동료 대화, 과거 흔적 추적, 관계 회수
+
+지역 퀘스트와 정서 퀘스트는 메인 진행을 막지 않지만,
+성장 보상과 엔딩 감정 밀도를 높이는 역할을 해야 한다.
+
+## UI 구현 기준
+
+최소 HUD는 아래 정보만 항상 보여 주면 된다.
+
+- HP
+- 공명
+- 기억 부담 단계
+- 장착 스킬 3종과 쿨다운
+- 지원 스킬 상태
+
+그 외 지도, 퀘스트 목표, 수집 기록은 메뉴 또는 축소 HUD로 처리한다.
+
+UI는 정보량보다 \`현재 위험과 선택지\`를 빠르게 읽히게 하는 쪽이 중요하다.
+
+## 구현 우선순위
+
+실제 구현은 아래 순서가 안전하다.
+
+1. 이동, 점프, 상호작용, 닻 포인트
+2. 기본 공격, 피격, 적 브레이크, 일반 전투 루프
+3. 선행 발자국과 기억 닻
+4. 공명 자원과 지원 스킬
+5. 챕터 1 구조전과 보스전
+6. 세이브, 성장, 장비 강화
+7. 기억 부담과 분기 반응
+8. 챕터별 특수 기믹 확장
+
+## 이번 문서의 최종 결정
+
+정리하면 이 게임은 다음 기준으로 고정한다.
+
+- \`싱글 플레이 2D 횡스크롤 탐험형 액션 RPG\`
+- \`필드 실시간 전투\`
+- \`플레이어 1인 직접 조작 + 동료 지원 스킬\`
+- \`기본 공격 + 액티브 3종 + 지원 1종 + 종편 공명 1종\`
+- \`HP + 공명 + 기억 부담\`의 3중 자원 구조
+- \`처치 경험치 없음\`, \`챕터/종편 중심 성장\`
+- \`랜덤 장비 파밍 없음\`, \`고정 장비 개조형 성장\`
+- \`자동 저장 + 닻 포인트 수동 저장\`
+- \`부분 실패 허용\`, \`과한 게임오버 벌칙 금지\`
+
+이 기준을 바꾸면 시나리오, 맵 구조, UI, 전투 템포가 함께 흔들린다.
+따라서 이후 구현 문서는 본 문서를 상위 기준으로 삼아야 한다.
+`,D=`# 메인 시나리오 챕터 설계 개요
 
 ## 문서 목적
 
@@ -340,7 +867,7 @@
 - 이후 서브 퀘스트 문서는 메인 챕터 문서의 빈 감정 구간을 보강하는 방식으로 붙인다.
 - 시나리오 라이터는 본 개요 문서의 화법 가이드를 기준으로
   챕터 문서에 적힌 장면 스크립트를 실제 대본으로 확장한다.
-`,q=`# 프롤로그: 내일이 오지 않은 항구
+`,G=`# 프롤로그: 내일이 오지 않은 항구
 
 ## 챕터 개요
 
@@ -581,7 +1108,7 @@
 - 프롤로그 종료 시점에는 세계관보다 "개인적 수수께끼"가 더 강하게 남아야 한다.
 - 주요 인물 대사는 짧지만 날카롭게 가져가고,
   현장 NPC 대사는 미라진 전체가 이미 시간 이상에 잠겼다는 증거처럼 배치한다.
-`,D=`# 챕터 1: 유리염 사구, 미래가 메마른 땅
+`,q=`# 챕터 1: 유리염 사구, 미래가 메마른 땅
 
 ## 챕터 개요
 
@@ -1079,7 +1606,7 @@
 - 시민 보호와 코어 유지 목표를 동시에 제시해 플레이 압박을 높이는 것이 좋다.
 - 유라의 대사는 차갑더라도 비아냥으로 흐르지 않게 조절하고,
   시민 대사는 \`질서 덕분에 살아남은 층\`과 \`질서 때문에 짓눌린 층\`이 모두 보이게 배치한다.
-`,G=`# 챕터 3: 잃어버린 하루들의 진실
+`,z=`# 챕터 3: 잃어버린 하루들의 진실
 
 ## 챕터 개요
 
@@ -1329,7 +1856,7 @@
 - 후반 선택의 설득력은 이 장에서 사야, 라오, 유라의 입장이 얼마나 공감되게 전달되는지에 달려 있다.
 - 스크립트 작업 시 사야, 라오, 플레이어 셋의 감정선을 같은 장면 안에서 꺾어 줘야
   엔딩 분기에서 특정 인물만 일방적으로 옳아 보이지 않는다.
-`,z=`# 엔딩: 침묵 산호궁과 마지막 새벽
+`,F=`# 엔딩: 침묵 산호궁과 마지막 새벽
 
 ## 챕터 개요
 
@@ -1630,7 +2157,7 @@
 - 엔딩 분기는 연출 차이뿐 아니라 동료 관계 변화와 세계 상태 변화가 명확하게 보이도록 준비한다.
 - 엔딩 스크립트는 분기마다 달라도
   \`플레이어의 책임 수용\`, \`동료의 반응\`, \`세계 상태 변화\` 세 축은 반드시 모두 들어가야 한다.
-`,F=`# 시나리오 기반 BGM 설계안
+`,x=`# 시나리오 기반 BGM 설계안
 
 ## 문서 목적
 
@@ -1763,7 +2290,7 @@
 - 이번 산출물은 \`장면별 테마\`보다 \`실제 운용 가능한 핵심 BGM 세트\`를 우선 구성했다.
 - 추후 구현 단계에서는 전투 인트로 컷, 보스 2페이즈, 엔딩 A/B/C 전용 큐를 세부 확장하기 쉽도록 이름과 역할을 고정했다.
 - 모든 곡은 뷰어 내 전용 음악 섹션에서 직접 재생 가능하도록 연결한다.
-`,x=`# 세계 규칙과 시스템 설정
+`,W=`# 세계 규칙과 시스템 설정
 
 ## 반향해
 
@@ -1828,7 +2355,7 @@
 
 따라서 스토리와 시스템 모두
 \`강한 힘 = 더 큰 대가\` 구조를 유지해야 분위기가 살아난다.
-`,W=`# 주요 지역 설정
+`,K=`# 주요 지역 설정
 
 ## 1. 등외항 미라진
 
@@ -1868,7 +2395,7 @@
 각 층에는 특정 인물이나 도시가 택하지 않은 역사 하나가
 실체를 가진 장면으로 남아 있다.
 세계관 설명과 캐릭터 서사 확장에 최적화된 장소다.
-`,K=`# 세력 설정
+`,V=`# 세력 설정
 
 ## 조율원
 
@@ -1917,7 +2444,7 @@
 - 상징: 물결 위에 뜬 음표 모양 성인
 - 강점: 고문서, 의식 기술, 해석 능력
 - 약점: 실천력 부족, 교리 해석 충돌, 외부 세력 침투
-`,V=`# 주요 인물 설정
+`,Q=`# 주요 인물 설정
 
 ## 인물 설계 방향
 
@@ -2192,7 +2719,7 @@
   사야는 유연한 곡선과 얇은 장비선, 유라는 수직선과 권위적 재단선으로 구분한다.
 - 백야는 다른 인물과 달리 장비보다 \`빛의 번짐\`이 먼저 읽히도록 잡는다.
 - 다섯 인물 모두 후면 실루엣만 봐도 구분되게 외투 길이, 어깨선, 휴대 장비 위치를 다르게 설계한다.
-`,g=Object.freeze({title:"반향해 연대기",subtitle:"내일이 결정으로 떠오르는 세계에서, 사라진 새벽을 추적하는 해양 판타지 RPG 설정집",pitch:"플레이어는 미래의 잔향을 들을 수 있는 여명 인양사가 되어, 도시 국가와 고대 장치가 얽힌 세계에서 내일의 소유권을 둘러싼 전쟁을 마주한다.",setting:"반향해 기반 해양 판타지",mood:"몽환적 서정성과 시간 재난",coreConflict:"미래를 통제할 것인가, 모두에게 되돌릴 것인가"}),Q=Object.freeze([{label:"세계 키워드",value:"반향해, 내일결, 새벽종"},{label:"플레이어 역할",value:"미래 반향을 듣는 여명 인양사"},{label:"메인 목표",value:"일곱 개의 새벽 종편 회수"},{label:"메인 플레이타임",value:"약 8시간"},{label:"문서 구성",value:"시나리오 6종 + 설정 5종 + BGM 설계 1종"},{label:"서사 테마",value:"강한 미래는 누군가의 가능성을 앗아간다"}]),J=Object.freeze([{title:"미래를 자원처럼 쓰는 세계",text:"전투와 탐험, 정치가 모두 내일결 배분 구조와 연결된다."},{title:"상실을 전제로 한 성장",text:"강력한 힘은 기억, 관계, 현재 감각을 대가로 요구한다."},{title:"항해형 지역 구조",text:"도시와 던전이 조류와 시간대에 따라 다른 규칙을 가진다."}]),X=Object.freeze([{era:"첫 역조",detail:"하늘과 바다의 경계가 뒤집히고 반향해가 생겨난다."},{era:"새벽종 시대",detail:"고대인들이 미래 배급 장치를 만들고 문명을 안정시킨다."},{era:"무월조 발발",detail:"내일결 생성이 멈추고 일부 지역에서 아침이 사라진다."},{era:"플레이어의 항해",detail:"종편 회수와 세계 질서 재구성의 선택이 시작된다."}]),u=Object.freeze([{id:"story-overview",title:"스토리 개요",category:"메인 설정",summary:"세계의 한 줄 콘셉트, 플레이어 역할, 메인 목표를 빠르게 파악하는 문서",fileName:"src/content/lore/story-overview.md",accent:"teal",content:M},{id:"main-story",title:"메인 스토리",category:"메인 설정",summary:"프롤로그부터 엔딩 선택까지의 3막 구조와 핵심 반전을 정리한 문서",fileName:"src/content/lore/main-story.md",accent:"gold",content:H},{id:"audio-scenario-plan",title:"시나리오 기반 BGM 설계안",category:"오디오 설계",summary:"챕터와 장면 감정선에 맞춘 핵심 BGM 8곡의 용도, 분위기, 배치 기준을 정리한 문서",fileName:"src/content/audio/00-scenario-bgm-plan.md",accent:"gold",content:F},{id:"scenario-overview",title:"시나리오 개요",category:"시나리오 설계",summary:"메인 엔딩까지 약 8시간 기준의 챕터 수, 플레이타임, 대사 스크립트 작성 원칙을 정리한 문서",fileName:"src/content/scenario/00-overview.md",accent:"teal",content:R},{id:"scenario-prologue",title:"프롤로그",category:"챕터 시나리오",summary:"미라진에서 사라진 새벽을 목격하고 첫 항해를 시작하는 도입 챕터와 상세 대사 문서",fileName:"src/content/scenario/01-prologue.md",accent:"coral",content:q},{id:"scenario-chapter-1",title:"챕터 1",category:"챕터 시나리오",summary:"유리염 사구에서 생존 갈등을 체감하고 첫 두 개의 종편을 회수하는 장면별 스크립트 문서",fileName:"src/content/scenario/02-chapter-1.md",accent:"gold",content:D},{id:"scenario-chapter-2",title:"챕터 2",category:"챕터 시나리오",summary:"역항도 카델에서 유라 베인의 질서 논리와 두 개의 종편을 마주하는 장면별 스크립트 문서",fileName:"src/content/scenario/03-chapter-2.md",accent:"plum",content:E},{id:"scenario-chapter-3",title:"챕터 3",category:"챕터 시나리오",summary:"속삭임 과수원과 척추탑에서 진실과 플레이어 정체성을 드러내는 장면별 스크립트 문서",fileName:"src/content/scenario/04-chapter-3.md",accent:"slate",content:G},{id:"scenario-ending",title:"엔딩",category:"챕터 시나리오",summary:"침묵 산호궁 최종 던전과 세 가지 메인 엔딩 선택을 상세 스크립트로 정리한 문서",fileName:"src/content/scenario/05-ending.md",accent:"rose",content:z},{id:"world-rules",title:"세계 규칙",category:"시스템 설정",summary:"반향해, 내일결, 시간 균열, 여명 인양사의 규칙을 정의한 문서",fileName:"src/content/lore/world-rules.md",accent:"coral",content:x},{id:"regions",title:"지역 설정",category:"세부 설정",summary:"항구, 사막, 역중력 도시, 최종 던전 등 탐험 지역의 성격을 정리한 문서",fileName:"src/content/lore/regions.md",accent:"plum",content:W},{id:"factions",title:"세력 설정",category:"세부 설정",summary:"조율원, 염해 길드, 공백 법정 등 주요 집단의 논리와 강약점을 정의한 문서",fileName:"src/content/lore/factions.md",accent:"slate",content:K},{id:"characters",title:"인물 설정",category:"세부 설정",summary:"플레이어와 주요 인물의 역할, 감정선, 외형 디자인 포인트를 정리한 문서",fileName:"src/content/lore/characters.md",accent:"rose",content:V}]),S=document.querySelector("#app");if(!S)throw new Error("앱 루트 요소를 찾을 수 없습니다.");const Y=Object.freeze(["audio-scenario-plan","scenario-overview","scenario-prologue","scenario-chapter-1","scenario-chapter-2","scenario-chapter-3","scenario-ending","characters"]),N=Object.freeze(Y.map(e=>u.find(t=>t.id===e)).filter(Boolean));function v(e){return u.find(t=>t.id===e)}function T(){const e=decodeURIComponent(window.location.hash.replace(/^#/,""));return v(e)?e:""}function Z(e){const t=`#${e}`;window.location.hash!==t&&window.history.replaceState(null,"",t)}function nn(e){return e.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;")}function m(e){return nn(e).replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/\*([^*]+)\*/g,"<em>$1</em>")}function en(e){const t=e.trim().split(/\r?\n/),a=[];let n=[],s=[],r="ul",c=[];const i=()=>{n.length&&(a.push(`<p>${n.map(m).join("<br />")}</p>`),n=[])},l=()=>{if(!s.length)return;const p=s.map(o=>`<li>${m(o)}</li>`).join("");a.push(`<${r}>${p}</${r}>`),s=[],r="ul"},d=()=>{c.length&&(a.push(`<blockquote><p>${c.map(m).join("<br />")}</p></blockquote>`),c=[])};for(const p of t){const o=p.trimEnd(),f=o.match(/^(#{1,3})\s+(.*)$/),b=o.match(/^-\s+(.*)$/),w=o.match(/^\d+\.\s+(.*)$/),$=o.match(/^>\s?(.*)$/);if(!o.trim()){i(),l(),d();continue}if(o==="---"){i(),l(),d(),a.push("<hr />");continue}if(f){i(),l(),d();const k=f[1].length;a.push(`<h${k}>${m(f[2])}</h${k}>`);continue}if(b){i(),d(),r!=="ul"&&s.length&&l(),r="ul",s.push(b[1]);continue}if(w){i(),d(),r!=="ol"&&s.length&&l(),r="ol",s.push(w[1]);continue}if($){i(),l(),c.push($[1]);continue}n.push(o)}return i(),l(),d(),a.join("")}function tn(e,t){const a=document.querySelector("[data-document-nav]");a&&(a.innerHTML=u.map(n=>`
+`,g=Object.freeze({title:"반향해 연대기",subtitle:"내일이 결정으로 떠오르는 세계에서, 사라진 새벽을 추적하는 해양 판타지 RPG 설정집",pitch:"플레이어는 미래의 잔향을 들을 수 있는 여명 인양사가 되어, 도시 국가와 고대 장치가 얽힌 세계에서 내일의 소유권을 둘러싼 전쟁을 마주한다.",setting:"반향해 기반 해양 판타지",mood:"몽환적 서정성과 시간 재난",coreConflict:"미래를 통제할 것인가, 모두에게 되돌릴 것인가"}),J=Object.freeze([{label:"세계 키워드",value:"반향해, 내일결, 새벽종"},{label:"플레이어 역할",value:"미래 반향을 듣는 여명 인양사"},{label:"메인 목표",value:"일곱 개의 새벽 종편 회수"},{label:"메인 플레이타임",value:"약 8시간"},{label:"문서 구성",value:"시나리오 6종 + 설정/설계 7종 + BGM 설계 1종"},{label:"서사 테마",value:"강한 미래는 누군가의 가능성을 앗아간다"}]),X=Object.freeze([{title:"미래를 자원처럼 쓰는 세계",text:"전투와 탐험, 정치가 모두 내일결 배분 구조와 연결된다."},{title:"상실을 전제로 한 성장",text:"강력한 힘은 기억, 관계, 현재 감각을 대가로 요구한다."},{title:"항해형 지역 구조",text:"도시와 던전이 조류와 시간대에 따라 다른 규칙을 가진다."}]),Y=Object.freeze([{era:"첫 역조",detail:"하늘과 바다의 경계가 뒤집히고 반향해가 생겨난다."},{era:"새벽종 시대",detail:"고대인들이 미래 배급 장치를 만들고 문명을 안정시킨다."},{era:"무월조 발발",detail:"내일결 생성이 멈추고 일부 지역에서 아침이 사라진다."},{era:"플레이어의 항해",detail:"종편 회수와 세계 질서 재구성의 선택이 시작된다."}]),u=Object.freeze([{id:"story-overview",title:"스토리 개요",category:"메인 설정",summary:"세계의 한 줄 콘셉트, 플레이어 역할, 메인 목표를 빠르게 파악하는 문서",fileName:"src/content/lore/story-overview.md",accent:"teal",content:R},{id:"main-story",title:"메인 스토리",category:"메인 설정",summary:"프롤로그부터 엔딩 선택까지의 3막 구조와 핵심 반전을 정리한 문서",fileName:"src/content/lore/main-story.md",accent:"gold",content:A},{id:"core-systems",title:"코어 게임 시스템 설계",category:"시스템 설계",summary:"이동, 전투, 자원, 성장, 세이브, 실패 패널티를 포함한 실제 구현 기준의 코어 시스템 설계 문서",fileName:"src/content/game-design/00-core-systems.md",accent:"slate",content:M},{id:"audio-scenario-plan",title:"시나리오 기반 BGM 설계안",category:"오디오 설계",summary:"챕터와 장면 감정선에 맞춘 핵심 BGM 8곡의 용도, 분위기, 배치 기준을 정리한 문서",fileName:"src/content/audio/00-scenario-bgm-plan.md",accent:"gold",content:x},{id:"scenario-overview",title:"시나리오 개요",category:"시나리오 설계",summary:"메인 엔딩까지 약 8시간 기준의 챕터 수, 플레이타임, 대사 스크립트 작성 원칙을 정리한 문서",fileName:"src/content/scenario/00-overview.md",accent:"teal",content:D},{id:"scenario-prologue",title:"프롤로그",category:"챕터 시나리오",summary:"미라진에서 사라진 새벽을 목격하고 첫 항해를 시작하는 도입 챕터와 상세 대사 문서",fileName:"src/content/scenario/01-prologue.md",accent:"coral",content:G},{id:"scenario-chapter-1",title:"챕터 1",category:"챕터 시나리오",summary:"유리염 사구에서 생존 갈등을 체감하고 첫 두 개의 종편을 회수하는 장면별 스크립트 문서",fileName:"src/content/scenario/02-chapter-1.md",accent:"gold",content:q},{id:"scenario-chapter-2",title:"챕터 2",category:"챕터 시나리오",summary:"역항도 카델에서 유라 베인의 질서 논리와 두 개의 종편을 마주하는 장면별 스크립트 문서",fileName:"src/content/scenario/03-chapter-2.md",accent:"plum",content:E},{id:"scenario-chapter-3",title:"챕터 3",category:"챕터 시나리오",summary:"속삭임 과수원과 척추탑에서 진실과 플레이어 정체성을 드러내는 장면별 스크립트 문서",fileName:"src/content/scenario/04-chapter-3.md",accent:"slate",content:z},{id:"scenario-ending",title:"엔딩",category:"챕터 시나리오",summary:"침묵 산호궁 최종 던전과 세 가지 메인 엔딩 선택을 상세 스크립트로 정리한 문서",fileName:"src/content/scenario/05-ending.md",accent:"rose",content:F},{id:"world-rules",title:"세계 규칙",category:"시스템 설정",summary:"반향해, 내일결, 시간 균열, 여명 인양사의 규칙을 정의한 문서",fileName:"src/content/lore/world-rules.md",accent:"coral",content:W},{id:"regions",title:"지역 설정",category:"세부 설정",summary:"항구, 사막, 역중력 도시, 최종 던전 등 탐험 지역의 성격을 정리한 문서",fileName:"src/content/lore/regions.md",accent:"plum",content:K},{id:"factions",title:"세력 설정",category:"세부 설정",summary:"조율원, 염해 길드, 공백 법정 등 주요 집단의 논리와 강약점을 정의한 문서",fileName:"src/content/lore/factions.md",accent:"slate",content:V},{id:"characters",title:"인물 설정",category:"세부 설정",summary:"플레이어와 주요 인물의 역할, 감정선, 외형 디자인 포인트를 정리한 문서",fileName:"src/content/lore/characters.md",accent:"rose",content:Q}]),L=document.querySelector("#app");if(!L)throw new Error("앱 루트 요소를 찾을 수 없습니다.");const Z=Object.freeze(["core-systems","audio-scenario-plan","scenario-overview","scenario-prologue","scenario-chapter-1","scenario-chapter-2","scenario-chapter-3","scenario-ending","characters"]),S=Object.freeze(Z.map(e=>u.find(t=>t.id===e)).filter(Boolean));function v(e){return u.find(t=>t.id===e)}function T(){const e=decodeURIComponent(window.location.hash.replace(/^#/,""));return v(e)?e:""}function nn(e){const t=`#${e}`;window.location.hash!==t&&window.history.replaceState(null,"",t)}function en(e){return e.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;")}function m(e){return en(e).replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/\*([^*]+)\*/g,"<em>$1</em>")}function tn(e){const t=e.trim().split(/\r?\n/),a=[];let n=[],s=[],r="ul",c=[];const i=()=>{n.length&&(a.push(`<p>${n.map(m).join("<br />")}</p>`),n=[])},l=()=>{if(!s.length)return;const p=s.map(o=>`<li>${m(o)}</li>`).join("");a.push(`<${r}>${p}</${r}>`),s=[],r="ul"},d=()=>{c.length&&(a.push(`<blockquote><p>${c.map(m).join("<br />")}</p></blockquote>`),c=[])};for(const p of t){const o=p.trimEnd(),f=o.match(/^(#{1,3})\s+(.*)$/),b=o.match(/^-\s+(.*)$/),w=o.match(/^\d+\.\s+(.*)$/),$=o.match(/^>\s?(.*)$/);if(!o.trim()){i(),l(),d();continue}if(o==="---"){i(),l(),d(),a.push("<hr />");continue}if(f){i(),l(),d();const k=f[1].length;a.push(`<h${k}>${m(f[2])}</h${k}>`);continue}if(b){i(),d(),r!=="ul"&&s.length&&l(),r="ul",s.push(b[1]);continue}if(w){i(),d(),r!=="ol"&&s.length&&l(),r="ol",s.push(w[1]);continue}if($){i(),l(),c.push($[1]);continue}n.push(o)}return i(),l(),d(),a.join("")}function an(e,t){const a=document.querySelector("[data-document-nav]");a&&(a.innerHTML=u.map(n=>`
         <button
           type="button"
           class="document-card${n.id===e?" is-active":""}"
@@ -2202,7 +2729,7 @@
           <strong>${n.title}</strong>
           <span>${n.summary}</span>
         </button>
-      `).join(""),a.querySelectorAll("[data-document-trigger]").forEach(n=>{n.addEventListener("click",()=>{t(n.getAttribute("data-document-trigger")||e)})}))}function an(e,t){const a=document.querySelector("[data-featured-links]");a&&(a.innerHTML=N.map(n=>`
+      `).join(""),a.querySelectorAll("[data-document-trigger]").forEach(n=>{n.addEventListener("click",()=>{t(n.getAttribute("data-document-trigger")||e)})}))}function rn(e,t){const a=document.querySelector("[data-featured-links]");a&&(a.innerHTML=S.map(n=>`
         <button
           type="button"
           class="spotlight-card spotlight-card--${n.accent}${n.id===e?" is-active":""}"
@@ -2213,7 +2740,7 @@
           <span>${n.summary}</span>
           <span class="spotlight-card__file">${n.fileName}</span>
         </button>
-      `).join(""),a.querySelectorAll("[data-featured-trigger]").forEach(n=>{n.addEventListener("click",()=>{t(n.getAttribute("data-featured-trigger")||e)})}))}function rn(e){const t=v(e)??u[0],a=document.querySelector("[data-document-viewer]");!a||!t||(a.innerHTML=`
+      `).join(""),a.querySelectorAll("[data-featured-trigger]").forEach(n=>{n.addEventListener("click",()=>{t(n.getAttribute("data-featured-trigger")||e)})}))}function sn(e){const t=v(e)??u[0],a=document.querySelector("[data-document-viewer]");!a||!t||(a.innerHTML=`
     <div class="viewer-meta">
       <span class="viewer-meta__badge viewer-meta__badge--${t.accent}">${t.category}</span>
       <span class="viewer-meta__file">${t.fileName}</span>
@@ -2222,8 +2749,8 @@
       <h2>${t.title}</h2>
       <p>${t.summary}</p>
     </header>
-    <article class="markdown-body">${en(t.content)}</article>
-  `)}function sn(){return{activeTrackId:h[0]?.id??"",isPlaying:!1}}function y(e){return h.find(t=>t.id===e)}function _(e){const t=document.querySelector("[data-soundtrack-player]"),a=document.querySelector("[data-soundtrack-element]"),n=y(e.activeTrackId)??h[0];!t||!a||!n||(t.innerHTML=`
+    <article class="markdown-body">${tn(t.content)}</article>
+  `)}function cn(){return{activeTrackId:h[0]?.id??"",isPlaying:!1}}function y(e){return h.find(t=>t.id===e)}function _(e){const t=document.querySelector("[data-soundtrack-player]"),a=document.querySelector("[data-soundtrack-element]"),n=y(e.activeTrackId)??h[0];!t||!a||!n||(t.innerHTML=`
     <div class="soundtrack-player__content">
       <p class="eyebrow">Music Player</p>
       <h3>${n.koreanTitle}</h3>
@@ -2245,7 +2772,7 @@
       </span>
       <span class="viewer-meta__file">${n.fileName}</span>
     </div>
-  `,a.setAttribute("aria-label",`${n.koreanTitle} 재생기`))}function L(e){const t=document.querySelector("[data-soundtrack-list]");t&&(t.innerHTML=h.map(a=>`
+  `,a.setAttribute("aria-label",`${n.koreanTitle} 재생기`))}function P(e){const t=document.querySelector("[data-soundtrack-list]");t&&(t.innerHTML=h.map(a=>`
         <article class="audio-card audio-card--${a.accent}${a.id===e.activeTrackId?" is-active":""}">
           <div class="audio-card__meta">
             <span class="document-card__category">${a.category}</span>
@@ -2280,7 +2807,7 @@
             </a>
           </div>
         </article>
-      `).join(""))}function cn(){S.innerHTML=`
+      `).join(""))}function on(){L.innerHTML=`
     <div class="page-shell">
       <header class="hero">
         <div class="hero__content">
@@ -2291,7 +2818,7 @@
         </div>
         <div class="hero__panel">
           <dl class="hero-stats">
-            ${Q.map(e=>`
+            ${J.map(e=>`
                   <div>
                     <dt>${e.label}</dt>
                     <dd>${e.value}</dd>
@@ -2315,7 +2842,7 @@
         </section>
 
         <section class="info-grid" aria-label="핵심 기둥">
-          ${J.map(e=>`
+          ${X.map(e=>`
                 <article class="info-card">
                   <h2>${e.title}</h2>
                   <p>${e.text}</p>
@@ -2329,7 +2856,7 @@
             <h2>세계 사건 흐름</h2>
           </div>
           <div class="timeline">
-            ${X.map(e=>`
+            ${Y.map(e=>`
                   <article class="timeline__item">
                     <strong>${e.era}</strong>
                     <p>${e.detail}</p>
@@ -2374,4 +2901,4 @@
         </section>
       </main>
     </div>
-  `}function on(){let e=T()||N[0]?.id||u[0]?.id||"";const t=sn(),a=(r,{syncHash:c=!0}={})=>{e=v(r)?.id??e,an(e,a),tn(e,a),rn(e),c&&Z(e)};cn();const n=document.querySelector("[data-soundtrack-element]");a(e),_(t),L(t);const s=()=>{_(t),L(t),document.querySelectorAll("[data-audio-toggle]").forEach(r=>{r.addEventListener("click",async()=>{const c=r.getAttribute("data-audio-toggle"),i=y(c);if(!(!n||!i))if(t.activeTrackId!==i.id&&(n.src=i.src,n.dataset.trackId=i.id,t.activeTrackId=i.id),n.paused)try{await n.play()}catch{t.isPlaying=!1,s()}else if(n.dataset.trackId===i.id)n.pause();else{n.pause(),n.src=i.src,n.dataset.trackId=i.id;try{await n.play()}catch{t.isPlaying=!1,s()}}})})};if(n){const r=y(t.activeTrackId);r&&(n.src=r.src,n.dataset.trackId=r.id),n.addEventListener("play",()=>{t.isPlaying=!0,t.activeTrackId=n.dataset.trackId||t.activeTrackId,s()}),n.addEventListener("pause",()=>{t.isPlaying=!1,s()}),n.addEventListener("ended",()=>{t.isPlaying=!1,s()})}s(),window.addEventListener("hashchange",()=>{const r=T();r&&r!==e&&a(r,{syncHash:!1})})}on();
+  `}function ln(){let e=T()||S[0]?.id||u[0]?.id||"";const t=cn(),a=(r,{syncHash:c=!0}={})=>{e=v(r)?.id??e,rn(e,a),an(e,a),sn(e),c&&nn(e)};on();const n=document.querySelector("[data-soundtrack-element]");a(e),_(t),P(t);const s=()=>{_(t),P(t),document.querySelectorAll("[data-audio-toggle]").forEach(r=>{r.addEventListener("click",async()=>{const c=r.getAttribute("data-audio-toggle"),i=y(c);if(!(!n||!i))if(t.activeTrackId!==i.id&&(n.src=i.src,n.dataset.trackId=i.id,t.activeTrackId=i.id),n.paused)try{await n.play()}catch{t.isPlaying=!1,s()}else if(n.dataset.trackId===i.id)n.pause();else{n.pause(),n.src=i.src,n.dataset.trackId=i.id;try{await n.play()}catch{t.isPlaying=!1,s()}}})})};if(n){const r=y(t.activeTrackId);r&&(n.src=r.src,n.dataset.trackId=r.id),n.addEventListener("play",()=>{t.isPlaying=!0,t.activeTrackId=n.dataset.trackId||t.activeTrackId,s()}),n.addEventListener("pause",()=>{t.isPlaying=!1,s()}),n.addEventListener("ended",()=>{t.isPlaying=!1,s()})}s(),window.addEventListener("hashchange",()=>{const r=T();r&&r!==e&&a(r,{syncHash:!1})})}ln();

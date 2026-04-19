@@ -248,7 +248,8 @@ a {
 }
 
 .timeline-section,
-.viewer-section {
+.viewer-section,
+.soundtrack-section {
   display: grid;
   gap: 14px;
 }
@@ -371,6 +372,199 @@ a {
   grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
   gap: 18px;
   align-items: start;
+}
+
+.soundtrack-layout {
+  display: grid;
+  gap: 18px;
+}
+
+.soundtrack-player {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: end;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(circle at top right, rgba(23, 125, 117, 0.15), transparent 28%),
+    linear-gradient(180deg, rgba(255, 250, 242, 0.94), rgba(231, 241, 238, 0.82));
+  box-shadow: var(--shadow);
+}
+
+.soundtrack-player__content {
+  display: grid;
+  gap: 10px;
+}
+
+.soundtrack-player__content h3,
+.audio-card h3 {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: -0.02em;
+}
+
+.soundtrack-player__content h3 {
+  font-size: clamp(2rem, 3vw, 3rem);
+}
+
+.soundtrack-player__content p,
+.audio-card p,
+.audio-card dd,
+.soundtrack-player__meta dd {
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.soundtrack-player__content p {
+  margin: 0;
+}
+
+.soundtrack-player__status {
+  display: grid;
+  gap: 10px;
+  justify-items: end;
+}
+
+.soundtrack-player__meta,
+.audio-card__details {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.soundtrack-player__meta {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 8px;
+}
+
+.soundtrack-player__meta div,
+.audio-card__details div {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.soundtrack-player__meta dt,
+.audio-card__details dt {
+  margin-bottom: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.soundtrack-player__meta dd,
+.audio-card__details dd {
+  margin: 0;
+}
+
+.soundtrack-element {
+  width: 100%;
+  min-height: 56px;
+  border-radius: 999px;
+}
+
+.soundtrack-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.audio-card {
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.audio-card.is-active {
+  border-color: rgba(23, 125, 117, 0.44);
+  background: var(--surface-strong);
+}
+
+.audio-card--teal {
+  border-top: 5px solid var(--teal);
+}
+
+.audio-card--gold {
+  border-top: 5px solid var(--gold);
+}
+
+.audio-card--coral {
+  border-top: 5px solid var(--coral);
+}
+
+.audio-card--plum {
+  border-top: 5px solid var(--plum);
+}
+
+.audio-card--slate {
+  border-top: 5px solid var(--slate);
+}
+
+.audio-card--rose {
+  border-top: 5px solid var(--rose);
+}
+
+.audio-card__meta,
+.audio-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.audio-card__meta span:last-child {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.audio-card p {
+  margin: 0;
+}
+
+.audio-card__button,
+.audio-card__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font: inherit;
+  text-decoration: none;
+}
+
+.audio-card__button {
+  border: 0;
+  background: var(--teal);
+  color: #fff;
+  cursor: pointer;
+}
+
+.audio-card__button:hover,
+.audio-card__button:focus-visible {
+  background: #106860;
+  outline: none;
+}
+
+.audio-card__link {
+  border: 1px solid rgba(31, 47, 48, 0.12);
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.52);
+}
+
+.audio-card__link:hover,
+.audio-card__link:focus-visible {
+  border-color: rgba(23, 125, 117, 0.35);
+  outline: none;
 }
 
 .document-nav {
@@ -581,6 +775,7 @@ a {
   .spotlight-grid,
   .info-grid,
   .timeline,
+  .soundtrack-grid,
   .viewer-layout {
     grid-template-columns: 1fr;
   }
@@ -591,12 +786,26 @@ a {
   }
 
   .hero__panel,
-  .document-viewer {
+  .document-viewer,
+  .soundtrack-player {
     padding: 24px;
   }
 
   .document-viewer {
     min-height: auto;
+  }
+
+  .soundtrack-player {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .soundtrack-player__status {
+    justify-items: start;
+  }
+
+  .soundtrack-player__meta {
+    grid-template-columns: 1fr;
   }
 }
 

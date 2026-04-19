@@ -1,5 +1,6 @@
 import storyOverview from '../content/lore/story-overview.md?raw';
 import mainStory from '../content/lore/main-story.md?raw';
+import coreGameSystem from '../content/system/00-core-game-system.md?raw';
 import scenarioOverview from '../content/scenario/00-overview.md?raw';
 import scenarioPrologue from '../content/scenario/01-prologue.md?raw';
 import scenarioChapter1 from '../content/scenario/02-chapter-1.md?raw';
@@ -41,7 +42,7 @@ export const storyHighlights = Object.freeze([
   },
   {
     label: '문서 구성',
-    value: '시나리오 6종 + 설정 5종 + BGM 설계 1종',
+    value: '시나리오 6종 + 설정 5종 + 시스템/BGM 설계 2종',
   },
   {
     label: '서사 테마',
@@ -101,6 +102,16 @@ export const storyDocuments = Object.freeze([
     fileName: 'src/content/lore/main-story.md',
     accent: 'gold',
     content: mainStory,
+  },
+  {
+    id: 'core-game-system',
+    title: '코어 게임 시스템 설계',
+    category: '시스템 설계',
+    summary:
+      '시나리오 문서를 구현 단위로 분해해 탐험, 전투, 퀘스트, 성장, 저장 구조까지 정리한 기준 문서',
+    fileName: 'src/content/system/00-core-game-system.md',
+    accent: 'slate',
+    content: coreGameSystem,
   },
   {
     id: 'audio-scenario-plan',

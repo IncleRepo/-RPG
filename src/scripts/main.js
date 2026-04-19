@@ -15,6 +15,7 @@ if (!app) {
 }
 
 const featuredDocumentIds = Object.freeze([
+  'core-game-system',
   'audio-scenario-plan',
   'scenario-overview',
   'scenario-prologue',

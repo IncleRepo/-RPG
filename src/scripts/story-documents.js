@@ -4,6 +4,7 @@ import worldRules from '../content/lore/world-rules.md?raw';
 import regions from '../content/lore/regions.md?raw';
 import factions from '../content/lore/factions.md?raw';
 import characters from '../content/lore/characters.md?raw';
+import playerVisualGuide from '../content/lore/player-visual-guide.md?raw';
 
 export const storyProject = Object.freeze({
   title: '반향해 연대기',
@@ -122,5 +123,14 @@ export const storyDocuments = Object.freeze([
     fileName: 'src/content/lore/characters.md',
     accent: 'rose',
     content: characters,
+  },
+  {
+    id: 'player-visual-guide',
+    title: '주인공 비주얼 가이드',
+    category: '리소스 설정',
+    summary: '기본 주인공 스프라이트 프리셋의 실루엣, 색, 모션 설계 원칙을 정리한 문서',
+    fileName: 'src/content/lore/player-visual-guide.md',
+    accent: 'teal',
+    content: playerVisualGuide,
   },
 ]);

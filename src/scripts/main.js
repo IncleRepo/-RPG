@@ -6,6 +6,10 @@ import {
   storyProject,
   storyTimeline,
 } from './story-documents.js';
+import {
+  initializePlayerSpriteStudio,
+  renderPlayerSpriteStudioSection,
+} from './player-sprite-editor.mjs';
 
 const app = document.querySelector('#app');
 
@@ -196,10 +200,14 @@ function createAppShell() {
     <div class="page-shell">
       <header class="hero">
         <div class="hero__content">
-          <p class="eyebrow">Issue #50 · Story Viewer</p>
+          <p class="eyebrow">Issue #52 · Hero Motion Lab</p>
           <h1>${storyProject.title}</h1>
           <p class="hero__subtitle">${storyProject.subtitle}</p>
-          <p class="hero__pitch">${storyProject.pitch}</p>
+          <p class="hero__pitch">
+            ${storyProject.pitch}
+            이번 빌드에서는 세계관 문서 뷰어 위에 주인공 프레임 애니메이터와 PNG 모션 세트를 추가해,
+            실제 플레이어 리소스 제작을 바로 시작할 수 있도록 구성했습니다.
+          </p>
         </div>
         <div class="hero__panel">
           <dl class="hero-stats">
@@ -250,10 +258,12 @@ function createAppShell() {
           </div>
         </section>
 
+        ${renderPlayerSpriteStudioSection()}
+
         <section class="viewer-section">
           <div class="section-heading">
             <p class="eyebrow">Lore Documents</p>
-            <h2>스토리와 설정 문서</h2>
+            <h2>스토리, 설정, 스프라이트 기준 문서</h2>
           </div>
           <div class="viewer-layout">
             <nav class="document-nav" data-document-nav aria-label="문서 목록"></nav>
@@ -275,6 +285,7 @@ function bootstrap() {
   };
 
   createAppShell();
+  initializePlayerSpriteStudio(document.querySelector('[data-sprite-studio]'));
   selectDocument(activeDocumentId);
 }
 

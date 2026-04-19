@@ -1,0 +1,301 @@
+{
+  "concept": {
+    "name": "미라진 여명 인양사",
+    "role": "반향해 구조·인양 겸용 기본 주인공 프리셋",
+    "silhouette": "짧은 망토, 긴 코트, 허리 랜턴, 갈고리형 인양 장비가 함께 보이는 해양 판타지 실루엣",
+    "summary": "플레이어가 아직 정식 고정 외형을 갖지 않는 설정을 유지하면서도, 이동·전투·피격 시스템에 바로 연결할 수 있도록 만든 공용 제작용 주인공 세트다.",
+    "notes": [
+      "기본 비율은 전체화면 RPG 기준으로 읽히도록 48x48 프레임 안에서 머리와 몸 비중을 키웠다.",
+      "움직임은 목도리, 망토, 랜턴의 후행 동작으로 속도와 감정 변화를 읽게 설계했다.",
+      "현재 PNG는 리그 기반 프로토타입 산출물이며, 스프라이트 에디터에서 프레임을 계속 다듬을 수 있다."
+    ]
+  },
+  "canvas": {
+    "width": 48,
+    "height": 48,
+    "previewScale": 8,
+    "exportScale": 1
+  },
+  "palette": {
+    "outline": "#12202d",
+    "coatMain": "#255f71",
+    "coatLight": "#3d8695",
+    "coatShadow": "#153643",
+    "scarf": "#cf765e",
+    "scarfLight": "#efb38f",
+    "skin": "#f0ccb0",
+    "hair": "#f4d5a4",
+    "hairShadow": "#b8875f",
+    "metal": "#a8c6d0",
+    "lantern": "#f0b14d",
+    "lanternCore": "#ffe39f",
+    "satchel": "#8f5f45",
+    "satchelShadow": "#57382d",
+    "cloth": "#c7d8db",
+    "clothShadow": "#77949a",
+    "boot": "#263743",
+    "ghost": "#6fa5aa"
+  },
+  "frameCount": 39,
+  "motions": [
+    {
+      "id": "idle",
+      "label": "Idle",
+      "description": "대기 호흡과 장비의 잔흔이 드러나는 기본 자세",
+      "fps": 6,
+      "frames": [
+        {
+          "id": "idle-00",
+          "note": "호흡을 가다듬는 기본 자세",
+          "fileName": "idle_00.png"
+        },
+        {
+          "id": "idle-01",
+          "note": "",
+          "fileName": "idle_01.png"
+        },
+        {
+          "id": "idle-02",
+          "note": "",
+          "fileName": "idle_02.png"
+        },
+        {
+          "id": "idle-03",
+          "note": "",
+          "fileName": "idle_03.png"
+        }
+      ]
+    },
+    {
+      "id": "walk",
+      "label": "Walk",
+      "description": "현장 탐색과 항구 이동에 맞춘 기본 이동",
+      "fps": 10,
+      "frames": [
+        {
+          "id": "walk-00",
+          "note": "",
+          "fileName": "walk_00.png"
+        },
+        {
+          "id": "walk-01",
+          "note": "",
+          "fileName": "walk_01.png"
+        },
+        {
+          "id": "walk-02",
+          "note": "",
+          "fileName": "walk_02.png"
+        },
+        {
+          "id": "walk-03",
+          "note": "",
+          "fileName": "walk_03.png"
+        },
+        {
+          "id": "walk-04",
+          "note": "",
+          "fileName": "walk_04.png"
+        },
+        {
+          "id": "walk-05",
+          "note": "",
+          "fileName": "walk_05.png"
+        }
+      ]
+    },
+    {
+      "id": "run",
+      "label": "Run",
+      "description": "긴박한 탈출과 돌진을 위한 가속 동작",
+      "fps": 12,
+      "frames": [
+        {
+          "id": "run-00",
+          "note": "",
+          "fileName": "run_00.png"
+        },
+        {
+          "id": "run-01",
+          "note": "",
+          "fileName": "run_01.png"
+        },
+        {
+          "id": "run-02",
+          "note": "",
+          "fileName": "run_02.png"
+        },
+        {
+          "id": "run-03",
+          "note": "",
+          "fileName": "run_03.png"
+        },
+        {
+          "id": "run-04",
+          "note": "",
+          "fileName": "run_04.png"
+        },
+        {
+          "id": "run-05",
+          "note": "",
+          "fileName": "run_05.png"
+        }
+      ]
+    },
+    {
+      "id": "jump",
+      "label": "Jump",
+      "description": "웅크림부터 정점까지 묶은 점프 시퀀스",
+      "fps": 8,
+      "frames": [
+        {
+          "id": "jump-00",
+          "note": "점프 전 웅크림",
+          "fileName": "jump_00.png"
+        },
+        {
+          "id": "jump-01",
+          "note": "도약",
+          "fileName": "jump_01.png"
+        },
+        {
+          "id": "jump-02",
+          "note": "정점",
+          "fileName": "jump_02.png"
+        },
+        {
+          "id": "jump-03",
+          "note": "착지 준비",
+          "fileName": "jump_03.png"
+        }
+      ]
+    },
+    {
+      "id": "fall",
+      "label": "Fall",
+      "description": "하강 중 자세와 착지 직전 긴장을 보여주는 시퀀스",
+      "fps": 8,
+      "frames": [
+        {
+          "id": "fall-00",
+          "note": "낙하 시작",
+          "fileName": "fall_00.png"
+        },
+        {
+          "id": "fall-01",
+          "note": "",
+          "fileName": "fall_01.png"
+        },
+        {
+          "id": "fall-02",
+          "note": "",
+          "fileName": "fall_02.png"
+        },
+        {
+          "id": "fall-03",
+          "note": "착지 직전",
+          "fileName": "fall_03.png"
+        }
+      ]
+    },
+    {
+      "id": "attack",
+      "label": "Attack",
+      "description": "인양 장비를 휘두르는 근접 공격 시퀀스",
+      "fps": 12,
+      "frames": [
+        {
+          "id": "attack-00",
+          "note": "준비 동작",
+          "fileName": "attack_00.png"
+        },
+        {
+          "id": "attack-01",
+          "note": "",
+          "fileName": "attack_01.png"
+        },
+        {
+          "id": "attack-02",
+          "note": "공격 최대 가속",
+          "fileName": "attack_02.png"
+        },
+        {
+          "id": "attack-03",
+          "note": "",
+          "fileName": "attack_03.png"
+        },
+        {
+          "id": "attack-04",
+          "note": "",
+          "fileName": "attack_04.png"
+        },
+        {
+          "id": "attack-05",
+          "note": "회수",
+          "fileName": "attack_05.png"
+        }
+      ]
+    },
+    {
+      "id": "hurt",
+      "label": "Hurt",
+      "description": "짧고 강한 피격 반응",
+      "fps": 8,
+      "frames": [
+        {
+          "id": "hurt-00",
+          "note": "피격 반응",
+          "fileName": "hurt_00.png"
+        },
+        {
+          "id": "hurt-01",
+          "note": "",
+          "fileName": "hurt_01.png"
+        },
+        {
+          "id": "hurt-02",
+          "note": "자세 회복",
+          "fileName": "hurt_02.png"
+        }
+      ]
+    },
+    {
+      "id": "death",
+      "label": "Death",
+      "description": "균형 붕괴 후 쓰러져 정지하는 시퀀스",
+      "fps": 8,
+      "frames": [
+        {
+          "id": "death-00",
+          "note": "균형 상실",
+          "fileName": "death_00.png"
+        },
+        {
+          "id": "death-01",
+          "note": "",
+          "fileName": "death_01.png"
+        },
+        {
+          "id": "death-02",
+          "note": "붕괴",
+          "fileName": "death_02.png"
+        },
+        {
+          "id": "death-03",
+          "note": "",
+          "fileName": "death_03.png"
+        },
+        {
+          "id": "death-04",
+          "note": "",
+          "fileName": "death_04.png"
+        },
+        {
+          "id": "death-05",
+          "note": "정지",
+          "fileName": "death_05.png"
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))t(r);new MutationObserver(r=>{for(const a of r)if(a.type==="childList")for(const s of a.addedNodes)s.tagName==="LINK"&&s.rel==="modulepreload"&&t(s)}).observe(document,{childList:!0,subtree:!0});function c(r){const a={};return r.integrity&&(a.integrity=r.integrity),r.referrerPolicy&&(a.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?a.credentials="include":r.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function t(r){if(r.ep)return;r.ep=!0;const a=c(r);fetch(r.href,a)}})();const j=`# 반향해 연대기
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const r of s)if(r.type==="childList")for(const c of r.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&n(c)}).observe(document,{childList:!0,subtree:!0});function a(s){const r={};return s.integrity&&(r.integrity=s.integrity),s.referrerPolicy&&(r.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?r.credentials="include":s.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function n(s){if(s.ep)return;s.ep=!0;const r=a(s);fetch(s.href,r)}})();const P=""+new URL("01-tides-of-the-unarrived-dawn-s_Ku7bdq.mp3",import.meta.url).href,I=""+new URL("02-twilight-over-mirajin-Bp0rsTe1.mp3",import.meta.url).href,O=""+new URL("03-saltglass-horizon-DWtSCHK_.mp3",import.meta.url).href,C=""+new URL("04-inverted-harbor-of-kadel-C4m1LfRM.mp3",import.meta.url).href,B=""+new URL("05-fracture-chase-CD2c6Hvv.mp3",import.meta.url).href,j=""+new URL("06-bellshard-skirmish-_gbuKm7S.mp3",import.meta.url).href,U=""+new URL("07-whispers-beneath-the-orchard-C9gNFPhc.mp3",import.meta.url).href,A=""+new URL("08-abyssal-choir-reborn-dIGgSxeB.mp3",import.meta.url).href,h=Object.freeze([{id:"main-theme",title:"Tides Of The Unarrived Dawn",koreanTitle:"반향해 연대기 메인 테마",category:"타이틀 / 메인 테마",accent:"gold",durationLabel:"1:50",chapters:"전체 공통",sceneUse:"타이틀, 핵심 컷신 회고, 메인 메뉴 대표곡",mood:"장엄한 바다 판타지, 비터스위트한 상실, 앞으로 나아가야 하는 의지",instrumentation:"현악, 피아노, 호른, 유리 질감 벨, 깊은 저역 퍼커션",summary:"세계관의 규모감과 플레이어의 책임감을 동시에 들려주는 대표 테마입니다.",src:P,fileName:"assets/audio/01-tides-of-the-unarrived-dawn.mp3"},{id:"mirajin-hub",title:"Twilight Over Mirajin",koreanTitle:"미라진 황혼 허브",category:"마을 / 허브 지역",accent:"coral",durationLabel:"2:40",chapters:"프롤로그",sceneUse:"항구 조사, 출항 전 대화, 미라진 탐색",mood:"사라진 새벽의 정적, 조용한 죄책감, 아직 남아 있는 희망",instrumentation:"펠트 피아노, 저목관, 부드러운 현, 먼 종소리",summary:"영원한 황혼에 잠긴 항구의 쓸쓸함을 허브 탐색에 맞는 밀도로 정리한 곡입니다.",src:I,fileName:"assets/audio/02-twilight-over-mirajin.mp3"},{id:"glass-salt-exploration",title:"Saltglass Horizon",koreanTitle:"유리염 사구 탐험",category:"탐험",accent:"teal",durationLabel:"3:14",chapters:"챕터 1",sceneUse:"사구 필드 이동, 폐채굴 첨탑 전 탐험, 구조 동선 이동",mood:"황량함, 생존감, 묻힌 기억의 메아리, 넓은 수평선",instrumentation:"공기감 있는 현, 부드러운 타악, 유리성 타건, 낮은 첼로",summary:"미래가 메마른 땅의 공허함과 탐험 리듬을 함께 살리는 메인 필드 테마입니다.",src:O,fileName:"assets/audio/03-saltglass-horizon.mp3"},{id:"kadel-city",title:"Inverted Harbor Of Kadel",koreanTitle:"역항도 카델",category:"도시 / 정치 긴장",accent:"plum",durationLabel:"4:05",chapters:"챕터 2",sceneUse:"카델 진입, 도시 조사, 협상 이후 이동 구간",mood:"우아한 압박감, 불안한 균형, 규율의 아름다움과 냉기",instrumentation:"말렛 오스티나토, 절제된 브라스, 정교한 현, 기계 펄스",summary:"질서로 떠받친 도시의 위압감을 과도한 소음 없이 유지하도록 설계한 곡입니다.",src:C,fileName:"assets/audio/04-inverted-harbor-of-kadel.mp3"},{id:"crisis-pursuit",title:"Fracture Chase",koreanTitle:"붕괴 추적과 긴장",category:"긴장 / 추적",accent:"slate",durationLabel:"3:20",chapters:"프롤로그, 챕터 1, 챕터 2, 엔딩",sceneUse:"시계탑 탈출, 구조전 직전, 카델 붕괴, 산호궁 붕괴 구간",mood:"급박한 이동, 무너지는 구조물, 사람을 먼저 구해야 하는 압력",instrumentation:"빠른 현 리듬, 깊은 탐, 절제된 신스 펄스, 짧은 금관 액센트",summary:"추격과 재난 상황에서 긴장을 끌어올리되 피로한 자극음으로 흐르지 않게 조정한 액션 트랙입니다.",src:B,fileName:"assets/audio/05-fracture-chase.mp3"},{id:"battle-skirmish",title:"Bellshard Skirmish",koreanTitle:"일반 전투",category:"전투",accent:"rose",durationLabel:"2:52",chapters:"전 챕터 공통",sceneUse:"일반 전투, 균열 생물 교전, 중간 보스 전 전반",mood:"전투 추진력, 영웅성, 비극의 그림자가 남아 있는 긴장감",instrumentation:"리듬 현, 브라스, 저역 타격, 어두운 드론",summary:"스토리 중심 RPG에 맞춰 추진력은 확보하되 과도한 공격성은 피한 공용 전투 곡입니다.",src:j,fileName:"assets/audio/06-bellshard-skirmish.mp3"},{id:"orchard-revelation",title:"Whispers Beneath The Orchard",koreanTitle:"감정 이벤트와 진실",category:"감정 이벤트",accent:"teal",durationLabel:"3:05",chapters:"챕터 3",sceneUse:"속삭임 과수원, 사야 렌 고백, 척추탑 진실 공개",mood:"친밀감, 후회, 신뢰, 돌이킬 수 없는 진실의 무게",instrumentation:"피아노, 솔로 첼로, 하프, 유리 하모닉, 숨 쉬는 듯한 현",summary:"관계와 진실이 동시에 무너져 내리는 장면을 위해 설계한 감정 축 중심 테마입니다.",src:U,fileName:"assets/audio/07-whispers-beneath-the-orchard.mp3"},{id:"boss-ending",title:"Abyssal Choir Reborn",koreanTitle:"최종 결전과 엔딩",category:"보스전 / 엔딩",accent:"gold",durationLabel:"3:05",chapters:"엔딩",sceneUse:"심연의 합창기 보스전, 마지막 선택, 엔딩 크레딧",mood:"압도적 결전, 세계의 무게, 비터스위트한 새벽과 후일담",instrumentation:"거대한 저현, 브라스, 깊은 종소리, 피아노, 열리는 현 합주",summary:"최종 보스전의 중압감에서 엔딩의 여운까지 한 곡 안에서 아우르는 대서사 트랙입니다.",src:A,fileName:"assets/audio/08-abyssal-choir-reborn.mp3"}]),M=`# 반향해 연대기
 
 ## 한 줄 개요
 
@@ -49,7 +49,7 @@
 - 큰 힘을 사용할수록 플레이어는 기억을 잃기 때문에,
   강한 선택과 정체성 보존 사이의 긴장이 핵심 시스템이 된다.
 - 지역마다 시간이 흐르는 방식이 달라 던전 구조와 퍼즐 규칙이 달라질 수 있다.
-`,L=`# 메인 스토리 구조
+`,H=`# 메인 스토리 구조
 
 ## 프롤로그: 내일이 오지 않은 항구
 
@@ -121,7 +121,7 @@
 - 플레이어가 잃어버린 기억 속에서 반복 등장하는 정체불명의 아이
 - 과거에 멈춘 채 주민들이 늙지 않는 어시장
 - 한 번도 오지 않은 겨울을 기다리는 북쪽 등대 마을
-`,P=`# 메인 시나리오 챕터 설계 개요
+`,R=`# 메인 시나리오 챕터 설계 개요
 
 ## 문서 목적
 
@@ -340,7 +340,7 @@
 - 이후 서브 퀘스트 문서는 메인 챕터 문서의 빈 감정 구간을 보강하는 방식으로 붙인다.
 - 시나리오 라이터는 본 개요 문서의 화법 가이드를 기준으로
   챕터 문서에 적힌 장면 스크립트를 실제 대본으로 확장한다.
-`,O=`# 프롤로그: 내일이 오지 않은 항구
+`,q=`# 프롤로그: 내일이 오지 않은 항구
 
 ## 챕터 개요
 
@@ -581,7 +581,7 @@
 - 프롤로그 종료 시점에는 세계관보다 "개인적 수수께끼"가 더 강하게 남아야 한다.
 - 주요 인물 대사는 짧지만 날카롭게 가져가고,
   현장 NPC 대사는 미라진 전체가 이미 시간 이상에 잠겼다는 증거처럼 배치한다.
-`,A=`# 챕터 1: 유리염 사구, 미래가 메마른 땅
+`,D=`# 챕터 1: 유리염 사구, 미래가 메마른 땅
 
 ## 챕터 개요
 
@@ -823,7 +823,7 @@
 - 2번 종편은 대형 보스보다 \`인물 선택과 신뢰\`로 얻는 조각으로 설계해 반복감을 줄인다.
 - 구조 현장 대사는 NPC 절규만 반복하지 말고,
   생존자마다 \`도착하지 않은 내일\`을 다르게 기억하는 식으로 변주를 준다.
-`,C=`# 챕터 2: 역항도 카델, 거꾸로 매달린 질서
+`,E=`# 챕터 2: 역항도 카델, 거꾸로 매달린 질서
 
 ## 챕터 개요
 
@@ -1079,7 +1079,7 @@
 - 시민 보호와 코어 유지 목표를 동시에 제시해 플레이 압박을 높이는 것이 좋다.
 - 유라의 대사는 차갑더라도 비아냥으로 흐르지 않게 조절하고,
   시민 대사는 \`질서 덕분에 살아남은 층\`과 \`질서 때문에 짓눌린 층\`이 모두 보이게 배치한다.
-`,D=`# 챕터 3: 잃어버린 하루들의 진실
+`,G=`# 챕터 3: 잃어버린 하루들의 진실
 
 ## 챕터 개요
 
@@ -1329,7 +1329,7 @@
 - 후반 선택의 설득력은 이 장에서 사야, 라오, 유라의 입장이 얼마나 공감되게 전달되는지에 달려 있다.
 - 스크립트 작업 시 사야, 라오, 플레이어 셋의 감정선을 같은 장면 안에서 꺾어 줘야
   엔딩 분기에서 특정 인물만 일방적으로 옳아 보이지 않는다.
-`,q=`# 엔딩: 침묵 산호궁과 마지막 새벽
+`,z=`# 엔딩: 침묵 산호궁과 마지막 새벽
 
 ## 챕터 개요
 
@@ -1630,7 +1630,140 @@
 - 엔딩 분기는 연출 차이뿐 아니라 동료 관계 변화와 세계 상태 변화가 명확하게 보이도록 준비한다.
 - 엔딩 스크립트는 분기마다 달라도
   \`플레이어의 책임 수용\`, \`동료의 반응\`, \`세계 상태 변화\` 세 축은 반드시 모두 들어가야 한다.
-`,S=`# 세계 규칙과 시스템 설정
+`,F=`# 시나리오 기반 BGM 설계안
+
+## 문서 목적
+
+이 문서는 \`반향해 연대기\` 메인 시나리오와 세계관 문서를 기준으로
+필요한 배경음악을 장면별, 챕터별, 상황별로 정리한 기준안이다.
+
+이번 작업의 목표는 다음 두 가지다.
+
+- 각 장면의 감정선과 플레이 리듬을 해치지 않는 음악 구조를 만든다.
+- 프로젝트 내부에서 바로 관리 가능한 오디오 자산과 사용 문서를 함께 남긴다.
+
+## 제작 기준
+
+- 모든 곡은 프로젝트 시나리오를 바탕으로 독자 프롬프트를 작성해 외부 생성 API로 제작한다.
+- 유명 작품을 직접 연상시키는 멜로디, 진행, 사운드 카피를 피하고 \`원곡 참조 금지\`를 전제로 설계한다.
+- 8비트나 복고 게임음 대신 \`현대적 고음질 판타지 RPG 스코어\` 질감을 목표로 한다.
+- 귀를 찌르는 과도한 고역 대신, \`따뜻한 저역\`, \`부드러운 공간감\`, \`풍부한 현악과 피아노\`, \`절제된 타격감\`을 우선한다.
+
+## 자산 구조
+
+- 오디오 파일: \`assets/audio/\`
+- 설계 문서: \`src/content/audio/\`
+- 재생 메타데이터: \`src/scripts/audio-tracks.js\`
+
+## 트랙 목록
+
+### 1. 메인 테마 \`Tides Of The Unarrived Dawn\`
+
+- 분류: 타이틀 / 메인 테마
+- 대응 챕터: 전체 공통
+- 주요 장면: 인트로, 타이틀, 핵심 컷신 회고, 메인 메뉴 대표곡
+- 감정 목적: 세계의 장엄함과 상실, 그리고 끝까지 앞으로 나아가야 하는 결의를 한 곡에 묶는다.
+- 음색 방향: 현악, 피아노, 호른, 유리 질감 벨, 깊은 저역 퍼커션
+
+### 2. 미라진 허브 \`Twilight Over Mirajin\`
+
+- 분류: 마을 / 허브 지역 / 프롤로그 탐색
+- 대응 챕터: 프롤로그
+- 주요 장면: 미라진 선창, 항구 조사, 출항 전 대화
+- 감정 목적: 새벽이 오지 않는 항구의 정적과 죄책감, 아직 꺼지지 않은 희망을 함께 남긴다.
+- 음색 방향: 펠트 피아노, 저목관, 잔잔한 현, 먼 종소리
+
+### 3. 사구 탐험 \`Saltglass Horizon\`
+
+- 분류: 탐험
+- 대응 챕터: 챕터 1
+- 주요 장면: 유리염 사구 필드, 구조 이동, 폐채굴 첨탑 진입 전 탐험
+- 감정 목적: 황량함과 생존감, 묻힌 기억의 메아리를 넓은 공간감으로 전달한다.
+- 음색 방향: 공기감 있는 현, 부드러운 타악, 유리성 타건, 낮은 첼로
+
+### 4. 카델 시티 \`Inverted Harbor Of Kadel\`
+
+- 분류: 도시 탐험 / 정치 긴장
+- 대응 챕터: 챕터 2
+- 주요 장면: 역항도 진입, 내부 조사, 유라 베인과의 협상 이후 도시 이동
+- 감정 목적: 질서의 아름다움과 불안, 우아하지만 차가운 도시의 압박을 동시에 느끼게 한다.
+- 음색 방향: 말렛 오스티나토, 절제된 브라스, 정교한 현, 기계 심장 같은 펄스
+
+### 5. 붕괴 추적 \`Fracture Chase\`
+
+- 분류: 긴장 / 추적 / 재난 대응
+- 대응 챕터: 프롤로그, 챕터 1, 챕터 2, 엔딩
+- 주요 장면: 시계탑 탈출, 구조선 방어 직전, 카델 붕괴 추격, 산호궁 붕괴 구간
+- 감정 목적: 무너지는 구조물과 인명 구조의 급박함을 살리되, 소음처럼 피로한 곡이 되지 않게 조절한다.
+- 음색 방향: 빠른 현 리듬, 깊은 탐, 절제된 신스 펄스, 짧은 금관 액센트
+
+### 6. 일반 전투 \`Bellshard Skirmish\`
+
+- 분류: 전투
+- 대응 챕터: 전 챕터 공통
+- 주요 장면: 균열 생물 교전, 필드 전투, 중간 보스 전 직전 전투 루프
+- 감정 목적: 이야기 중심 RPG에 맞춰 공격적이되 지나치게 기계적이지 않은 전투 텐션을 만든다.
+- 음색 방향: 리듬 현, 브라스, 저역 타격, 어두운 드론
+
+### 7. 감정과 진실 \`Whispers Beneath The Orchard\`
+
+- 분류: 감정 이벤트 / 진실 공개
+- 대응 챕터: 챕터 3
+- 주요 장면: 속삭임 과수원, 사야 렌 고백 장면, 척추탑 진실 공개
+- 감정 목적: 관계의 친밀감, 후회, 돌이킬 수 없는 진실을 부드럽게 압박하는 정서 음악
+- 음색 방향: 피아노, 솔로 첼로, 하프, 유리 하모닉, 숨 쉬는 듯한 현
+
+### 8. 최종 결전과 엔딩 \`Abyssal Choir Reborn\`
+
+- 분류: 보스전 / 엔딩 / 크레딧
+- 대응 챕터: 엔딩
+- 주요 장면: 심연의 합창기 보스전, 마지막 선택, 엔딩 크레딧
+- 감정 목적: 최후 결전의 압도감에서 시작해 비터스위트한 새벽으로 마무리되는 대서사 흐름을 만든다.
+- 음색 방향: 거대한 저현, 브라스, 깊은 종소리, 피아노, 희미하게 열리는 현 합주
+
+## 챕터별 적용 가이드
+
+### 프롤로그
+
+- 허브 탐색: \`Twilight Over Mirajin\`
+- 시계탑 탈출과 추적: \`Fracture Chase\`
+- 첫 전투: \`Bellshard Skirmish\`
+- 메인 감정 여운: \`Tides Of The Unarrived Dawn\`
+
+### 챕터 1
+
+- 사구 필드 탐험: \`Saltglass Horizon\`
+- 구조 현장 긴장: \`Fracture Chase\`
+- 보편 전투: \`Bellshard Skirmish\`
+- 종편 회수 후 여운: \`Whispers Beneath The Orchard\`
+
+### 챕터 2
+
+- 카델 이동과 조사: \`Inverted Harbor Of Kadel\`
+- 시민 구조와 붕괴 대응: \`Fracture Chase\`
+- 전투 전반: \`Bellshard Skirmish\`
+- 유라 베인 협상 여운: \`Whispers Beneath The Orchard\`
+
+### 챕터 3
+
+- 과수원 감정 탐색: \`Whispers Beneath The Orchard\`
+- 척추탑 진실 공개: \`Whispers Beneath The Orchard\`
+- 긴장 상승 구간: \`Fracture Chase\`
+- 전투 전반: \`Bellshard Skirmish\`
+
+### 엔딩
+
+- 산호궁 탐험 전반: \`Fracture Chase\`
+- 최종 보스전: \`Abyssal Choir Reborn\`
+- 결말 선택과 크레딧: \`Abyssal Choir Reborn\`
+- 타이틀 복귀 또는 전체 회고: \`Tides Of The Unarrived Dawn\`
+
+## 제작 메모
+
+- 이번 산출물은 \`장면별 테마\`보다 \`실제 운용 가능한 핵심 BGM 세트\`를 우선 구성했다.
+- 추후 구현 단계에서는 전투 인트로 컷, 보스 2페이즈, 엔딩 A/B/C 전용 큐를 세부 확장하기 쉽도록 이름과 역할을 고정했다.
+- 모든 곡은 뷰어 내 전용 음악 섹션에서 직접 재생 가능하도록 연결한다.
+`,x=`# 세계 규칙과 시스템 설정
 
 ## 반향해
 
@@ -1695,7 +1828,7 @@
 
 따라서 스토리와 시스템 모두
 \`강한 힘 = 더 큰 대가\` 구조를 유지해야 분위기가 살아난다.
-`,H=`# 주요 지역 설정
+`,W=`# 주요 지역 설정
 
 ## 1. 등외항 미라진
 
@@ -1735,7 +1868,7 @@
 각 층에는 특정 인물이나 도시가 택하지 않은 역사 하나가
 실체를 가진 장면으로 남아 있다.
 세계관 설명과 캐릭터 서사 확장에 최적화된 장소다.
-`,I=`# 세력 설정
+`,K=`# 세력 설정
 
 ## 조율원
 
@@ -1784,7 +1917,7 @@
 - 상징: 물결 위에 뜬 음표 모양 성인
 - 강점: 고문서, 의식 기술, 해석 능력
 - 약점: 실천력 부족, 교리 해석 충돌, 외부 세력 침투
-`,M=`# 주요 인물 설정
+`,V=`# 주요 인물 설정
 
 ## 인물 설계 방향
 
@@ -2059,52 +2192,109 @@
   사야는 유연한 곡선과 얇은 장비선, 유라는 수직선과 권위적 재단선으로 구분한다.
 - 백야는 다른 인물과 달리 장비보다 \`빛의 번짐\`이 먼저 읽히도록 잡는다.
 - 다섯 인물 모두 후면 실루엣만 봐도 구분되게 외투 길이, 어깨선, 휴대 장비 위치를 다르게 설계한다.
-`,f=Object.freeze({title:"반향해 연대기",subtitle:"내일이 결정으로 떠오르는 세계에서, 사라진 새벽을 추적하는 해양 판타지 RPG 설정집",pitch:"플레이어는 미래의 잔향을 들을 수 있는 여명 인양사가 되어, 도시 국가와 고대 장치가 얽힌 세계에서 내일의 소유권을 둘러싼 전쟁을 마주한다.",setting:"반향해 기반 해양 판타지",mood:"몽환적 서정성과 시간 재난",coreConflict:"미래를 통제할 것인가, 모두에게 되돌릴 것인가"}),E=Object.freeze([{label:"세계 키워드",value:"반향해, 내일결, 새벽종"},{label:"플레이어 역할",value:"미래 반향을 듣는 여명 인양사"},{label:"메인 목표",value:"일곱 개의 새벽 종편 회수"},{label:"메인 플레이타임",value:"약 8시간"},{label:"문서 구성",value:"시나리오 6종 + 인물 외형 메모"},{label:"서사 테마",value:"강한 미래는 누군가의 가능성을 앗아간다"}]),z=Object.freeze([{title:"미래를 자원처럼 쓰는 세계",text:"전투와 탐험, 정치가 모두 내일결 배분 구조와 연결된다."},{title:"상실을 전제로 한 성장",text:"강력한 힘은 기억, 관계, 현재 감각을 대가로 요구한다."},{title:"항해형 지역 구조",text:"도시와 던전이 조류와 시간대에 따라 다른 규칙을 가진다."}]),T=Object.freeze([{era:"첫 역조",detail:"하늘과 바다의 경계가 뒤집히고 반향해가 생겨난다."},{era:"새벽종 시대",detail:"고대인들이 미래 배급 장치를 만들고 문명을 안정시킨다."},{era:"무월조 발발",detail:"내일결 생성이 멈추고 일부 지역에서 아침이 사라진다."},{era:"플레이어의 항해",detail:"종편 회수와 세계 질서 재구성의 선택이 시작된다."}]),u=Object.freeze([{id:"story-overview",title:"스토리 개요",category:"메인 설정",summary:"세계의 한 줄 콘셉트, 플레이어 역할, 메인 목표를 빠르게 파악하는 문서",fileName:"src/content/lore/story-overview.md",accent:"teal",content:j},{id:"main-story",title:"메인 스토리",category:"메인 설정",summary:"프롤로그부터 엔딩 선택까지의 3막 구조와 핵심 반전을 정리한 문서",fileName:"src/content/lore/main-story.md",accent:"gold",content:L},{id:"scenario-overview",title:"시나리오 개요",category:"시나리오 설계",summary:"메인 엔딩까지 약 8시간 기준의 챕터 수, 플레이타임, 대사 스크립트 작성 원칙을 정리한 문서",fileName:"src/content/scenario/00-overview.md",accent:"teal",content:P},{id:"scenario-prologue",title:"프롤로그",category:"챕터 시나리오",summary:"미라진에서 사라진 새벽을 목격하고 첫 항해를 시작하는 도입 챕터와 상세 대사 문서",fileName:"src/content/scenario/01-prologue.md",accent:"coral",content:O},{id:"scenario-chapter-1",title:"챕터 1",category:"챕터 시나리오",summary:"유리염 사구에서 생존 갈등을 체감하고 첫 두 개의 종편을 회수하는 장면별 스크립트 문서",fileName:"src/content/scenario/02-chapter-1.md",accent:"gold",content:A},{id:"scenario-chapter-2",title:"챕터 2",category:"챕터 시나리오",summary:"역항도 카델에서 유라 베인의 질서 논리와 두 개의 종편을 마주하는 장면별 스크립트 문서",fileName:"src/content/scenario/03-chapter-2.md",accent:"plum",content:C},{id:"scenario-chapter-3",title:"챕터 3",category:"챕터 시나리오",summary:"속삭임 과수원과 척추탑에서 진실과 플레이어 정체성을 드러내는 장면별 스크립트 문서",fileName:"src/content/scenario/04-chapter-3.md",accent:"slate",content:D},{id:"scenario-ending",title:"엔딩",category:"챕터 시나리오",summary:"침묵 산호궁 최종 던전과 세 가지 메인 엔딩 선택을 상세 스크립트로 정리한 문서",fileName:"src/content/scenario/05-ending.md",accent:"rose",content:q},{id:"world-rules",title:"세계 규칙",category:"시스템 설정",summary:"반향해, 내일결, 시간 균열, 여명 인양사의 규칙을 정의한 문서",fileName:"src/content/lore/world-rules.md",accent:"coral",content:S},{id:"regions",title:"지역 설정",category:"세부 설정",summary:"항구, 사막, 역중력 도시, 최종 던전 등 탐험 지역의 성격을 정리한 문서",fileName:"src/content/lore/regions.md",accent:"plum",content:H},{id:"factions",title:"세력 설정",category:"세부 설정",summary:"조율원, 염해 길드, 공백 법정 등 주요 집단의 논리와 강약점을 정의한 문서",fileName:"src/content/lore/factions.md",accent:"slate",content:I},{id:"characters",title:"인물 설정",category:"세부 설정",summary:"플레이어와 주요 인물의 역할, 감정선, 외형 디자인 포인트를 정리한 문서",fileName:"src/content/lore/characters.md",accent:"rose",content:M}]),N=document.querySelector("#app");if(!N)throw new Error("앱 루트 요소를 찾을 수 없습니다.");const x=Object.freeze(["scenario-overview","scenario-prologue","scenario-chapter-1","scenario-chapter-2","scenario-chapter-3","scenario-ending","characters"]),_=Object.freeze(x.map(n=>u.find(e=>e.id===n)).filter(Boolean));function g(n){return u.find(e=>e.id===n)}function w(){const n=decodeURIComponent(window.location.hash.replace(/^#/,""));return g(n)?n:""}function B(n){const e=`#${n}`;window.location.hash!==e&&window.history.replaceState(null,"",e)}function F(n){return n.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;")}function m(n){return F(n).replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/\*([^*]+)\*/g,"<em>$1</em>")}function R(n){const e=n.trim().split(/\r?\n/),c=[];let t=[],r=[],a="ul",s=[];const i=()=>{t.length&&(c.push(`<p>${t.map(m).join("<br />")}</p>`),t=[])},l=()=>{if(!r.length)return;const p=r.map(o=>`<li>${m(o)}</li>`).join("");c.push(`<${a}>${p}</${a}>`),r=[],a="ul"},d=()=>{s.length&&(c.push(`<blockquote><p>${s.map(m).join("<br />")}</p></blockquote>`),s=[])};for(const p of e){const o=p.trimEnd(),h=o.match(/^(#{1,3})\s+(.*)$/),y=o.match(/^-\s+(.*)$/),v=o.match(/^\d+\.\s+(.*)$/),$=o.match(/^>\s?(.*)$/);if(!o.trim()){i(),l(),d();continue}if(o==="---"){i(),l(),d(),c.push("<hr />");continue}if(h){i(),l(),d();const b=h[1].length;c.push(`<h${b}>${m(h[2])}</h${b}>`);continue}if(y){i(),d(),a!=="ul"&&r.length&&l(),a="ul",r.push(y[1]);continue}if(v){i(),d(),a!=="ol"&&r.length&&l(),a="ol",r.push(v[1]);continue}if($){i(),l(),s.push($[1]);continue}t.push(o)}return i(),l(),d(),c.join("")}function U(n,e){const c=document.querySelector("[data-document-nav]");c&&(c.innerHTML=u.map(t=>`
+`,g=Object.freeze({title:"반향해 연대기",subtitle:"내일이 결정으로 떠오르는 세계에서, 사라진 새벽을 추적하는 해양 판타지 RPG 설정집",pitch:"플레이어는 미래의 잔향을 들을 수 있는 여명 인양사가 되어, 도시 국가와 고대 장치가 얽힌 세계에서 내일의 소유권을 둘러싼 전쟁을 마주한다.",setting:"반향해 기반 해양 판타지",mood:"몽환적 서정성과 시간 재난",coreConflict:"미래를 통제할 것인가, 모두에게 되돌릴 것인가"}),Q=Object.freeze([{label:"세계 키워드",value:"반향해, 내일결, 새벽종"},{label:"플레이어 역할",value:"미래 반향을 듣는 여명 인양사"},{label:"메인 목표",value:"일곱 개의 새벽 종편 회수"},{label:"메인 플레이타임",value:"약 8시간"},{label:"문서 구성",value:"시나리오 6종 + 설정 5종 + BGM 설계 1종"},{label:"서사 테마",value:"강한 미래는 누군가의 가능성을 앗아간다"}]),J=Object.freeze([{title:"미래를 자원처럼 쓰는 세계",text:"전투와 탐험, 정치가 모두 내일결 배분 구조와 연결된다."},{title:"상실을 전제로 한 성장",text:"강력한 힘은 기억, 관계, 현재 감각을 대가로 요구한다."},{title:"항해형 지역 구조",text:"도시와 던전이 조류와 시간대에 따라 다른 규칙을 가진다."}]),X=Object.freeze([{era:"첫 역조",detail:"하늘과 바다의 경계가 뒤집히고 반향해가 생겨난다."},{era:"새벽종 시대",detail:"고대인들이 미래 배급 장치를 만들고 문명을 안정시킨다."},{era:"무월조 발발",detail:"내일결 생성이 멈추고 일부 지역에서 아침이 사라진다."},{era:"플레이어의 항해",detail:"종편 회수와 세계 질서 재구성의 선택이 시작된다."}]),u=Object.freeze([{id:"story-overview",title:"스토리 개요",category:"메인 설정",summary:"세계의 한 줄 콘셉트, 플레이어 역할, 메인 목표를 빠르게 파악하는 문서",fileName:"src/content/lore/story-overview.md",accent:"teal",content:M},{id:"main-story",title:"메인 스토리",category:"메인 설정",summary:"프롤로그부터 엔딩 선택까지의 3막 구조와 핵심 반전을 정리한 문서",fileName:"src/content/lore/main-story.md",accent:"gold",content:H},{id:"audio-scenario-plan",title:"시나리오 기반 BGM 설계안",category:"오디오 설계",summary:"챕터와 장면 감정선에 맞춘 핵심 BGM 8곡의 용도, 분위기, 배치 기준을 정리한 문서",fileName:"src/content/audio/00-scenario-bgm-plan.md",accent:"gold",content:F},{id:"scenario-overview",title:"시나리오 개요",category:"시나리오 설계",summary:"메인 엔딩까지 약 8시간 기준의 챕터 수, 플레이타임, 대사 스크립트 작성 원칙을 정리한 문서",fileName:"src/content/scenario/00-overview.md",accent:"teal",content:R},{id:"scenario-prologue",title:"프롤로그",category:"챕터 시나리오",summary:"미라진에서 사라진 새벽을 목격하고 첫 항해를 시작하는 도입 챕터와 상세 대사 문서",fileName:"src/content/scenario/01-prologue.md",accent:"coral",content:q},{id:"scenario-chapter-1",title:"챕터 1",category:"챕터 시나리오",summary:"유리염 사구에서 생존 갈등을 체감하고 첫 두 개의 종편을 회수하는 장면별 스크립트 문서",fileName:"src/content/scenario/02-chapter-1.md",accent:"gold",content:D},{id:"scenario-chapter-2",title:"챕터 2",category:"챕터 시나리오",summary:"역항도 카델에서 유라 베인의 질서 논리와 두 개의 종편을 마주하는 장면별 스크립트 문서",fileName:"src/content/scenario/03-chapter-2.md",accent:"plum",content:E},{id:"scenario-chapter-3",title:"챕터 3",category:"챕터 시나리오",summary:"속삭임 과수원과 척추탑에서 진실과 플레이어 정체성을 드러내는 장면별 스크립트 문서",fileName:"src/content/scenario/04-chapter-3.md",accent:"slate",content:G},{id:"scenario-ending",title:"엔딩",category:"챕터 시나리오",summary:"침묵 산호궁 최종 던전과 세 가지 메인 엔딩 선택을 상세 스크립트로 정리한 문서",fileName:"src/content/scenario/05-ending.md",accent:"rose",content:z},{id:"world-rules",title:"세계 규칙",category:"시스템 설정",summary:"반향해, 내일결, 시간 균열, 여명 인양사의 규칙을 정의한 문서",fileName:"src/content/lore/world-rules.md",accent:"coral",content:x},{id:"regions",title:"지역 설정",category:"세부 설정",summary:"항구, 사막, 역중력 도시, 최종 던전 등 탐험 지역의 성격을 정리한 문서",fileName:"src/content/lore/regions.md",accent:"plum",content:W},{id:"factions",title:"세력 설정",category:"세부 설정",summary:"조율원, 염해 길드, 공백 법정 등 주요 집단의 논리와 강약점을 정의한 문서",fileName:"src/content/lore/factions.md",accent:"slate",content:K},{id:"characters",title:"인물 설정",category:"세부 설정",summary:"플레이어와 주요 인물의 역할, 감정선, 외형 디자인 포인트를 정리한 문서",fileName:"src/content/lore/characters.md",accent:"rose",content:V}]),S=document.querySelector("#app");if(!S)throw new Error("앱 루트 요소를 찾을 수 없습니다.");const Y=Object.freeze(["audio-scenario-plan","scenario-overview","scenario-prologue","scenario-chapter-1","scenario-chapter-2","scenario-chapter-3","scenario-ending","characters"]),N=Object.freeze(Y.map(e=>u.find(t=>t.id===e)).filter(Boolean));function v(e){return u.find(t=>t.id===e)}function T(){const e=decodeURIComponent(window.location.hash.replace(/^#/,""));return v(e)?e:""}function Z(e){const t=`#${e}`;window.location.hash!==t&&window.history.replaceState(null,"",t)}function nn(e){return e.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;")}function m(e){return nn(e).replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/\*([^*]+)\*/g,"<em>$1</em>")}function en(e){const t=e.trim().split(/\r?\n/),a=[];let n=[],s=[],r="ul",c=[];const i=()=>{n.length&&(a.push(`<p>${n.map(m).join("<br />")}</p>`),n=[])},l=()=>{if(!s.length)return;const p=s.map(o=>`<li>${m(o)}</li>`).join("");a.push(`<${r}>${p}</${r}>`),s=[],r="ul"},d=()=>{c.length&&(a.push(`<blockquote><p>${c.map(m).join("<br />")}</p></blockquote>`),c=[])};for(const p of t){const o=p.trimEnd(),f=o.match(/^(#{1,3})\s+(.*)$/),b=o.match(/^-\s+(.*)$/),w=o.match(/^\d+\.\s+(.*)$/),$=o.match(/^>\s?(.*)$/);if(!o.trim()){i(),l(),d();continue}if(o==="---"){i(),l(),d(),a.push("<hr />");continue}if(f){i(),l(),d();const k=f[1].length;a.push(`<h${k}>${m(f[2])}</h${k}>`);continue}if(b){i(),d(),r!=="ul"&&s.length&&l(),r="ul",s.push(b[1]);continue}if(w){i(),d(),r!=="ol"&&s.length&&l(),r="ol",s.push(w[1]);continue}if($){i(),l(),c.push($[1]);continue}n.push(o)}return i(),l(),d(),a.join("")}function tn(e,t){const a=document.querySelector("[data-document-nav]");a&&(a.innerHTML=u.map(n=>`
         <button
           type="button"
-          class="document-card${t.id===n?" is-active":""}"
-          data-document-trigger="${t.id}"
+          class="document-card${n.id===e?" is-active":""}"
+          data-document-trigger="${n.id}"
         >
-          <span class="document-card__category">${t.category}</span>
-          <strong>${t.title}</strong>
-          <span>${t.summary}</span>
+          <span class="document-card__category">${n.category}</span>
+          <strong>${n.title}</strong>
+          <span>${n.summary}</span>
         </button>
-      `).join(""),c.querySelectorAll("[data-document-trigger]").forEach(t=>{t.addEventListener("click",()=>{e(t.getAttribute("data-document-trigger")||n)})}))}function k(n,e){const c=document.querySelector("[data-featured-links]");c&&(c.innerHTML=_.map(t=>`
+      `).join(""),a.querySelectorAll("[data-document-trigger]").forEach(n=>{n.addEventListener("click",()=>{t(n.getAttribute("data-document-trigger")||e)})}))}function an(e,t){const a=document.querySelector("[data-featured-links]");a&&(a.innerHTML=N.map(n=>`
         <button
           type="button"
-          class="spotlight-card spotlight-card--${t.accent}${t.id===n?" is-active":""}"
-          data-featured-trigger="${t.id}"
+          class="spotlight-card spotlight-card--${n.accent}${n.id===e?" is-active":""}"
+          data-featured-trigger="${n.id}"
         >
-          <span class="spotlight-card__category">${t.category}</span>
-          <strong>${t.title}</strong>
-          <span>${t.summary}</span>
-          <span class="spotlight-card__file">${t.fileName}</span>
+          <span class="spotlight-card__category">${n.category}</span>
+          <strong>${n.title}</strong>
+          <span>${n.summary}</span>
+          <span class="spotlight-card__file">${n.fileName}</span>
         </button>
-      `).join(""),c.querySelectorAll("[data-featured-trigger]").forEach(t=>{t.addEventListener("click",()=>{e(t.getAttribute("data-featured-trigger")||n)})}))}function G(n){const e=g(n)??u[0],c=document.querySelector("[data-document-viewer]");!c||!e||(c.innerHTML=`
+      `).join(""),a.querySelectorAll("[data-featured-trigger]").forEach(n=>{n.addEventListener("click",()=>{t(n.getAttribute("data-featured-trigger")||e)})}))}function rn(e){const t=v(e)??u[0],a=document.querySelector("[data-document-viewer]");!a||!t||(a.innerHTML=`
     <div class="viewer-meta">
-      <span class="viewer-meta__badge viewer-meta__badge--${e.accent}">${e.category}</span>
-      <span class="viewer-meta__file">${e.fileName}</span>
+      <span class="viewer-meta__badge viewer-meta__badge--${t.accent}">${t.category}</span>
+      <span class="viewer-meta__file">${t.fileName}</span>
     </div>
     <header class="viewer-header">
-      <h2>${e.title}</h2>
-      <p>${e.summary}</p>
+      <h2>${t.title}</h2>
+      <p>${t.summary}</p>
     </header>
-    <article class="markdown-body">${R(e.content)}</article>
-  `)}function V(){N.innerHTML=`
+    <article class="markdown-body">${en(t.content)}</article>
+  `)}function sn(){return{activeTrackId:h[0]?.id??"",isPlaying:!1}}function y(e){return h.find(t=>t.id===e)}function _(e){const t=document.querySelector("[data-soundtrack-player]"),a=document.querySelector("[data-soundtrack-element]"),n=y(e.activeTrackId)??h[0];!t||!a||!n||(t.innerHTML=`
+    <div class="soundtrack-player__content">
+      <p class="eyebrow">Music Player</p>
+      <h3>${n.koreanTitle}</h3>
+      <p>${n.summary}</p>
+      <dl class="soundtrack-player__meta">
+        <div>
+          <dt>분류</dt>
+          <dd>${n.category}</dd>
+        </div>
+        <div>
+          <dt>사용 장면</dt>
+          <dd>${n.sceneUse}</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="soundtrack-player__status">
+      <span class="viewer-meta__badge viewer-meta__badge--${n.accent}">
+        ${e.isPlaying?"재생 중":"준비됨"}
+      </span>
+      <span class="viewer-meta__file">${n.fileName}</span>
+    </div>
+  `,a.setAttribute("aria-label",`${n.koreanTitle} 재생기`))}function L(e){const t=document.querySelector("[data-soundtrack-list]");t&&(t.innerHTML=h.map(a=>`
+        <article class="audio-card audio-card--${a.accent}${a.id===e.activeTrackId?" is-active":""}">
+          <div class="audio-card__meta">
+            <span class="document-card__category">${a.category}</span>
+            <span>${a.durationLabel}</span>
+          </div>
+          <h3>${a.koreanTitle}</h3>
+          <p>${a.summary}</p>
+          <dl class="audio-card__details">
+            <div>
+              <dt>챕터</dt>
+              <dd>${a.chapters}</dd>
+            </div>
+            <div>
+              <dt>장면</dt>
+              <dd>${a.sceneUse}</dd>
+            </div>
+            <div>
+              <dt>정서</dt>
+              <dd>${a.mood}</dd>
+            </div>
+            <div>
+              <dt>주요 악기</dt>
+              <dd>${a.instrumentation}</dd>
+            </div>
+          </dl>
+          <div class="audio-card__actions">
+            <button type="button" class="audio-card__button" data-audio-toggle="${a.id}">
+              ${a.id===e.activeTrackId&&e.isPlaying?"일시정지":"재생"}
+            </button>
+            <a class="audio-card__link" href="${a.src}" download>
+              파일 받기
+            </a>
+          </div>
+        </article>
+      `).join(""))}function cn(){S.innerHTML=`
     <div class="page-shell">
       <header class="hero">
         <div class="hero__content">
-          <p class="eyebrow">Issue #57 · Main Scenario Docs</p>
-          <h1>${f.title}</h1>
-          <p class="hero__subtitle">${f.subtitle}</p>
-          <p class="hero__pitch">${f.pitch}</p>
+          <p class="eyebrow">Issue #59 · Scenario Soundtrack</p>
+          <h1>${g.title}</h1>
+          <p class="hero__subtitle">${g.subtitle}</p>
+          <p class="hero__pitch">${g.pitch}</p>
         </div>
         <div class="hero__panel">
           <dl class="hero-stats">
-            ${E.map(n=>`
+            ${Q.map(e=>`
                   <div>
-                    <dt>${n.label}</dt>
-                    <dd>${n.value}</dd>
+                    <dt>${e.label}</dt>
+                    <dd>${e.value}</dd>
                   </div>
                 `).join("")}
           </dl>
@@ -2117,17 +2307,18 @@
             <p class="eyebrow">Branch Focus</p>
             <h2>이번 브랜치에서 바로 볼 문서</h2>
             <p class="section-copy">
-              메인 시나리오 6종과 캐릭터 디자인 참고 문서를 빠르게 열 수 있도록 묶었습니다.
+              메인 시나리오, 캐릭터 설정, 그리고 새로 추가한 시나리오 기반 BGM 설계안을 빠르게
+              열 수 있도록 묶었습니다.
             </p>
           </div>
           <div class="spotlight-grid" data-featured-links></div>
         </section>
 
         <section class="info-grid" aria-label="핵심 기둥">
-          ${z.map(n=>`
+          ${J.map(e=>`
                 <article class="info-card">
-                  <h2>${n.title}</h2>
-                  <p>${n.text}</p>
+                  <h2>${e.title}</h2>
+                  <p>${e.text}</p>
                 </article>
               `).join("")}
         </section>
@@ -2138,12 +2329,33 @@
             <h2>세계 사건 흐름</h2>
           </div>
           <div class="timeline">
-            ${T.map(n=>`
+            ${X.map(e=>`
                   <article class="timeline__item">
-                    <strong>${n.era}</strong>
-                    <p>${n.detail}</p>
+                    <strong>${e.era}</strong>
+                    <p>${e.detail}</p>
                   </article>
                 `).join("")}
+          </div>
+        </section>
+
+        <section class="soundtrack-section" aria-label="시나리오 기반 음악">
+          <div class="section-heading">
+            <p class="eyebrow">Soundtrack</p>
+            <h2>시나리오 기반 음악 아카이브</h2>
+            <p class="section-copy">
+              챕터 감정선과 장면 용도에 맞춰 설계한 BGM 8곡을 이 페이지에서 바로 들을 수 있습니다.
+              플레이어는 하나만 두고 관리해서 겹쳐 재생되지 않습니다.
+            </p>
+          </div>
+          <div class="soundtrack-layout">
+            <section class="soundtrack-player" data-soundtrack-player aria-live="polite"></section>
+            <audio
+              class="soundtrack-element"
+              data-soundtrack-element
+              controls
+              preload="none"
+            ></audio>
+            <div class="soundtrack-grid" data-soundtrack-list></div>
           </div>
         </section>
 
@@ -2162,4 +2374,4 @@
         </section>
       </main>
     </div>
-  `}function K(){let n=w()||_[0]?.id||u[0]?.id||"";const e=(c,{syncHash:t=!0}={})=>{n=g(c)?.id??n,k(n,e),U(n,e),G(n),t&&B(n)};V(),e(n),window.addEventListener("hashchange",()=>{const c=w();c&&c!==n&&e(c,{syncHash:!1})})}K();
+  `}function on(){let e=T()||N[0]?.id||u[0]?.id||"";const t=sn(),a=(r,{syncHash:c=!0}={})=>{e=v(r)?.id??e,an(e,a),tn(e,a),rn(e),c&&Z(e)};cn();const n=document.querySelector("[data-soundtrack-element]");a(e),_(t),L(t);const s=()=>{_(t),L(t),document.querySelectorAll("[data-audio-toggle]").forEach(r=>{r.addEventListener("click",async()=>{const c=r.getAttribute("data-audio-toggle"),i=y(c);if(!(!n||!i))if(t.activeTrackId!==i.id&&(n.src=i.src,n.dataset.trackId=i.id,t.activeTrackId=i.id),n.paused)try{await n.play()}catch{t.isPlaying=!1,s()}else if(n.dataset.trackId===i.id)n.pause();else{n.pause(),n.src=i.src,n.dataset.trackId=i.id;try{await n.play()}catch{t.isPlaying=!1,s()}}})})};if(n){const r=y(t.activeTrackId);r&&(n.src=r.src,n.dataset.trackId=r.id),n.addEventListener("play",()=>{t.isPlaying=!0,t.activeTrackId=n.dataset.trackId||t.activeTrackId,s()}),n.addEventListener("pause",()=>{t.isPlaying=!1,s()}),n.addEventListener("ended",()=>{t.isPlaying=!1,s()})}s(),window.addEventListener("hashchange",()=>{const r=T();r&&r!==e&&a(r,{syncHash:!1})})}on();

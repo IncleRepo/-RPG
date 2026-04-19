@@ -79,6 +79,7 @@ a {
 .hero__panel,
 .info-card,
 .timeline__item,
+.spotlight-card,
 .document-card,
 .document-viewer {
   border: 1px solid var(--line);
@@ -202,6 +203,24 @@ a {
   font-size: clamp(2rem, 3vw, 3rem);
 }
 
+.section-copy {
+  max-width: 40rem;
+  margin: 0;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.spotlight-section {
+  display: grid;
+  gap: 14px;
+}
+
+.spotlight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
 .info-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -261,6 +280,90 @@ a {
   display: block;
   margin-bottom: 8px;
   font-size: 1.8rem;
+}
+
+.spotlight-card {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  padding: 22px;
+  text-align: left;
+  border-radius: var(--radius-lg);
+  color: inherit;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+  overflow: hidden;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+}
+
+.spotlight-card:hover,
+.spotlight-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(23, 125, 117, 0.35);
+  outline: none;
+}
+
+.spotlight-card.is-active {
+  background: var(--surface-strong);
+  border-color: rgba(23, 125, 117, 0.46);
+}
+
+.spotlight-card--teal::before {
+  background: var(--teal);
+}
+
+.spotlight-card--gold::before {
+  background: var(--gold);
+}
+
+.spotlight-card--coral::before {
+  background: var(--coral);
+}
+
+.spotlight-card--plum::before {
+  background: var(--plum);
+}
+
+.spotlight-card--slate::before {
+  background: var(--slate);
+}
+
+.spotlight-card--rose::before {
+  background: var(--rose);
+}
+
+.spotlight-card__category {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.spotlight-card strong {
+  font-size: 1.9rem;
+}
+
+.spotlight-card span:nth-of-type(2),
+.spotlight-card__file {
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.spotlight-card__file {
+  font-size: 0.8rem;
 }
 
 .viewer-layout {
@@ -475,6 +578,7 @@ a {
   }
 
   .hero,
+  .spotlight-grid,
   .info-grid,
   .timeline,
   .viewer-layout {
@@ -508,6 +612,7 @@ a {
 
   .info-card,
   .timeline__item,
+  .spotlight-card,
   .document-card,
   .document-viewer {
     border-radius: 18px;

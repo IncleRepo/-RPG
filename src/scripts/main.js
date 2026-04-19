@@ -13,6 +13,39 @@ if (!app) {
   throw new Error('앱 루트 요소를 찾을 수 없습니다.');
 }
 
+const featuredDocumentIds = Object.freeze([
+  'scenario-overview',
+  'scenario-prologue',
+  'scenario-chapter-1',
+  'scenario-chapter-2',
+  'scenario-chapter-3',
+  'scenario-ending',
+  'characters',
+]);
+
+const featuredDocuments = Object.freeze(
+  featuredDocumentIds
+    .map((documentId) => storyDocuments.find((item) => item.id === documentId))
+    .filter(Boolean)
+);
+
+function getDocumentById(documentId) {
+  return storyDocuments.find((item) => item.id === documentId);
+}
+
+function getDocumentIdFromHash() {
+  const hashValue = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+  return getDocumentById(hashValue) ? hashValue : '';
+}
+
+function syncLocationHash(documentId) {
+  const nextHash = `#${documentId}`;
+
+  if (window.location.hash !== nextHash) {
+    window.history.replaceState(null, '', nextHash);
+  }
+}
+
 function escapeHtml(text) {
   return text
     .replaceAll('&', '&amp;')
@@ -170,8 +203,39 @@ function renderDocumentList(activeId, onSelect) {
   });
 }
 
+function renderFeaturedDocuments(activeId, onSelect) {
+  const container = document.querySelector('[data-featured-links]');
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = featuredDocuments
+    .map(
+      (document) => `
+        <button
+          type="button"
+          class="spotlight-card spotlight-card--${document.accent}${document.id === activeId ? ' is-active' : ''}"
+          data-featured-trigger="${document.id}"
+        >
+          <span class="spotlight-card__category">${document.category}</span>
+          <strong>${document.title}</strong>
+          <span>${document.summary}</span>
+          <span class="spotlight-card__file">${document.fileName}</span>
+        </button>
+      `
+    )
+    .join('');
+
+  container.querySelectorAll('[data-featured-trigger]').forEach((button) => {
+    button.addEventListener('click', () => {
+      onSelect(button.getAttribute('data-featured-trigger') || activeId);
+    });
+  });
+}
+
 function renderActiveDocument(documentId) {
-  const activeDocument = storyDocuments.find((item) => item.id === documentId) ?? storyDocuments[0];
+  const activeDocument = getDocumentById(documentId) ?? storyDocuments[0];
   const viewer = document.querySelector('[data-document-viewer]');
 
   if (!viewer || !activeDocument) {
@@ -196,7 +260,7 @@ function createAppShell() {
     <div class="page-shell">
       <header class="hero">
         <div class="hero__content">
-          <p class="eyebrow">Issue #55 · Scenario Docs</p>
+          <p class="eyebrow">Issue #57 · Main Scenario Docs</p>
           <h1>${storyProject.title}</h1>
           <p class="hero__subtitle">${storyProject.subtitle}</p>
           <p class="hero__pitch">${storyProject.pitch}</p>
@@ -218,6 +282,17 @@ function createAppShell() {
       </header>
 
       <main class="layout">
+        <section class="spotlight-section" aria-label="이번 브랜치 바로가기">
+          <div class="section-heading">
+            <p class="eyebrow">Branch Focus</p>
+            <h2>이번 브랜치에서 바로 볼 문서</h2>
+            <p class="section-copy">
+              메인 시나리오 6종과 캐릭터 디자인 참고 문서를 빠르게 열 수 있도록 묶었습니다.
+            </p>
+          </div>
+          <div class="spotlight-grid" data-featured-links></div>
+        </section>
+
         <section class="info-grid" aria-label="핵심 기둥">
           ${storyPillars
             .map(
@@ -252,8 +327,11 @@ function createAppShell() {
 
         <section class="viewer-section">
           <div class="section-heading">
-            <p class="eyebrow">Lore Documents</p>
-            <h2>스토리와 설정 문서</h2>
+            <p class="eyebrow">Story Viewer</p>
+            <h2>스토리와 설정 문서 전체 보기</h2>
+            <p class="section-copy">
+              왼쪽 전체 목록과 위 빠른 열기를 함께 써서 챕터 문서와 설정 문서를 오갈 수 있습니다.
+            </p>
           </div>
           <div class="viewer-layout">
             <nav class="document-nav" data-document-nav aria-label="문서 목록"></nav>
@@ -266,16 +344,30 @@ function createAppShell() {
 }
 
 function bootstrap() {
-  let activeDocumentId = storyDocuments[0]?.id ?? '';
+  let activeDocumentId =
+    getDocumentIdFromHash() || featuredDocuments[0]?.id || storyDocuments[0]?.id || '';
 
-  const selectDocument = (documentId) => {
-    activeDocumentId = documentId;
+  const selectDocument = (documentId, { syncHash = true } = {}) => {
+    activeDocumentId = getDocumentById(documentId)?.id ?? activeDocumentId;
+    renderFeaturedDocuments(activeDocumentId, selectDocument);
     renderDocumentList(activeDocumentId, selectDocument);
     renderActiveDocument(activeDocumentId);
+
+    if (syncHash) {
+      syncLocationHash(activeDocumentId);
+    }
   };
 
   createAppShell();
   selectDocument(activeDocumentId);
+
+  window.addEventListener('hashchange', () => {
+    const hashDocumentId = getDocumentIdFromHash();
+
+    if (hashDocumentId && hashDocumentId !== activeDocumentId) {
+      selectDocument(hashDocumentId, { syncHash: false });
+    }
+  });
 }
 
 bootstrap();

@@ -39,6 +39,10 @@ export const storyHighlights = Object.freeze([
     value: '약 8시간',
   },
   {
+    label: '문서 구성',
+    value: '시나리오 6종 + 인물 외형 메모',
+  },
+  {
     label: '서사 테마',
     value: '강한 미래는 누군가의 가능성을 앗아간다',
   },
@@ -183,7 +187,7 @@ export const storyDocuments = Object.freeze([
     id: 'characters',
     title: '인물 설정',
     category: '세부 설정',
-    summary: '플레이어와 조력자, 대립 인물, 상징 인물의 역할을 정리한 문서',
+    summary: '플레이어와 주요 인물의 역할, 감정선, 외형 디자인 포인트를 정리한 문서',
     fileName: 'src/content/lore/characters.md',
     accent: 'rose',
     content: characters,

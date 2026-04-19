@@ -6,6 +6,7 @@
   "scripts": {
     "start": "vite --host 127.0.0.1 --port 5173 --strictPort",
     "build": "vite build",
+    "generate:bgm": "node tools/generate-bgm.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",

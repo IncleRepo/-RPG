@@ -6,6 +6,7 @@ import scenarioChapter1 from '../content/scenario/02-chapter-1.md?raw';
 import scenarioChapter2 from '../content/scenario/03-chapter-2.md?raw';
 import scenarioChapter3 from '../content/scenario/04-chapter-3.md?raw';
 import scenarioEnding from '../content/scenario/05-ending.md?raw';
+import scenarioBgmPlan from '../content/audio/scenario-bgm-plan.md?raw';
 import worldRules from '../content/lore/world-rules.md?raw';
 import regions from '../content/lore/regions.md?raw';
 import factions from '../content/lore/factions.md?raw';
@@ -40,7 +41,7 @@ export const storyHighlights = Object.freeze([
   },
   {
     label: '문서 구성',
-    value: '시나리오 6종 + 인물 외형 메모',
+    value: '시나리오 6종 + 설정 6종 + BGM 기획 1종',
   },
   {
     label: '서사 테마',
@@ -155,6 +156,16 @@ export const storyDocuments = Object.freeze([
     fileName: 'src/content/scenario/05-ending.md',
     accent: 'rose',
     content: scenarioEnding,
+  },
+  {
+    id: 'scenario-bgm-plan',
+    title: '시나리오 BGM 설계',
+    category: '오디오 설계',
+    summary:
+      '챕터별 감정선에 맞춘 BGM 목록, 장면 배치안, 실제 제작된 오리지널 트랙 파일 위치를 정리한 문서',
+    fileName: 'src/content/audio/scenario-bgm-plan.md',
+    accent: 'gold',
+    content: scenarioBgmPlan,
   },
   {
     id: 'world-rules',

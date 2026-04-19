@@ -12,7 +12,6 @@
 ![Issues](https://img.shields.io/github/issues/IncleRepo/-RPG?style=for-the-badge)
 ![PRs](https://img.shields.io/github/issues-pr/IncleRepo/-RPG?style=for-the-badge)
 
-
 ![RPG issue workflow](./assets/readme-workflow.png)
 
 <br/>
@@ -83,12 +82,15 @@
 
 ```md
 ## 배경
+
 왜 필요한지
 
 ## 제안 내용
+
 어떤 시스템인지
 
 ## 기대 결과
+
 어떻게 동작해야 하는지
 ```
 

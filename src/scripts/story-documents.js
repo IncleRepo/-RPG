@@ -2,6 +2,7 @@ import storyOverview from '../content/lore/story-overview.md?raw';
 import mainStory from '../content/lore/main-story.md?raw';
 import coreSystems from '../content/game-design/00-core-systems.md?raw';
 import prologuePlayflow from '../content/game-design/01-prologue-playflow.md?raw';
+import uiUxGuide from '../content/game-design/02-ui-ux.md?raw';
 import scenarioOverview from '../content/scenario/00-overview.md?raw';
 import scenarioPrologue from '../content/scenario/01-prologue.md?raw';
 import scenarioChapter1 from '../content/scenario/02-chapter-1.md?raw';
@@ -43,7 +44,7 @@ export const storyHighlights = Object.freeze([
   },
   {
     label: '문서 구성',
-    value: '시나리오 6종 + 설정/설계 8종 + BGM 설계 1종',
+    value: '시나리오 6종 + 설정/설계 9종 + BGM 설계 1종',
   },
   {
     label: '서사 테마',
@@ -123,6 +124,16 @@ export const storyDocuments = Object.freeze([
     fileName: 'src/content/game-design/01-prologue-playflow.md',
     accent: 'coral',
     content: prologuePlayflow,
+  },
+  {
+    id: 'ui-ux-guide',
+    title: '게임 UX/UI 구성',
+    category: '플레이 설계',
+    summary:
+      '탐험, 상호작용, 대화, 전투, 컷신, 메뉴 전환에 따라 HUD와 목표, 저장, 결과 화면을 어떻게 구성할지 정리한 문서',
+    fileName: 'src/content/game-design/02-ui-ux.md',
+    accent: 'plum',
+    content: uiUxGuide,
   },
   {
     id: 'audio-scenario-plan',

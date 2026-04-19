@@ -21,6 +21,30 @@
 
 ---
 
+## 🧪 Hero Motion Lab
+
+이번 리소스 작업으로 기본 주인공 프리셋 `미라진 여명 인양사`의
+모션 세트와 웹 기반 프레임 애니메이터가 추가되었습니다.
+
+- 브라우저에서 프레임별 포즈 확인 및 수정
+- 파트별 위치, 각도, 크기 조절
+- PNG 프레임 세트와 JSON 데이터 기준 유지
+- 산출물 경로: `assets/sprites/player/`
+
+스프라이트 생성 기준 데이터와 PNG는 아래 파일을 중심으로 관리합니다.
+
+- `src/scripts/player-sprite-data.mjs`
+- `src/scripts/player-sprite-renderer.mjs`
+- `tools/generate-player-sprites.mjs`
+
+필요하면 아래 명령으로 PNG 세트를 다시 생성할 수 있습니다.
+
+```bash
+npm run generate:sprites
+```
+
+---
+
 ## ✨ What is this?
 
 이 프로젝트는 코드를 먼저 만드는 프로젝트가 아닙니다.
@@ -127,6 +151,8 @@
 
 - [x] 프로젝트 구조 정의
 - [x] 워크플로우 구축
+- [x] 주인공 기본 모션 리소스 프로토타입
+- [x] 웹 프레임 애니메이터
 - [ ] 게임 시스템 설계
 - [ ] 핵심 기능 구현
 - [ ] 플레이 가능 상태

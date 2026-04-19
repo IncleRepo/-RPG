@@ -7,7 +7,7 @@ module.exports = [
   },
   js.configs.recommended,
   {
-    files: ['src/scripts/**/*.js'],
+    files: ['src/scripts/**/*.js', 'src/scripts/**/*.mjs'],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -19,6 +19,14 @@ module.exports = [
   },
   {
     files: ['eslint.config.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
+    files: ['tools/**/*.mjs'],
     languageOptions: {
       globals: {
         ...globals.node,

@@ -10,6 +10,8 @@
 
 ![RPG issue workflow](./assets/readme-workflow.png)
 
+👉 게임 페이지: https://inclerepo.github.io/-RPG/
+
 이 프로젝트는 **아이디어 단계부터 모두가 함께 만드는 웹 RPG**입니다.
 
 👉 지금은 **게임 기획 / 아이디어 단계**입니다

@@ -1,6 +1,6 @@
 # <div align="center">RPG</div>
 
-<div align="center">이슈를 바탕으로 천천히 다시 만들어가는 웹 RPG 프로젝트</div>
+<div align="center">이슈를 통해 모두가 참여해 완성해가는 웹 RPG 프로젝트</div>
 
 <br />
 
@@ -14,7 +14,7 @@
 
 <br />
 
-![RPG issue workflow](./assets/readme-workflow.svg)
+![RPG issue workflow](./assets/readme-workflow.png)
 
 ## 프로젝트 소개
 
@@ -29,12 +29,6 @@
 - 작업 결과는 브랜치, 커밋, PR 흐름으로 정리됩니다.
 
 코드를 직접 열어서 기여해도 좋고, 이슈로 방향을 제안하는 방식으로 참여해도 괜찮습니다.
-
-## 지금 보고 있는 것
-
-- Live: https://inclerepo.github.io/-RPG/
-- 현재 메인 페이지는 재개편을 위해 비워둔 상태입니다.
-- 앞으로 이 저장소에서 RPG를 처음부터 다시 정리해 나갈 예정입니다.
 
 ## 기여 방법
 
@@ -112,7 +106,7 @@
 - 아트 방향 제안
 - 문서 개선
 
-좋은 이슈의 공통점은 하나입니다.  
+좋은 이슈의 공통점은 하나입니다.
 **무엇을 왜 만들고 싶은지가 읽는 순간 바로 이해되는 것**입니다.
 
 ## 프로젝트 방향
@@ -156,7 +150,3 @@ npm run format:check
 - Vite
 - GitHub Issues
 - LLM 기반 작업 흐름
-
-## 한 줄 요약
-
-**이슈로 제안하고, 멘션으로 작업을 이어가며, 함께 RPG를 만들어가는 저장소입니다.**

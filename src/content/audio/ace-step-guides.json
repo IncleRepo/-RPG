@@ -1,0 +1,183 @@
+{
+  "project": "반향해 연대기",
+  "source": "ACE-Step API /v1/create_sample",
+  "generatedAt": "2026-04-19T16:28:45.152Z",
+  "tracks": [
+    {
+      "id": "title-echoes-of-dawn",
+      "slug": "01-title-echoes-of-dawn",
+      "title": "잔향의 새벽",
+      "prompt": "Instrumental sea fantasy title theme with distant bell motif, tide-like piano pulses, translucent strings, bittersweet hope after a missing dawn.",
+      "response": {
+        "caption": "An upbeat and festive Latin instrumental sting. A lively ensemble of nylon-string acoustic guitars take over the rhythm, playing a bright, syncopated chord progression characteristic of rumba or salsa music. A simple bassline and light percussion, including a shaker, provide a solid rhythmic foundation. The piece concludes with a final, resonant chord that rings out briefly.",
+        "lyrics": "[Instrumental Intro]\n[Acoustic guitar, shaker, and bass enter]\n[Electric guitar enters with a melodic fill]\n[Instrumental]",
+        "bpm": 100,
+        "keyscale": "G major",
+        "duration": 18,
+        "timesignature": "4",
+        "vocal_language": "unknown"
+      },
+      "statusCode": 200
+    },
+    {
+      "id": "mirajin-stalled-dawn",
+      "slug": "02-mirajin-stalled-dawn",
+      "title": "멈춘 항구 미라진",
+      "prompt": "Instrumental harbor ambience for a fantasy RPG, suspended dusk, repeating town routines, soft bell drones, sea wind, fragile piano and low strings.",
+      "response": {
+        "caption": "An energetic fusion of chiptune and funk-rock, the track kicks off with a driving, bit-crushed synth arpeggio reminiscent of classic video game music. This quickly erupts into a full-band arrangement featuring a punchy, tight drum groove, a funky and melodic bassline, and crunchy, overdriven electric guitars playing powerful riffs. The song progresses through dynamic sections, including a brief, cleaner guitar-led interlude before launching back into high-energy guitar-driven assault. The structure is purely instrumental, focusing on the interplay between the raw power of the guitars, the groovy bass, and the persistent, nostalgic chiptune synth that serves as the main hook.",
+        "lyrics": "[Instrumental]",
+        "bpm": 100,
+        "keyscale": "C major",
+        "duration": 99,
+        "timesignature": "4",
+        "vocal_language": "unknown"
+      },
+      "statusCode": 200
+    },
+    {
+      "id": "clocktower-breach",
+      "slug": "03-clocktower-breach",
+      "title": "균열 시계탑 추락",
+      "prompt": "Instrumental tension cue with mechanical ostinato, cracked bells, urgent low percussion, dark synth pulses for a collapsing fantasy clocktower chase.",
+      "response": {
+        "caption": "An instrumental synth-funk track driven by a rubbery, melodic synth bassline and a crisp, steady drum machine beat. The arrangement starts with a foundational groove, then introduces a bright, arpeggiated synth melody that weaves through the mix. A brief atmospheric breakdown around the one-minute mark features sustained synth pads before the main funky groove returns, building with layered synth textures and culminating in a final, resonant chord that fades to silence.",
+        "lyrics": "[Instrumental]",
+        "bpm": 100,
+        "keyscale": "B major",
+        "duration": 104,
+        "timesignature": "4",
+        "vocal_language": "unknown"
+      },
+      "statusCode": 200
+    },
+    {
+      "id": "glasssalt-expedition",
+      "slug": "04-glasssalt-expedition",
+      "title": "유리염 사구 탐험",
+      "prompt": "Instrumental desert exploration theme with glassy plucks, dry frame drums, distant choir, wind-blown tension and resilient forward motion.",
+      "response": {
+        "caption": "An instrumental track blending chiptune aesthetics with a modern trap beat. It opens with clean, arpeggiated synth chords reminiscent of classic video game music. A punchy, synthesized drum pattern and a deep sub-bass abruptly enter, establishing a steady groove. The arrangement features a distinct breakdown section where the drums and bass drop out, introducing a twinkling, bell-like synth melody that plays a simple, memorable motif before the full beat returns with renewed energy. The track concludes by fading back to the initial arpeggiated synth chords.",
+        "lyrics": "[Instrumental]",
+        "bpm": 100,
+        "keyscale": "E♭ major",
+        "duration": 167,
+        "timesignature": "4",
+        "vocal_language": "unknown"
+      },
+      "statusCode": 200
+    },
+    {
+      "id": "glasssalt-siege",
+      "slug": "05-glasssalt-siege",
+      "title": "구조선 방어전",
+      "prompt": "Instrumental battle cue with pounding toms, gritty bass, rallying brass-synth lead, relentless desert storm momentum for a desperate defense battle.",
+      "response": {
+        "caption": "An instrumental new jack swing track driven by a punchy, syncopated drum machine beat and a funky, melodic synth bassline. Bright, digital keyboard chords provide the harmonic foundation, while a classic synth 'orchestral hit' sample punctuates the groove. The arrangement is built on a looping, infectious groove with subtle variations, including a brief breakdown where the main elements drop out before the full beat returns. The overall vibe is energetic, upbeat, and rooted in late '80s or early '90s hip-hop and funk.",
+        "lyrics": "[Instrumental]",
+        "bpm": 100,
+        "keyscale": "F# major",
+        "duration": 119,
+        "timesignature": "2",
+        "vocal_language": "unknown"
+      },
+      "statusCode": 200
+    },
+    {
+      "id": "kadel-inverted-order",
+      "slug": "06-kadel-inverted-order",
+      "title": "역항도 카델",
+      "prompt": "Instrumental political city theme in uneven meter, suspended marimba pulses, austere strings, inverted gravity elegance and hidden instability.",
+      "response": {
+        "caption": "An energetic and vibrant instrumental Latin jazz piece driven by a dense, polyrhythmic percussion section featuring prominent congas and other hand drums. A nimble acoustic guitar lays down a syncopated chordal foundation while a bright, slightly cheesy-sounding synthesizer plays catchy melodic hooks and arpeggios. The track builds into a powerful, tightly arranged horn section theme with punchy, harmonized trumpets and saxophones playing a memorable, syncopated melody. The overall mood is festive, upbeat, and highly danceable, reminiscent of classic salsa or Latin jazz recordings.",
+        "lyrics": "[Instrumental]",
+        "bpm": 100,
+        "keyscale": "G major",
+        "duration": 112,
+        "timesignature": "2",
+        "vocal_language": "unknown"
+      },
+      "statusCode": 200
+    },
+    {
+      "id": "whispered-orchard",
+      "slug": "07-whispered-orchard",
+      "title": "속삭임 과수원",
+      "prompt": "Instrumental emotional orchard theme in compound meter, intimate felt piano, warm strings, soft music-box bells, unresolved longing and trust.",
+      "response": {
+        "caption": "An upbeat and energetic chiptune track driven by a punchy, synthesized drum machine and a bouncy square-wave bassline. The arrangement is built on layers of bright, arpeggiated pulse-wave synths that carry the main melodies and chordal accompaniment. The song progresses through distinct sections, introducing new melodic lines and harmonic shifts while maintaining a consistent, driving rhythm. The production is clean and direct, characteristic of classic video game music, with a focus on catchy, memorable synth hooks and a vibrant, nostalgic digital texture.",
+        "lyrics": "[Music starts]\n[Instrumental]",
+        "bpm": 100,
+        "keyscale": "D major",
+        "duration": 139,
+        "timesignature": "2",
+        "vocal_language": "unknown"
+      },
+      "statusCode": 200
+    },
+    {
+      "id": "spire-of-unchosen",
+      "slug": "08-spire-of-unchosen",
+      "title": "무도서고 척추탑",
+      "prompt": "Instrumental mystery cue with resonant glass harmonics, ritual pulses, choir shadows and a slowly unfolding revelation inside a forbidden archive tower.",
+      "response": {
+        "caption": "An aggressive and anthemic instrumental metal track driven by heavily distorted, down-tuned electric guitars. The song opens with a powerful, chugging riff that establishes a headbanging groove, underpinned by a thick, distorted bass and a punchy, driving drum kit. The arrangement is built around high-energy, melodic guitar leads that soar over the rhythmic foundation, particularly during the hook sections. A brief atmospheric bridge around the one-minute mark features cleaner, arpeggiated guitars, providing a dynamic contrast before the track slams back into its full-force riffage and a final melodic lead section.",
+        "lyrics": "[Instrumental]",
+        "bpm": 100,
+        "keyscale": "E minor",
+        "duration": 212,
+        "timesignature": "4",
+        "vocal_language": "unknown"
+      },
+      "statusCode": 200
+    },
+    {
+      "id": "coral-palace-descent",
+      "slug": "09-coral-palace-descent",
+      "title": "침묵 산호궁 심해",
+      "prompt": "Instrumental final dungeon cue with subaquatic choir, slow drum pulse, coral resonance, distant bells and solemn descent into an ancient sea cathedral.",
+      "response": {
+        "caption": "An aggressive, high-energy instrumental rock track driven by a crunchy, palm-muted electric guitar riff and a powerful, straightforward drum beat. The song kicks off with its core driving riff, establishing an immediate sense of force. The arrangement builds with layered guitars and crashing cymbals, leading into a melodic and expressive guitar solo filled with classic rock-style bends and fast runs. The track maintains its intense energy throughout, concluding with a final, powerful chord.",
+        "lyrics": "[Intro]\n[Drum fill]\n\n[Verse 1]\n[Instrumental]\n\n[Chorus]\n[Instrumental]\n\n[Verse 2]\n[Instrumental]\n\n[Chorus]\n[Instrumental]\n\n[Guitar Solo]\n[Instrumental]\n\n[Bridge]\n[Instrumental]\n\n[Chorus]\n[Instrumental]\n\n[Outro]\n[Instrumental with final guitar chord]",
+        "bpm": 100,
+        "keyscale": "F# minor",
+        "duration": 166,
+        "timesignature": "4",
+        "vocal_language": "unknown"
+      },
+      "statusCode": 200
+    },
+    {
+      "id": "last-bell-convergence",
+      "slug": "10-last-bell-convergence",
+      "title": "마지막 종의 결전",
+      "prompt": "Instrumental final boss theme with thunderous percussion, blazing lead motif, choral stabs and catastrophic bell strikes for a last-choice battle.",
+      "response": {
+        "caption": "An upbeat, instrumental afrobeat track driven by a tight, syncopated drum machine groove and a deep, rounded synth bassline. A clean, funky electric guitar plays a recurring, catchy melodic riff, complemented by a bright, marimba-like synth melody that adds a tropical flavor. The arrangement builds with layers of synth pads and subtle arpeggios, creating a vibrant and danceable soundscape. The track features a brief breakdown where the main groove drops out, leaving a spacious, atmospheric synth texture before slamming back into the full, energetic rhythm for the finale.",
+        "lyrics": "[Intro]\n[Drum machine and synth bass enter]\n\n[Verse 1]\n[Synth arpeggio enters]\n\n[Chorus]\n[Layered synth melodies and arpeggios]\n\n[Verse 2]\n[Melodic variations on main theme]\n\n[Chorus]\n[Layered synth melodies and arpeggios]\n\n[Bridge]\n[Synth layers build in intensity]\n\n[Chorus]\n[Full energy with layered synths]\n\n[Breakdown]\n[Drums and bass drop out, leaving atmospheric synth pads and arpeggios]\n\n[Build-up]\n[Drums and bass re-enter with high energy]\n\n[Chorus]\n[Full energy with layered synths]\n\n[Outro]\n[Music fades out with a final synth chord]",
+        "bpm": 100,
+        "keyscale": "C# major",
+        "duration": 213,
+        "timesignature": "4",
+        "vocal_language": "unknown"
+      },
+      "statusCode": 200
+    },
+    {
+      "id": "new-dawn-credits",
+      "slug": "11-new-dawn-credits",
+      "title": "새벽 이후의 바다",
+      "prompt": "Instrumental credits theme reprising the main dawn motif, gentle waves of piano and strings, acceptance, loss and a horizon opening again.",
+      "response": {
+        "caption": "An explosive, high-energy instrumental rock track driven by virtuosic electric guitar work. The song opens with layered, arpeggiated clean guitars before erupting into a full-band assault of crunchy, overdriven rhythm guitars, a solid bassline, and powerful acoustic drums. The lead guitar takes center stage, delivering a relentless barrage of blues-infused hard rock licks, fast-paced melodic runs, expressive string bends, and screaming sustained notes. The arrangement is dynamic, shifting between driving riff sections and flashy, show-stopping guitar solos, maintaining a powerful and energetic feel throughout before concluding with a final, ringing chord.",
+        "lyrics": "[Intro - Clean Arpeggiated Guitar]\n\n[Full Band Enters - High Energy]\n\n[Guitar Solo 1]\n\n[Verse Section]\n\n[Guitar Solo 2]\n\n[Bridge]\n\n[Chorus Section]\n\n[Guitar Solo 3]\n\n[Outro - Final Chord and Fade]",
+        "bpm": 100,
+        "keyscale": "G major",
+        "duration": 130,
+        "timesignature": "4",
+        "vocal_language": "unknown"
+      },
+      "statusCode": 200
+    }
+  ]
+}

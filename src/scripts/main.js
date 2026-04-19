@@ -357,9 +357,13 @@ function renderSoundtrackTrackList(audioState) {
 function createAppShell() {
   app.innerHTML = `
     <div class="page-shell">
+      <div class="page-utility">
+        <a class="page-utility__link" href="./index.html">게임으로 돌아가기</a>
+        <span class="page-utility__caption">문서 · 설정 · 시나리오 · BGM 아카이브</span>
+      </div>
       <header class="hero">
         <div class="hero__content">
-          <p class="eyebrow">Issue #59 · Scenario Soundtrack</p>
+          <p class="eyebrow">Story & BGM Archive</p>
           <h1>${storyProject.title}</h1>
           <p class="hero__subtitle">${storyProject.subtitle}</p>
           <p class="hero__pitch">${storyProject.pitch}</p>
@@ -386,8 +390,8 @@ function createAppShell() {
             <p class="eyebrow">Branch Focus</p>
             <h2>이번 브랜치에서 바로 볼 문서</h2>
             <p class="section-copy">
-              메인 시나리오, 캐릭터 설정, 그리고 새로 추가한 시나리오 기반 BGM 설계안을 빠르게
-              열 수 있도록 묶었습니다.
+              메인 주소는 실제 플레이 가능한 프롤로그로 전환했고, 이 페이지는 문서와 BGM을 모아
+              보는 별도 아카이브로 분리했습니다.
             </p>
           </div>
           <div class="spotlight-grid" data-featured-links></div>

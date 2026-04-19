@@ -6,6 +6,8 @@ import scenarioChapter1 from '../content/scenario/02-chapter-1.md?raw';
 import scenarioChapter2 from '../content/scenario/03-chapter-2.md?raw';
 import scenarioChapter3 from '../content/scenario/04-chapter-3.md?raw';
 import scenarioEnding from '../content/scenario/05-ending.md?raw';
+import bgmPlan from '../content/audio/bgm-plan.md?raw';
+import bgmProductionNotes from '../content/audio/bgm-production-notes.md?raw';
 import worldRules from '../content/lore/world-rules.md?raw';
 import regions from '../content/lore/regions.md?raw';
 import factions from '../content/lore/factions.md?raw';
@@ -155,6 +157,24 @@ export const storyDocuments = Object.freeze([
     fileName: 'src/content/scenario/05-ending.md',
     accent: 'rose',
     content: scenarioEnding,
+  },
+  {
+    id: 'bgm-plan',
+    title: 'BGM 설계안',
+    category: '오디오 기획',
+    summary: '시나리오와 세계관 문서를 기반으로 장면별 필요 음악과 트랙 매핑을 정리한 문서',
+    fileName: 'src/content/audio/bgm-plan.md',
+    accent: 'gold',
+    content: bgmPlan,
+  },
+  {
+    id: 'bgm-production-notes',
+    title: 'BGM 제작 메모',
+    category: '오디오 제작',
+    summary: '생성 도구, 자산 구조, 재생산 명령, 운용 메모를 정리한 문서',
+    fileName: 'src/content/audio/bgm-production-notes.md',
+    accent: 'teal',
+    content: bgmProductionNotes,
   },
   {
     id: 'world-rules',

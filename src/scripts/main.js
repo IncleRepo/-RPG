@@ -14,13 +14,14 @@ if (!app) {
 }
 
 const featuredDocumentIds = Object.freeze([
+  'bgm-plan',
   'scenario-overview',
   'scenario-prologue',
   'scenario-chapter-1',
   'scenario-chapter-2',
   'scenario-chapter-3',
   'scenario-ending',
-  'characters',
+  'bgm-production-notes',
 ]);
 
 const featuredDocuments = Object.freeze(

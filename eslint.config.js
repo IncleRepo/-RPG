@@ -25,4 +25,12 @@ module.exports = [
       },
     },
   },
+  {
+    files: ['tools/**/*.mjs'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
 ];

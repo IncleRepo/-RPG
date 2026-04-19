@@ -6,6 +6,7 @@
   "scripts": {
     "start": "vite --host 127.0.0.1 --port 5173 --strictPort",
     "build": "vite build",
+    "generate:bgm": "node tools/generate-bgm.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
@@ -17,5 +18,9 @@
     "globals": "^16.0.0",
     "prettier": "^3.5.3",
     "vite": "^7.1.11"
+  },
+  "dependencies": {
+    "tonal": "^6.4.3",
+    "wavefile": "^11.0.0"
   }
 }

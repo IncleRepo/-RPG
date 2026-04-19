@@ -1,101 +1,41 @@
-const MODE_INTERVALS = Object.freeze({
-  ionian: [0, 2, 4, 5, 7, 9, 11],
-  dorian: [0, 2, 3, 5, 7, 9, 10],
-  aeolian: [0, 2, 3, 5, 7, 8, 10],
-  lydian: [0, 2, 4, 6, 7, 9, 11],
-  mixolydian: [0, 2, 4, 5, 7, 9, 10],
-});
-
-const MOOD_LIBRARY = Object.freeze({
-  town: {
-    label: '평온한 마을',
-    tonicMidi: 60,
-    mode: 'ionian',
-    tempoRange: [84, 96],
-    leadRegister: 24,
-    bassRegister: -24,
-    harmonyRegister: 12,
-    leadWaveform: 'triangle',
-    bassWaveform: 'triangle',
-    progressionLibrary: [
-      { label: 'I - IV - V - I', degrees: [0, 3, 4, 0] },
-      { label: 'I - vi - IV - V', degrees: [0, 5, 3, 4] },
-      { label: 'I - iii - IV - V', degrees: [0, 2, 3, 4] },
-    ],
-  },
-  twilight: {
-    label: '노을 들판',
-    tonicMidi: 62,
-    mode: 'lydian',
-    tempoRange: [78, 90],
-    leadRegister: 24,
-    bassRegister: -24,
-    harmonyRegister: 12,
-    leadWaveform: 'sine',
-    bassWaveform: 'triangle',
-    progressionLibrary: [
-      { label: 'I - II - V - I', degrees: [0, 1, 4, 0] },
-      { label: 'I - V - II - I', degrees: [0, 4, 1, 0] },
-      { label: 'I - IV - II - V', degrees: [0, 3, 1, 4] },
-    ],
-  },
-  night: {
-    label: '어두운 밤',
-    tonicMidi: 57,
-    mode: 'aeolian',
-    tempoRange: [66, 78],
-    leadRegister: 24,
-    bassRegister: -24,
-    harmonyRegister: 12,
-    leadWaveform: 'sine',
-    bassWaveform: 'sawtooth',
-    progressionLibrary: [
-      { label: 'i - iv - v - i', degrees: [0, 3, 4, 0] },
-      { label: 'i - VI - III - VII', degrees: [0, 5, 2, 6] },
-      { label: 'i - iv - VI - v', degrees: [0, 3, 5, 4] },
-    ],
-  },
-  encounter: {
-    label: '교감의 순간',
-    tonicMidi: 64,
-    mode: 'dorian',
-    tempoRange: [88, 102],
-    leadRegister: 24,
-    bassRegister: -24,
-    harmonyRegister: 12,
-    leadWaveform: 'triangle',
-    bassWaveform: 'triangle',
-    progressionLibrary: [
-      { label: 'i - IV - VII - i', degrees: [0, 3, 6, 0] },
-      { label: 'i - v - IV - i', degrees: [0, 4, 3, 0] },
-      { label: 'i - VII - IV - v', degrees: [0, 6, 3, 4] },
-    ],
-  },
-});
-
-const DEFAULT_MOOD = 'town';
+import {
+  ARP_PATTERNS,
+  BASS_PATTERNS,
+  BELL_PATTERNS,
+  bgmTrackCatalog,
+  BGM_TRACK_LIBRARY,
+  DEFAULT_TRACK_ID,
+  DRUM_PATTERNS,
+  getTrackDefinition,
+  LEAD_PATTERNS,
+  MODE_INTERVALS,
+} from './bgm-library.js';
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
-function weightedPick(options, random = Math.random) {
-  const totalWeight = options.reduce((sum, option) => sum + option.weight, 0);
-  let threshold = random() * totalWeight;
+function hashString(value) {
+  let hash = 2166136261;
 
-  for (const option of options) {
-    threshold -= option.weight;
-
-    if (threshold <= 0) {
-      return option.value;
-    }
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
   }
 
-  return options.at(-1)?.value;
+  return hash >>> 0;
 }
 
-function randomBetween(min, max, random = Math.random) {
-  return min + (max - min) * random();
+function createPRNG(seed) {
+  let value = seed >>> 0;
+
+  return () => {
+    value += 0x6d2b79f5;
+    let state = value;
+    state = Math.imul(state ^ (state >>> 15), state | 1);
+    state ^= state + Math.imul(state ^ (state >>> 7), state | 61);
+    return ((state ^ (state >>> 14)) >>> 0) / 4294967296;
+  };
 }
 
 function midiToFrequency(midi) {
@@ -108,56 +48,119 @@ function resolveScaleMidi(tonicMidi, intervals, scaleIndex, registerOffset = 0) 
   return tonicMidi + intervals[normalizedIndex] + octaveOffset + registerOffset;
 }
 
-function buildChord(moodConfig, degree) {
-  const intervals = MODE_INTERVALS[moodConfig.mode];
-  const tones = [degree, degree + 2, degree + 4].map((scaleIndex) =>
-    resolveScaleMidi(moodConfig.tonicMidi, intervals, scaleIndex, moodConfig.harmonyRegister)
-  );
+function buildChord(track, degree) {
+  const intervals = MODE_INTERVALS[track.mode] ?? MODE_INTERVALS.dorian;
+  const padScaleIndices = [degree, degree + 2, degree + 4, degree + 6];
 
   return {
-    rootMidi: resolveScaleMidi(moodConfig.tonicMidi, intervals, degree, moodConfig.bassRegister),
-    fifthMidi: resolveScaleMidi(
-      moodConfig.tonicMidi,
-      intervals,
-      degree + 4,
-      moodConfig.bassRegister
-    ),
-    leadChordTones: tones.map((tone) => tone + 12),
-    leadScaleTones: intervals.map((_, index) =>
-      resolveScaleMidi(moodConfig.tonicMidi, intervals, index, moodConfig.leadRegister)
-    ),
-    harmonyTones: tones,
+    degree,
+    tonicMidi: track.tonicMidi,
+    intervals,
+    padScaleIndices,
+    padMidis: [
+      resolveScaleMidi(track.tonicMidi, intervals, degree, 0),
+      resolveScaleMidi(track.tonicMidi, intervals, degree + 4, 12),
+      resolveScaleMidi(track.tonicMidi, intervals, degree + 2, 12),
+      resolveScaleMidi(track.tonicMidi, intervals, degree + 6, 12),
+    ],
   };
 }
 
+function resolveNoteToken(token, chord, registerOffset = 0) {
+  if (!token) {
+    return null;
+  }
+
+  if (token === 'root') {
+    return resolveScaleMidi(chord.tonicMidi, chord.intervals, chord.degree, registerOffset);
+  }
+
+  if (token === 'fifth') {
+    return resolveScaleMidi(chord.tonicMidi, chord.intervals, chord.degree + 4, registerOffset);
+  }
+
+  if (token === 'octave') {
+    return resolveScaleMidi(chord.tonicMidi, chord.intervals, chord.degree + 7, registerOffset);
+  }
+
+  if (token === 'approachUp') {
+    return resolveScaleMidi(chord.tonicMidi, chord.intervals, chord.degree + 1, registerOffset);
+  }
+
+  if (token === 'approachDown') {
+    return resolveScaleMidi(chord.tonicMidi, chord.intervals, chord.degree - 1, registerOffset);
+  }
+
+  if (token.startsWith('chord:')) {
+    const chordIndex = Number.parseInt(token.split(':')[1] ?? '0', 10);
+    const scaleIndex =
+      chord.padScaleIndices[clamp(chordIndex, 0, chord.padScaleIndices.length - 1)];
+    return resolveScaleMidi(chord.tonicMidi, chord.intervals, scaleIndex, registerOffset);
+  }
+
+  if (token.startsWith('scale:')) {
+    const scaleIndex = Number.parseInt(token.split(':')[1] ?? '0', 10);
+    return resolveScaleMidi(chord.tonicMidi, chord.intervals, scaleIndex, registerOffset);
+  }
+
+  if (token.startsWith('degree:')) {
+    const delta = Number.parseInt(token.split(':')[1] ?? '0', 10);
+    return resolveScaleMidi(chord.tonicMidi, chord.intervals, chord.degree + delta, registerOffset);
+  }
+
+  return null;
+}
+
+function countTrailingRests(pattern, startIndex) {
+  let restCount = 0;
+
+  for (let index = startIndex + 1; index < pattern.length; index += 1) {
+    if (pattern[index]) {
+      break;
+    }
+
+    restCount += 1;
+  }
+
+  return restCount;
+}
+
 export class BGMManager {
-  constructor({ initialMood = DEFAULT_MOOD, initialVolume = 0.52, onStateChange } = {}) {
+  constructor({ initialTrackId = DEFAULT_TRACK_ID, initialVolume = 0.42, onStateChange } = {}) {
     this.onStateChange = typeof onStateChange === 'function' ? onStateChange : null;
     this.audioContext = null;
     this.masterGain = null;
+    this.musicBus = null;
+    this.reverbInput = null;
+    this.delayInput = null;
+    this.masterTone = null;
     this.compressor = null;
     this.schedulerTimerId = null;
     this.stopTimerId = null;
     this.lookAheadMs = 120;
-    this.scheduleAheadSeconds = 0.32;
-    this.currentMoodId = MOOD_LIBRARY[initialMood] ? initialMood : DEFAULT_MOOD;
-    this.currentProgression = null;
-    this.previousProgressionLabel = '';
+    this.scheduleAheadSeconds = 0.36;
+    this.currentTrackId = BGM_TRACK_LIBRARY[initialTrackId] ? initialTrackId : DEFAULT_TRACK_ID;
+    this.measureIndex = 0;
+    this.loopCount = 0;
+    this.currentSectionName = '';
     this.tempo = 0;
     this.beatDuration = 0;
     this.measureDuration = 0;
     this.nextMeasureTime = 0;
-    this.measureStep = 0;
-    this.previousLeadMidi = null;
     this.hasStarted = false;
     this.isPlaying = false;
     this.volume = clamp(initialVolume, 0, 1);
     this.supported = Boolean(window.AudioContext || window.webkitAudioContext);
     this.status = this.supported ? 'idle' : 'unsupported';
+    this.noiseBuffer = null;
+  }
+
+  get currentTrack() {
+    return getTrackDefinition(this.currentTrackId);
   }
 
   getSnapshot() {
-    const moodConfig = MOOD_LIBRARY[this.currentMoodId] ?? MOOD_LIBRARY[DEFAULT_MOOD];
+    const track = this.currentTrack;
 
     return {
       supported: this.supported,
@@ -165,12 +168,13 @@ export class BGMManager {
       isPlaying: this.isPlaying,
       hasStarted: this.hasStarted,
       volume: this.volume,
-      mood: this.currentMoodId,
-      moodLabel: moodConfig.label,
-      mode: moodConfig.mode,
-      progressionLabel:
-        this.currentProgression?.label ?? this.previousProgressionLabel ?? '대기 중',
-      tempo: this.tempo || null,
+      trackId: track.id,
+      trackTitle: track.title,
+      chapter: track.chapter,
+      usage: track.usage,
+      summary: track.summary,
+      section: this.currentSectionName || '대기',
+      tempo: this.tempo || track.tempo,
     };
   }
 
@@ -185,18 +189,105 @@ export class BGMManager {
 
     const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
     this.audioContext = new AudioContextConstructor();
+
     this.masterGain = this.audioContext.createGain();
-    this.masterGain.gain.value = this.volume;
+    this.masterGain.gain.value = 0;
+
+    this.musicBus = this.audioContext.createGain();
+    this.musicBus.gain.value = 1;
+
+    this.masterTone = this.audioContext.createBiquadFilter();
+    this.masterTone.type = 'highshelf';
+    this.masterTone.frequency.value = 3200;
+    this.masterTone.gain.value = -5.5;
 
     this.compressor = this.audioContext.createDynamicsCompressor();
-    this.compressor.threshold.value = -22;
+    this.compressor.threshold.value = -20;
     this.compressor.knee.value = 20;
-    this.compressor.ratio.value = 8;
-    this.compressor.attack.value = 0.003;
-    this.compressor.release.value = 0.18;
+    this.compressor.ratio.value = 5;
+    this.compressor.attack.value = 0.012;
+    this.compressor.release.value = 0.22;
 
-    this.masterGain.connect(this.compressor);
+    this.reverbInput = this.audioContext.createGain();
+    this.reverbInput.gain.value = 1;
+
+    const convolver = this.audioContext.createConvolver();
+    convolver.buffer = this.createImpulseResponse(2.8, 2.4);
+
+    const reverbTone = this.audioContext.createBiquadFilter();
+    reverbTone.type = 'lowpass';
+    reverbTone.frequency.value = 2800;
+
+    this.delayInput = this.audioContext.createGain();
+    this.delayInput.gain.value = 1;
+
+    const delayNode = this.audioContext.createDelay(0.8);
+    delayNode.delayTime.value = 0.31;
+
+    const delayFeedback = this.audioContext.createGain();
+    delayFeedback.gain.value = 0.2;
+
+    const delayFilter = this.audioContext.createBiquadFilter();
+    delayFilter.type = 'lowpass';
+    delayFilter.frequency.value = 2200;
+
+    const delayTone = this.audioContext.createBiquadFilter();
+    delayTone.type = 'highpass';
+    delayTone.frequency.value = 260;
+
+    this.musicBus.connect(this.masterGain);
+    this.masterGain.connect(this.masterTone);
+    this.masterTone.connect(this.compressor);
     this.compressor.connect(this.audioContext.destination);
+
+    this.reverbInput.connect(convolver);
+    convolver.connect(reverbTone);
+    reverbTone.connect(this.musicBus);
+
+    this.delayInput.connect(delayNode);
+    delayNode.connect(delayFilter);
+    delayFilter.connect(delayFeedback);
+    delayFeedback.connect(delayNode);
+    delayNode.connect(delayTone);
+    delayTone.connect(this.musicBus);
+
+    this.noiseBuffer = this.createNoiseBuffer(1.4);
+  }
+
+  createImpulseResponse(durationSeconds, decayPower) {
+    if (!this.audioContext) {
+      return null;
+    }
+
+    const frameCount = Math.floor(this.audioContext.sampleRate * durationSeconds);
+    const impulse = this.audioContext.createBuffer(2, frameCount, this.audioContext.sampleRate);
+
+    for (let channel = 0; channel < impulse.numberOfChannels; channel += 1) {
+      const channelData = impulse.getChannelData(channel);
+
+      for (let frame = 0; frame < frameCount; frame += 1) {
+        const envelope = (1 - frame / frameCount) ** decayPower;
+        channelData[frame] = (Math.random() * 2 - 1) * envelope;
+      }
+    }
+
+    return impulse;
+  }
+
+  createNoiseBuffer(durationSeconds) {
+    if (!this.audioContext) {
+      return null;
+    }
+
+    const frameCount = Math.floor(this.audioContext.sampleRate * durationSeconds);
+    const buffer = this.audioContext.createBuffer(1, frameCount, this.audioContext.sampleRate);
+    const channelData = buffer.getChannelData(0);
+
+    for (let frame = 0; frame < frameCount; frame += 1) {
+      channelData[frame] = Math.random() * 2 - 1;
+    }
+
+    return buffer;
   }
 
   async resumeFromGesture() {
@@ -226,27 +317,39 @@ export class BGMManager {
     return true;
   }
 
+  async playTrack(trackId) {
+    if (!BGM_TRACK_LIBRARY[trackId]) {
+      return false;
+    }
+
+    this.setTrack(trackId);
+    return this.resumeFromGesture();
+  }
+
+  clearScheduler() {
+    if (this.schedulerTimerId) {
+      window.clearTimeout(this.schedulerTimerId);
+      this.schedulerTimerId = null;
+    }
+  }
+
   startScheduling() {
     if (!this.audioContext || !this.masterGain) {
       return;
     }
 
-    if (this.stopTimerId) {
-      window.clearTimeout(this.stopTimerId);
-      this.stopTimerId = null;
-    }
+    const track = this.currentTrack;
 
-    if (this.schedulerTimerId) {
-      window.clearTimeout(this.schedulerTimerId);
-      this.schedulerTimerId = null;
-    }
-
+    this.clearScheduler();
     this.hasStarted = true;
     this.isPlaying = true;
     this.status = 'playing';
-    this.measureStep = 0;
-    this.previousLeadMidi = null;
-    this.selectProgression();
+    this.measureIndex = 0;
+    this.loopCount = 0;
+    this.currentSectionName = track.arrangement[0] ?? '';
+    this.tempo = track.tempo;
+    this.beatDuration = 60 / this.tempo;
+    this.measureDuration = this.beatDuration * 4;
     this.nextMeasureTime = this.audioContext.currentTime + 0.08;
 
     const now = this.audioContext.currentTime;
@@ -256,6 +359,522 @@ export class BGMManager {
 
     this.scheduleLoop();
     this.notifyState();
+  }
+
+  scheduleLoop() {
+    if (!this.audioContext || !this.isPlaying) {
+      return;
+    }
+
+    while (this.nextMeasureTime < this.audioContext.currentTime + this.scheduleAheadSeconds) {
+      this.scheduleMeasure(this.nextMeasureTime);
+      this.nextMeasureTime += this.measureDuration;
+    }
+
+    this.schedulerTimerId = window.setTimeout(() => this.scheduleLoop(), this.lookAheadMs);
+  }
+
+  scheduleMeasure(startTime) {
+    const track = this.currentTrack;
+    const arrangementIndex = this.measureIndex % track.arrangement.length;
+    const sectionName = track.arrangement[arrangementIndex];
+    const section = track.sections[sectionName];
+
+    if (!section) {
+      return;
+    }
+
+    this.currentSectionName = sectionName;
+
+    const chord = buildChord(track, section.degree);
+    const random = createPRNG(hashString(`${track.id}:${this.loopCount}:${this.measureIndex}`));
+    const measureState = {
+      chord,
+      random,
+      section,
+      startTime,
+      track,
+    };
+
+    this.schedulePadLayer(measureState);
+    this.scheduleDroneLayer(measureState);
+    this.scheduleBassLayer(measureState);
+    this.scheduleArpLayer(measureState);
+    this.scheduleLeadLayer(measureState);
+    this.scheduleBellLayer(measureState);
+    this.schedulePercussionLayer(measureState);
+
+    this.measureIndex += 1;
+
+    if (this.measureIndex % track.arrangement.length === 0) {
+      this.loopCount += 1;
+    }
+
+    this.notifyState();
+  }
+
+  schedulePadLayer({ chord, random, section, startTime, track }) {
+    const layer = track.paletteSettings.pad;
+    const sectionAccent = section.drums === 'none' ? 0.92 : 1.06;
+
+    chord.padMidis.forEach((midi, index) => {
+      const pan = (index - 1.5) * 0.16;
+      const frequency = midiToFrequency(midi + (index === 0 ? -12 : 0));
+
+      this.scheduleSynthNote({
+        frequency,
+        startTime,
+        duration: this.measureDuration * 0.92,
+        attack: 0.22,
+        release: 0.64,
+        gainScale: sectionAccent * (index === 3 ? 0.62 : 1),
+        layer,
+        pan,
+        random,
+        sustain: 0.84,
+      });
+    });
+  }
+
+  scheduleDroneLayer({ chord, section, startTime, track }) {
+    const layer = track.paletteSettings.drone;
+    const token = section.drums === 'boss' || section.drums === 'battle' ? 'root' : 'fifth';
+    const midi = resolveNoteToken(token, chord, -24);
+
+    if (!midi) {
+      return;
+    }
+
+    this.scheduleSynthNote({
+      frequency: midiToFrequency(midi),
+      startTime,
+      duration: this.measureDuration * 1.02,
+      attack: 0.5,
+      release: 0.78,
+      gainScale: section.drums === 'none' ? 0.94 : 0.78,
+      layer,
+      pan: 0,
+      random: () => 0.5,
+      sustain: 0.92,
+    });
+  }
+
+  scheduleBassLayer({ chord, random, section, startTime, track }) {
+    const pattern = BASS_PATTERNS[section.bass] ?? BASS_PATTERNS.breath;
+    const stepDuration = this.measureDuration / pattern.length;
+    const layer = track.paletteSettings.bass;
+
+    pattern.forEach((token, index) => {
+      const midi = resolveNoteToken(token, chord, -24);
+
+      if (!midi) {
+        return;
+      }
+
+      const startOffset = index * stepDuration;
+      const restCount = countTrailingRests(pattern, index);
+      const duration = stepDuration * (0.76 + restCount * 0.12);
+
+      this.scheduleSynthNote({
+        frequency: midiToFrequency(midi),
+        startTime: startTime + startOffset,
+        duration,
+        attack: 0.012,
+        release: 0.18,
+        gainScale: index === 0 ? 1.12 : 0.9,
+        layer,
+        pan: (random() - 0.5) * 0.06,
+        random,
+        sustain: 0.7,
+      });
+    });
+  }
+
+  scheduleArpLayer({ chord, random, section, startTime, track }) {
+    const pattern = ARP_PATTERNS[section.arp] ?? ARP_PATTERNS.ripple;
+    const stepDuration = this.measureDuration / pattern.length;
+    const layer = track.paletteSettings.arp;
+
+    pattern.forEach((token, index) => {
+      const midi = resolveNoteToken(token, chord, 12);
+
+      if (!midi) {
+        return;
+      }
+
+      const startOffset = index * stepDuration;
+      const shouldThinOut = section.drums === 'none' && index % 2 === 1 && random() < 0.3;
+
+      if (shouldThinOut) {
+        return;
+      }
+
+      this.scheduleSynthNote({
+        frequency: midiToFrequency(midi),
+        startTime: startTime + startOffset,
+        duration: stepDuration * 0.72,
+        attack: 0.01,
+        release: 0.16,
+        gainScale: 0.9,
+        layer,
+        pan: (random() - 0.5) * 0.48,
+        random,
+        sustain: 0.62,
+      });
+    });
+  }
+
+  scheduleLeadLayer({ chord, random, section, startTime, track }) {
+    if (!section.lead) {
+      return;
+    }
+
+    if (section.drums === 'none' && random() < 0.22) {
+      return;
+    }
+
+    const pattern = LEAD_PATTERNS[section.lead] ?? LEAD_PATTERNS.theme;
+    const stepDuration = this.measureDuration / pattern.length;
+    const layer = track.paletteSettings.lead;
+
+    pattern.forEach((token, index) => {
+      const midi = resolveNoteToken(token, chord, 24);
+
+      if (!midi) {
+        return;
+      }
+
+      const startOffset = index * stepDuration;
+      const restCount = countTrailingRests(pattern, index);
+      const duration = stepDuration * (0.78 + restCount * 0.18);
+
+      this.scheduleSynthNote({
+        frequency: midiToFrequency(midi),
+        startTime: startTime + startOffset,
+        duration,
+        attack: 0.014,
+        release: 0.28,
+        gainScale: 0.92,
+        layer,
+        pan: (random() - 0.5) * 0.24,
+        random,
+        sustain: 0.76,
+      });
+    });
+  }
+
+  scheduleBellLayer({ chord, random, section, startTime, track }) {
+    if (!section.bell) {
+      return;
+    }
+
+    const pattern = BELL_PATTERNS[section.bell] ?? BELL_PATTERNS.distant;
+    const stepDuration = this.measureDuration / pattern.length;
+    const layer = track.paletteSettings.bell;
+
+    pattern.forEach((token, index) => {
+      const midi = resolveNoteToken(token, chord, 36);
+
+      if (!midi) {
+        return;
+      }
+
+      if (index > 0 && random() < 0.16) {
+        return;
+      }
+
+      this.scheduleBellNote({
+        frequency: midiToFrequency(midi),
+        startTime: startTime + index * stepDuration,
+        layer,
+        gainScale: index === 0 ? 1 : 0.84,
+        pan: (random() - 0.5) * 0.64,
+      });
+    });
+  }
+
+  schedulePercussionLayer({ random, section, startTime }) {
+    const pattern = DRUM_PATTERNS[section.drums] ?? DRUM_PATTERNS.none;
+
+    if (
+      !pattern.kick.length &&
+      !pattern.snare.length &&
+      !pattern.hat.length &&
+      !pattern.low.length
+    ) {
+      return;
+    }
+
+    const stepDuration = this.measureDuration / pattern.steps;
+
+    pattern.kick.forEach((velocity, index) => {
+      if (velocity > 0) {
+        this.scheduleKick(startTime + index * stepDuration, velocity);
+      }
+    });
+
+    pattern.snare.forEach((velocity, index) => {
+      if (velocity > 0) {
+        this.scheduleNoiseHit({
+          startTime: startTime + index * stepDuration,
+          duration: 0.17,
+          gainScale: velocity,
+          centerFrequency: 1800,
+          q: 0.8,
+          highpassFrequency: 520,
+          pan: (random() - 0.5) * 0.2,
+          reverbAmount: 0.08,
+        });
+      }
+    });
+
+    pattern.hat.forEach((velocity, index) => {
+      if (velocity > 0) {
+        this.scheduleNoiseHit({
+          startTime: startTime + index * stepDuration,
+          duration: 0.08,
+          gainScale: velocity,
+          centerFrequency: 5400,
+          q: 1.4,
+          highpassFrequency: 2600,
+          pan: (random() - 0.5) * 0.36,
+          reverbAmount: 0.03,
+        });
+      }
+    });
+
+    pattern.low.forEach((velocity, index) => {
+      if (velocity > 0) {
+        this.scheduleLowPulse(startTime + index * stepDuration, velocity);
+      }
+    });
+  }
+
+  scheduleSynthNote({
+    frequency,
+    startTime,
+    duration,
+    attack,
+    release,
+    gainScale,
+    layer,
+    pan,
+    random,
+    sustain,
+  }) {
+    if (!this.audioContext || !this.musicBus || !this.reverbInput || !this.delayInput) {
+      return;
+    }
+
+    const voiceGain = this.audioContext.createGain();
+    const filter = this.audioContext.createBiquadFilter();
+    const outputNode =
+      typeof this.audioContext.createStereoPanner === 'function'
+        ? this.audioContext.createStereoPanner()
+        : this.audioContext.createGain();
+
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(layer.filter, startTime);
+    filter.Q.setValueAtTime(0.2, startTime);
+
+    if ('pan' in outputNode) {
+      outputNode.pan.setValueAtTime(pan, startTime);
+    }
+
+    voiceGain.gain.setValueAtTime(0.0001, startTime);
+    voiceGain.gain.linearRampToValueAtTime(layer.gain * gainScale, startTime + attack);
+    voiceGain.gain.linearRampToValueAtTime(
+      layer.gain * gainScale * sustain,
+      startTime + Math.max(attack * 1.4, duration * 0.55)
+    );
+    voiceGain.gain.linearRampToValueAtTime(0.0001, startTime + duration + release);
+
+    filter.connect(voiceGain);
+    voiceGain.connect(outputNode);
+    outputNode.connect(this.musicBus);
+
+    if (layer.reverb > 0) {
+      const reverbSend = this.audioContext.createGain();
+      reverbSend.gain.setValueAtTime(layer.reverb * gainScale, startTime);
+      outputNode.connect(reverbSend);
+      reverbSend.connect(this.reverbInput);
+    }
+
+    if (layer.delay > 0) {
+      const delaySend = this.audioContext.createGain();
+      delaySend.gain.setValueAtTime(layer.delay * gainScale, startTime);
+      outputNode.connect(delaySend);
+      delaySend.connect(this.delayInput);
+    }
+
+    layer.waveforms.forEach((waveform, oscillatorIndex) => {
+      const oscillator = this.audioContext.createOscillator();
+      const detuneSpread = layer.waveforms.length === 1 ? 0 : (oscillatorIndex - 0.5) * 7;
+
+      oscillator.type = waveform;
+      oscillator.frequency.setValueAtTime(frequency, startTime);
+      oscillator.detune.setValueAtTime(detuneSpread + (random() - 0.5) * 3.4, startTime);
+      oscillator.connect(filter);
+      oscillator.start(startTime);
+      oscillator.stop(startTime + duration + release + 0.02);
+    });
+  }
+
+  scheduleBellNote({ frequency, startTime, layer, gainScale, pan }) {
+    if (!this.audioContext || !this.musicBus || !this.reverbInput) {
+      return;
+    }
+
+    const bellGain = this.audioContext.createGain();
+    const outputNode =
+      typeof this.audioContext.createStereoPanner === 'function'
+        ? this.audioContext.createStereoPanner()
+        : this.audioContext.createGain();
+
+    if ('pan' in outputNode) {
+      outputNode.pan.setValueAtTime(pan, startTime);
+    }
+
+    bellGain.gain.setValueAtTime(0.0001, startTime);
+    bellGain.gain.linearRampToValueAtTime(layer.gain * gainScale, startTime + 0.01);
+    bellGain.gain.exponentialRampToValueAtTime(0.0001, startTime + 1.8);
+    bellGain.connect(outputNode);
+    outputNode.connect(this.musicBus);
+
+    const reverbSend = this.audioContext.createGain();
+    reverbSend.gain.setValueAtTime(layer.reverb * gainScale, startTime);
+    outputNode.connect(reverbSend);
+    reverbSend.connect(this.reverbInput);
+
+    [1, 2.01, 3.19].forEach((ratio, index) => {
+      const oscillator = this.audioContext.createOscillator();
+      const partialGain = this.audioContext.createGain();
+
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(frequency * ratio, startTime);
+
+      partialGain.gain.setValueAtTime(index === 0 ? 1 : 0.38 / index, startTime);
+      partialGain.gain.exponentialRampToValueAtTime(0.0001, startTime + 1.6 - index * 0.22);
+
+      oscillator.connect(partialGain);
+      partialGain.connect(bellGain);
+
+      oscillator.start(startTime);
+      oscillator.stop(startTime + 1.9);
+    });
+  }
+
+  scheduleKick(startTime, velocity) {
+    if (!this.audioContext || !this.musicBus) {
+      return;
+    }
+
+    const oscillator = this.audioContext.createOscillator();
+    const gainNode = this.audioContext.createGain();
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(112, startTime);
+    oscillator.frequency.exponentialRampToValueAtTime(46, startTime + 0.14);
+
+    gainNode.gain.setValueAtTime(0.0001, startTime);
+    gainNode.gain.linearRampToValueAtTime(0.088 * velocity, startTime + 0.006);
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.18);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(this.musicBus);
+
+    oscillator.start(startTime);
+    oscillator.stop(startTime + 0.2);
+  }
+
+  scheduleLowPulse(startTime, velocity) {
+    if (!this.audioContext || !this.musicBus || !this.reverbInput) {
+      return;
+    }
+
+    const oscillator = this.audioContext.createOscillator();
+    const gainNode = this.audioContext.createGain();
+    const filter = this.audioContext.createBiquadFilter();
+
+    oscillator.type = 'triangle';
+    oscillator.frequency.setValueAtTime(82, startTime);
+    oscillator.frequency.exponentialRampToValueAtTime(54, startTime + 0.22);
+
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(420, startTime);
+
+    gainNode.gain.setValueAtTime(0.0001, startTime);
+    gainNode.gain.linearRampToValueAtTime(0.052 * velocity, startTime + 0.02);
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.26);
+
+    oscillator.connect(filter);
+    filter.connect(gainNode);
+    gainNode.connect(this.musicBus);
+
+    const reverbSend = this.audioContext.createGain();
+    reverbSend.gain.setValueAtTime(0.08 * velocity, startTime);
+    gainNode.connect(reverbSend);
+    reverbSend.connect(this.reverbInput);
+
+    oscillator.start(startTime);
+    oscillator.stop(startTime + 0.3);
+  }
+
+  scheduleNoiseHit({
+    startTime,
+    duration,
+    gainScale,
+    centerFrequency,
+    q,
+    highpassFrequency,
+    pan,
+    reverbAmount,
+  }) {
+    if (!this.audioContext || !this.noiseBuffer || !this.musicBus) {
+      return;
+    }
+
+    const source = this.audioContext.createBufferSource();
+    const bandpass = this.audioContext.createBiquadFilter();
+    const highpass = this.audioContext.createBiquadFilter();
+    const gainNode = this.audioContext.createGain();
+    const outputNode =
+      typeof this.audioContext.createStereoPanner === 'function'
+        ? this.audioContext.createStereoPanner()
+        : this.audioContext.createGain();
+
+    source.buffer = this.noiseBuffer;
+
+    bandpass.type = 'bandpass';
+    bandpass.frequency.setValueAtTime(centerFrequency, startTime);
+    bandpass.Q.setValueAtTime(q, startTime);
+
+    highpass.type = 'highpass';
+    highpass.frequency.setValueAtTime(highpassFrequency, startTime);
+
+    if ('pan' in outputNode) {
+      outputNode.pan.setValueAtTime(pan, startTime);
+    }
+
+    gainNode.gain.setValueAtTime(0.0001, startTime);
+    gainNode.gain.linearRampToValueAtTime(0.08 * gainScale, startTime + 0.004);
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+    source.connect(bandpass);
+    bandpass.connect(highpass);
+    highpass.connect(gainNode);
+    gainNode.connect(outputNode);
+    outputNode.connect(this.musicBus);
+
+    if (reverbAmount > 0 && this.reverbInput) {
+      const reverbSend = this.audioContext.createGain();
+      reverbSend.gain.setValueAtTime(reverbAmount * gainScale, startTime);
+      outputNode.connect(reverbSend);
+      reverbSend.connect(this.reverbInput);
+    }
+
+    source.start(startTime);
+    source.stop(startTime + duration + 0.04);
   }
 
   async stop() {
@@ -268,16 +887,12 @@ export class BGMManager {
 
     this.isPlaying = false;
     this.status = 'stopped';
-
-    if (this.schedulerTimerId) {
-      window.clearTimeout(this.schedulerTimerId);
-      this.schedulerTimerId = null;
-    }
+    this.clearScheduler();
 
     const now = this.audioContext.currentTime;
     this.masterGain.gain.cancelScheduledValues(now);
     this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
-    this.masterGain.gain.linearRampToValueAtTime(0, now + 0.2);
+    this.masterGain.gain.linearRampToValueAtTime(0, now + 0.22);
 
     if (this.stopTimerId) {
       window.clearTimeout(this.stopTimerId);
@@ -295,16 +910,13 @@ export class BGMManager {
       if (typeof suspendPromise?.catch === 'function') {
         suspendPromise.catch(() => {});
       }
-    }, 240);
+    }, 260);
 
     this.notifyState();
   }
 
   destroy() {
-    if (this.schedulerTimerId) {
-      window.clearTimeout(this.schedulerTimerId);
-      this.schedulerTimerId = null;
-    }
+    this.clearScheduler();
 
     if (this.stopTimerId) {
       window.clearTimeout(this.stopTimerId);
@@ -322,7 +934,12 @@ export class BGMManager {
 
       this.audioContext = null;
       this.masterGain = null;
+      this.musicBus = null;
+      this.reverbInput = null;
+      this.delayInput = null;
+      this.masterTone = null;
       this.compressor = null;
+      this.noiseBuffer = null;
     }
   }
 
@@ -339,211 +956,26 @@ export class BGMManager {
     this.notifyState();
   }
 
-  setMood(nextMoodId) {
-    if (!MOOD_LIBRARY[nextMoodId] || nextMoodId === this.currentMoodId) {
+  setTrack(nextTrackId) {
+    if (!BGM_TRACK_LIBRARY[nextTrackId] || nextTrackId === this.currentTrackId) {
       return;
     }
 
-    this.currentMoodId = nextMoodId;
-    this.selectProgression();
-    this.notifyState();
-  }
+    this.currentTrackId = nextTrackId;
+    const track = this.currentTrack;
 
-  selectProgression() {
-    const moodConfig = MOOD_LIBRARY[this.currentMoodId] ?? MOOD_LIBRARY[DEFAULT_MOOD];
-    const nextProgression = weightedPick(
-      moodConfig.progressionLibrary.map((progression) => ({
-        value: progression,
-        weight: progression.label === this.previousProgressionLabel ? 1 : 2,
-      }))
-    );
-
-    this.currentProgression = nextProgression ?? moodConfig.progressionLibrary[0];
-    this.previousProgressionLabel = this.currentProgression.label;
-    this.tempo = Math.round(randomBetween(...moodConfig.tempoRange));
+    this.currentSectionName = track.arrangement[0] ?? '';
+    this.tempo = track.tempo;
     this.beatDuration = 60 / this.tempo;
     this.measureDuration = this.beatDuration * 4;
-    this.measureStep = 0;
-  }
 
-  scheduleLoop() {
-    if (!this.audioContext || !this.isPlaying) {
+    if (this.isPlaying) {
+      this.startScheduling();
       return;
-    }
-
-    while (this.nextMeasureTime < this.audioContext.currentTime + this.scheduleAheadSeconds) {
-      this.scheduleMeasure(this.nextMeasureTime);
-      this.nextMeasureTime += this.measureDuration;
-    }
-
-    this.schedulerTimerId = window.setTimeout(() => this.scheduleLoop(), this.lookAheadMs);
-  }
-
-  scheduleMeasure(startTime) {
-    if (!this.currentProgression) {
-      this.selectProgression();
-    }
-
-    const moodConfig = MOOD_LIBRARY[this.currentMoodId] ?? MOOD_LIBRARY[DEFAULT_MOOD];
-    const chordDegree = this.currentProgression.degrees[this.measureStep];
-    const chord = buildChord(moodConfig, chordDegree);
-
-    this.scheduleHarmonyLayer(chord, moodConfig, startTime);
-    this.scheduleBassLayer(chord, moodConfig, startTime);
-    this.scheduleLeadLayer(chord, moodConfig, startTime);
-
-    this.measureStep += 1;
-
-    if (this.measureStep >= this.currentProgression.degrees.length) {
-      this.selectProgression();
     }
 
     this.notifyState();
   }
-
-  scheduleHarmonyLayer(chord, moodConfig, startTime) {
-    chord.harmonyTones.forEach((midi, index) => {
-      const detune = (index - 1) * 6;
-      const frequency = midiToFrequency(midi);
-      this.scheduleVoice({
-        frequency,
-        startTime,
-        duration: this.measureDuration * randomBetween(0.9, 1.04),
-        attack: 0.28,
-        release: 0.52,
-        gainValue: 0.036,
-        type: index === 1 ? 'triangle' : 'sine',
-        filterFrequency: moodConfig.mode === 'aeolian' ? 1250 : 1680,
-        detune,
-      });
-    });
-  }
-
-  scheduleBassLayer(chord, moodConfig, startTime) {
-    for (let beat = 0; beat < 4; beat += 1) {
-      if (beat !== 0 && Math.random() < 0.18) {
-        continue;
-      }
-
-      const useFifth = beat !== 0 && Math.random() < 0.42;
-      const accent = beat === 0 ? 1.18 : 0.92;
-      const midi = (useFifth ? chord.fifthMidi : chord.rootMidi) + (Math.random() < 0.16 ? -12 : 0);
-
-      this.scheduleVoice({
-        frequency: midiToFrequency(midi),
-        startTime: startTime + beat * this.beatDuration,
-        duration: this.beatDuration * (beat === 0 ? 0.88 : 0.58),
-        attack: 0.012,
-        release: 0.16,
-        gainValue: 0.07 * accent,
-        type: moodConfig.bassWaveform,
-        filterFrequency: moodConfig.mode === 'aeolian' ? 420 : 520,
-      });
-    }
-  }
-
-  scheduleLeadLayer(chord, moodConfig, startTime) {
-    const measureEnd = startTime + this.measureDuration;
-    let noteTime = startTime;
-
-    while (noteTime < measureEnd - 0.04) {
-      const stepBeats = weightedPick([
-        { value: 0.25, weight: 2 },
-        { value: 0.5, weight: 5 },
-        { value: 0.75, weight: 1 },
-        { value: 1, weight: 2 },
-      ]);
-
-      if (Math.random() < 0.24) {
-        noteTime += stepBeats * this.beatDuration;
-        continue;
-      }
-
-      const noteDuration = Math.min(
-        stepBeats * this.beatDuration * randomBetween(0.7, 0.96),
-        measureEnd - noteTime - 0.02
-      );
-
-      const midi = this.pickLeadMidi(chord, moodConfig);
-
-      this.scheduleVoice({
-        frequency: midiToFrequency(midi),
-        startTime: noteTime,
-        duration: noteDuration,
-        attack: 0.01,
-        release: 0.12,
-        gainValue: 0.03,
-        type: moodConfig.leadWaveform,
-        filterFrequency: 2400,
-        detune: randomBetween(-4, 4),
-      });
-
-      this.previousLeadMidi = midi;
-      noteTime += stepBeats * this.beatDuration;
-    }
-  }
-
-  pickLeadMidi(chord, moodConfig) {
-    const preferChordTone = Math.random() < 0.72;
-    const pool = preferChordTone ? chord.leadChordTones : chord.leadScaleTones;
-
-    if (this.previousLeadMidi === null) {
-      return pool[Math.floor(Math.random() * pool.length)];
-    }
-
-    const sortedCandidates = [...pool].sort(
-      (left, right) =>
-        Math.abs(left - this.previousLeadMidi) - Math.abs(right - this.previousLeadMidi)
-    );
-    const closest = sortedCandidates.slice(0, 3);
-
-    if (moodConfig.mode === 'aeolian' && Math.random() < 0.18) {
-      return sortedCandidates.at(-1) ?? closest[0];
-    }
-
-    return closest[Math.floor(Math.random() * closest.length)];
-  }
-
-  scheduleVoice({
-    frequency,
-    startTime,
-    duration,
-    attack,
-    release,
-    gainValue,
-    type,
-    filterFrequency,
-    detune = 0,
-  }) {
-    if (!this.audioContext || !this.masterGain) {
-      return;
-    }
-
-    const oscillator = this.audioContext.createOscillator();
-    const voiceGain = this.audioContext.createGain();
-    const filter = this.audioContext.createBiquadFilter();
-
-    oscillator.type = type;
-    oscillator.frequency.setValueAtTime(frequency, startTime);
-    oscillator.detune.setValueAtTime(detune, startTime);
-
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(filterFrequency, startTime);
-    filter.Q.setValueAtTime(0.0001, startTime);
-
-    voiceGain.gain.setValueAtTime(0.0001, startTime);
-    voiceGain.gain.linearRampToValueAtTime(gainValue, startTime + attack);
-    voiceGain.gain.linearRampToValueAtTime(
-      gainValue * 0.72,
-      startTime + Math.max(attack, duration * 0.6)
-    );
-    voiceGain.gain.linearRampToValueAtTime(0.0001, startTime + duration + release);
-
-    oscillator.connect(filter);
-    filter.connect(voiceGain);
-    voiceGain.connect(this.masterGain);
-
-    oscillator.start(startTime);
-    oscillator.stop(startTime + duration + release + 0.02);
-  }
 }
+
+export { bgmTrackCatalog };

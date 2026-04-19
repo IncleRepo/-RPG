@@ -3,6 +3,7 @@ import mainStory from '../content/lore/main-story.md?raw';
 import coreSystems from '../content/game-design/00-core-systems.md?raw';
 import prologuePlayflow from '../content/game-design/01-prologue-playflow.md?raw';
 import uiUxGuide from '../content/game-design/02-ui-ux.md?raw';
+import artAndPlayerSpec from '../content/game-design/03-art-and-player-spec.md?raw';
 import scenarioOverview from '../content/scenario/00-overview.md?raw';
 import scenarioPrologue from '../content/scenario/01-prologue.md?raw';
 import scenarioChapter1 from '../content/scenario/02-chapter-1.md?raw';
@@ -44,7 +45,7 @@ export const storyHighlights = Object.freeze([
   },
   {
     label: '문서 구성',
-    value: '시나리오 6종 + 설정/설계 9종 + BGM 설계 1종',
+    value: '시나리오 6종 + 설정/설계 10종 + BGM 설계 1종',
   },
   {
     label: '서사 테마',
@@ -134,6 +135,16 @@ export const storyDocuments = Object.freeze([
     fileName: 'src/content/game-design/02-ui-ux.md',
     accent: 'plum',
     content: uiUxGuide,
+  },
+  {
+    id: 'art-and-player-spec',
+    title: '아트 기준 및 플레이어 스펙',
+    category: '비주얼 설계',
+    summary:
+      '타일 크기, 플레이어/NPC/적 비율, 카메라 구도, 필수 모션, 프롤로그 최소 아트 목록을 구현 가능한 수치로 정리한 문서',
+    fileName: 'src/content/game-design/03-art-and-player-spec.md',
+    accent: 'teal',
+    content: artAndPlayerSpec,
   },
   {
     id: 'audio-scenario-plan',

@@ -359,10 +359,16 @@ function createAppShell() {
     <div class="page-shell">
       <header class="hero">
         <div class="hero__content">
-          <p class="eyebrow">Issue #59 · Scenario Soundtrack</p>
+          <p class="eyebrow">Docs Archive · Scenario Soundtrack</p>
           <h1>${storyProject.title}</h1>
           <p class="hero__subtitle">${storyProject.subtitle}</p>
           <p class="hero__pitch">${storyProject.pitch}</p>
+          <div class="hero__actions" aria-label="페이지 바로가기">
+            <a class="hero-link hero-link--primary" href="./index.html">
+              프롤로그 플레이 시작
+            </a>
+            <a class="hero-link" href="./docs.html#prologue-playflow">프롤로그 설계 문서 보기</a>
+          </div>
         </div>
         <div class="hero__panel">
           <dl class="hero-stats">

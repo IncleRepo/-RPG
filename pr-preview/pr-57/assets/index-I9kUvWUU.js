@@ -1,4 +1,4 @@
-(function(){const c=document.createElement("link").relList;if(c&&c.supports&&c.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))r(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const i of t.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&r(i)}).observe(document,{childList:!0,subtree:!0});function o(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function r(e){if(e.ep)return;e.ep=!0;const t=o(e);fetch(e.href,t)}})();const w=`# 반향해 연대기
+(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))t(r);new MutationObserver(r=>{for(const a of r)if(a.type==="childList")for(const s of a.addedNodes)s.tagName==="LINK"&&s.rel==="modulepreload"&&t(s)}).observe(document,{childList:!0,subtree:!0});function c(r){const a={};return r.integrity&&(a.integrity=r.integrity),r.referrerPolicy&&(a.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?a.credentials="include":r.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function t(r){if(r.ep)return;r.ep=!0;const a=c(r);fetch(r.href,a)}})();const j=`# 반향해 연대기
 
 ## 한 줄 개요
 
@@ -49,7 +49,7 @@
 - 큰 힘을 사용할수록 플레이어는 기억을 잃기 때문에,
   강한 선택과 정체성 보존 사이의 긴장이 핵심 시스템이 된다.
 - 지역마다 시간이 흐르는 방식이 달라 던전 구조와 퍼즐 규칙이 달라질 수 있다.
-`,N=`# 메인 스토리 구조
+`,L=`# 메인 스토리 구조
 
 ## 프롤로그: 내일이 오지 않은 항구
 
@@ -121,7 +121,7 @@
 - 플레이어가 잃어버린 기억 속에서 반복 등장하는 정체불명의 아이
 - 과거에 멈춘 채 주민들이 늙지 않는 어시장
 - 한 번도 오지 않은 겨울을 기다리는 북쪽 등대 마을
-`,_=`# 메인 시나리오 챕터 설계 개요
+`,P=`# 메인 시나리오 챕터 설계 개요
 
 ## 문서 목적
 
@@ -335,10 +335,12 @@
 - 기획자는 이 문서를 기준으로 맵 수, 퀘스트 수, 컷신 수를 산정한다.
 - 시스템 설계자는 각 챕터의 필수 기믹을 전투와 탐험 기능으로 분해한다.
 - 아트 작업자는 지역별 톤과 핵심 오브젝트를 챕터 단위로 관리한다.
+- 캐릭터 디자인과 컷신 콘티 작업자는 각 챕터 문서의 \`인물 외형 포인트\`와
+  \`src/content/lore/characters.md\`의 상세 외형 묘사를 함께 참조한다.
 - 이후 서브 퀘스트 문서는 메인 챕터 문서의 빈 감정 구간을 보강하는 방식으로 붙인다.
 - 시나리오 라이터는 본 개요 문서의 화법 가이드를 기준으로
   챕터 문서에 적힌 장면 스크립트를 실제 대본으로 확장한다.
-`,P=`# 프롤로그: 내일이 오지 않은 항구
+`,O=`# 프롤로그: 내일이 오지 않은 항구
 
 ## 챕터 개요
 
@@ -370,6 +372,14 @@
 - 라오 템: 출항 수단을 제공하는 구조선 선장
 - 백야: 파편 속에서만 보이는 수수께끼의 아이
 - 재상인 유라 베인: 직접 등장하지는 않지만 조율원 명령문과 음성 기록으로 존재감을 드러낸다
+
+## 인물 외형 포인트
+
+- 플레이어: 젖은 남청 외투와 바랜 장비 벨트, 손등에 아주 약한 새벽빛 균열 문양이 보이기 시작한다.
+- 사야 렌: 정리된 아이보리 롱 코트와 은색 기록 장비, 차분하게 묶은 머리로 \`질서 있는 인물\`이라는 첫인상을 준다.
+- 라오 템: 거친 구조용 재킷, 굵은 밧줄 하네스, 넓은 어깨 실루엣으로 현장형 인물임을 즉시 드러낸다.
+- 백야: 젖은 새벽빛 머리와 맨발, 주변 공기보다 한 톤 밝게 뜨는 반투명 윤곽이 중요하다.
+- 유라 베인: 직접 등장하지 않더라도 기록 매체 속 실루엣은 검은 제복, 백색 장갑, 날 선 어깨선으로 남겨 두면 좋다.
 
 ## 주요 사건
 
@@ -571,7 +581,7 @@
 - 프롤로그 종료 시점에는 세계관보다 "개인적 수수께끼"가 더 강하게 남아야 한다.
 - 주요 인물 대사는 짧지만 날카롭게 가져가고,
   현장 NPC 대사는 미라진 전체가 이미 시간 이상에 잠겼다는 증거처럼 배치한다.
-`,j=`# 챕터 1: 유리염 사구, 미래가 메마른 땅
+`,A=`# 챕터 1: 유리염 사구, 미래가 메마른 땅
 
 ## 챕터 개요
 
@@ -606,6 +616,15 @@
 - 백야
 - 조율원 현장감독들
 - 염해 길드 구조선 승무원들
+
+## 인물 외형 포인트
+
+- 플레이어: 소금과 유리 가루가 눌어붙은 외투, 사막용 천을 급히 둘러 쓴 얼굴선으로 초반 항해의 소모를 보여 준다.
+- 사야 렌: 모래막이 후드와 얇은 보호 고글을 추가해도 기본의 정돈된 기록관 실루엣은 유지돼야 한다.
+- 라오 템: 패치가 많은 방풍 망토, 물통과 구조 갈고리, 사막을 버틴 사람 같은 마른 강인함이 잘 보여야 한다.
+- 백야: 소금 결정 위에 남는 희미한 젖은 발자국, 멀리서도 눈에 띄는 희백색 윤곽이 적합하다.
+- 조율원 현장감독: 먼지 하나 허용하지 않는 제복, 측정 장치가 많은 직선형 실루엣으로 \`관리\`를 시각화한다.
+- 염해 길드 승무원: 기능성 천과 보강 장갑, 물자 꾸러미가 달린 비대칭 장비 구성으로 \`구조와 생존\`을 보여 준다.
 
 ## 주요 사건
 
@@ -804,7 +823,7 @@
 - 2번 종편은 대형 보스보다 \`인물 선택과 신뢰\`로 얻는 조각으로 설계해 반복감을 줄인다.
 - 구조 현장 대사는 NPC 절규만 반복하지 말고,
   생존자마다 \`도착하지 않은 내일\`을 다르게 기억하는 식으로 변주를 준다.
-`,L=`# 챕터 2: 역항도 카델, 거꾸로 매달린 질서
+`,C=`# 챕터 2: 역항도 카델, 거꾸로 매달린 질서
 
 ## 챕터 개요
 
@@ -840,6 +859,15 @@
 - 백야
 - 카델 시민들
 - 공백 법정 침투자들
+
+## 인물 외형 포인트
+
+- 플레이어: 중력 전환 장치에 맞춰 보강한 장화와 금속 고리, 항해 장비 위에 덧댄 임시 안전 장치가 보이면 좋다.
+- 사야 렌: 부유하는 종이 태그와 접이식 지도 장치, 정돈된 실루엣 위에 카델용 보조 고정구를 더해 \`적응하는 기록관\`을 보여 준다.
+- 라오 템: 중력 고리와 자석 갈고리를 덕지덕지 덧댄 현장형 복장으로, 도시 규칙에도 결국 몸으로 대응하는 인물처럼 보이게 한다.
+- 유라 베인: 흑청과 냉백의 수직 제복, 금속 견장과 장갑, 정면을 향한 자세만으로도 통치자의 압박감이 느껴져야 한다.
+- 백야: 위아래가 뒤집힌 공간에서도 중력 영향을 받지 않는 듯 천천히 떠 있는 연출이 잘 어울린다.
+- 카델 시민: 상층은 단정한 조율원식 실루엣, 하층은 마모된 작업복과 보조 장치가 많은 형태로 격차를 시각화한다.
 
 ## 주요 사건
 
@@ -1051,7 +1079,7 @@
 - 시민 보호와 코어 유지 목표를 동시에 제시해 플레이 압박을 높이는 것이 좋다.
 - 유라의 대사는 차갑더라도 비아냥으로 흐르지 않게 조절하고,
   시민 대사는 \`질서 덕분에 살아남은 층\`과 \`질서 때문에 짓눌린 층\`이 모두 보이게 배치한다.
-`,O=`# 챕터 3: 잃어버린 하루들의 진실
+`,D=`# 챕터 3: 잃어버린 하루들의 진실
 
 ## 챕터 개요
 
@@ -1086,6 +1114,15 @@
 - 유라 베인
 - 백야
 - 물비늘 성가대 기록 보관자들
+
+## 인물 외형 포인트
+
+- 플레이어: 종편 공명 후유증이 누적돼 손목과 목선 주변 문양이 더 선명해지고, 외투에도 장거리 항해의 마모가 쌓여 있어야 한다.
+- 사야 렌: 단정했던 머리와 복장이 조금씩 흐트러져 감정 균열이 보이되, 기록 도구만은 끝까지 정리된 상태가 좋다.
+- 라오 템: 소금기와 피로가 묻은 장갑, 거칠어진 보호대, 이전보다 무거워진 눈빛으로 누적된 현장 피로를 표현한다.
+- 유라 베인: 의례용이 아닌 원정용 제복으로 바뀌어도 직선적 실루엣과 절제된 계급감은 유지돼야 한다.
+- 백야: 과수원 열매의 새벽빛과 섞여 윤곽이 번지고, 척추탑에서는 기록 틈새마다 다른 나이처럼 보이는 연출도 가능하다.
+- 물비늘 성가대 기록 보관자: 물결처럼 흐르는 로브와 서고용 발광 문자 장식으로 지역의 몽환성을 강화한다.
 
 ## 주요 사건
 
@@ -1292,7 +1329,7 @@
 - 후반 선택의 설득력은 이 장에서 사야, 라오, 유라의 입장이 얼마나 공감되게 전달되는지에 달려 있다.
 - 스크립트 작업 시 사야, 라오, 플레이어 셋의 감정선을 같은 장면 안에서 꺾어 줘야
   엔딩 분기에서 특정 인물만 일방적으로 옳아 보이지 않는다.
-`,A=`# 엔딩: 침묵 산호궁과 마지막 새벽
+`,q=`# 엔딩: 침묵 산호궁과 마지막 새벽
 
 ## 챕터 개요
 
@@ -1328,6 +1365,15 @@
 - 백야
 - 공백 법정 집행자들
 - 심연의 합창기
+
+## 인물 외형 포인트
+
+- 플레이어: 지금까지의 상처와 장비가 모두 겹친 최종 실루엣에, 일곱 종편 공명이 순간적으로 원형 후광처럼 맴도는 연출이 어울린다.
+- 사야 렌: 기록관 코트 위에 심해용 방수 장비를 덧대고도 본래의 단정함을 잃지 않는 모습이 중요하다.
+- 라오 템: 잠수 구조용 하네스, 무거운 장갑, 산호 파편이 박힌 보호대 등 \`끝까지 현장에 남는 사람\` 같은 무게감이 필요하다.
+- 유라 베인: 심해 압력 대응 외투와 무광 금속 장치로 실전성을 더하되, 여전히 가장 정돈된 사람처럼 보여야 한다.
+- 백야: 마지막에는 거의 빛과 물결만 남은 듯 투명해져, 인간의 형상과 새벽의 잔광이 겹쳐 보이는 편이 좋다.
+- 공백 법정 집행자: 얼굴보다 비어 있는 가면과 절제된 장비가 먼저 읽히게 해 \`삭제자\` 같은 인상을 강화한다.
 
 ## 주요 사건
 
@@ -1584,7 +1630,7 @@
 - 엔딩 분기는 연출 차이뿐 아니라 동료 관계 변화와 세계 상태 변화가 명확하게 보이도록 준비한다.
 - 엔딩 스크립트는 분기마다 달라도
   \`플레이어의 책임 수용\`, \`동료의 반응\`, \`세계 상태 변화\` 세 축은 반드시 모두 들어가야 한다.
-`,C=`# 세계 규칙과 시스템 설정
+`,S=`# 세계 규칙과 시스템 설정
 
 ## 반향해
 
@@ -1649,7 +1695,7 @@
 
 따라서 스토리와 시스템 모두
 \`강한 힘 = 더 큰 대가\` 구조를 유지해야 분위기가 살아난다.
-`,q=`# 주요 지역 설정
+`,H=`# 주요 지역 설정
 
 ## 1. 등외항 미라진
 
@@ -1689,7 +1735,7 @@
 각 층에는 특정 인물이나 도시가 택하지 않은 역사 하나가
 실체를 가진 장면으로 남아 있다.
 세계관 설명과 캐릭터 서사 확장에 최적화된 장소다.
-`,D=`# 세력 설정
+`,I=`# 세력 설정
 
 ## 조율원
 
@@ -1761,6 +1807,19 @@
 - 공통 배경: \`미라진 출신\`, \`새벽의 부재를 직접 목격\`, \`미래 반향 청취 능력 보유\`
 - 기본 인상: 조용하지만 상황 판단이 빠르고, 위기에서는 망설임보다 행동이 먼저 나간다.
 
+### 외형 묘사
+
+- 전체 실루엣은 길게 떨어지는 방수 외투와 한쪽으로 기운 장비 벨트로 구성해
+  \`항해자\`와 \`인양사\`의 생활감을 먼저 보여 준다.
+- 색은 짙은 남청, 바랜 청록, 젖은 소금빛 회색을 기본으로 두고
+  공명 능력이 발동할 때만 새벽빛 금선이 손등과 목선 근처에 스친다.
+- 얼굴 인상은 날카롭기보다 피로와 집중이 함께 남은 타입이 적합하다.
+  잠을 덜 잔 듯한 눈가와 짧게 정리한 머리, 혹은 묶어 둔 잔머리가 잘 어울린다.
+- 장비는 휴대 등불, 균열 청취용 이어 피스, 젖은 항해 수첩 같은
+  \`현장 도구\`가 중심이어야 한다.
+- 실루엣 포인트는 칼보다 먼저 보이는 외투 자락과,
+  결정을 미루지 않는 사람처럼 곧게 나가는 보행 자세다.
+
 ### 겉으로 보이는 성격
 
 - 필요 이상으로 감정을 드러내지 않는다.
@@ -1798,6 +1857,19 @@
 - 포지션: 메인 히로인, 항로 기록관, 메인 파티 브레인
 - 소속: \`등외항 미라진\` 항로 기록 보관소
 - 기본 인상: 침착하고 정교하며, 위기일수록 말수가 더 짧아지는 타입
+
+### 외형 묘사
+
+- 사야는 \`정리된 사람\`처럼 보여야 한다.
+  목선과 허리선이 단정한 롱 코트, 잘 접힌 지도 케이스, 얇은 필기 도구 홀더가 핵심이다.
+- 기본 팔레트는 해무색 아이보리, 옅은 남색, 은빛 회색이 적합하다.
+  과장된 장식보다 기록관다운 차분한 금속 장식이 어울린다.
+- 머리는 단정히 묶거나 반묶음으로 정리하되,
+  챕터가 진행될수록 몇 가닥이 흐트러져 감정 균열이 시각적으로 보이면 좋다.
+- 눈매와 표정은 차갑기보다 집중력이 강한 인상으로 잡고,
+  놀라거나 다급할 때만 숨겨 둔 다정함이 표면으로 새어 나오는 방향이 맞다.
+- 실루엣 포인트는 얇고 곧은 선, 기록 장비의 정돈된 배치,
+  그리고 위기 상황에서도 자세가 쉽게 무너지지 않는 점이다.
 
 ### 겉으로 보이는 성격
 
@@ -1847,6 +1919,18 @@
 - 소속: \`염해 길드\`
 - 기본 인상: 웃음이 많고 거칠어 보이지만, 위기 상황에서 가장 먼저 몸이 움직이는 사람
 
+### 외형 묘사
+
+- 라오는 넓은 어깨와 짧은 준비 동작만으로도 \`몸이 먼저 나가는 사람\`이라는 인상이 보여야 한다.
+- 소금과 햇빛에 바랜 갈색 피부, 군데군데 수선한 작업 재킷,
+  굵은 장갑과 밧줄 하네스가 기본 장비로 어울린다.
+- 팔레트는 녹슨 적갈, 모래빛 황토, 바랜 청록을 중심으로 두고
+  구조 신호용 선명한 주황이나 붉은 천을 포인트로 섞으면 좋다.
+- 머리와 수염은 지나치게 정리되지 않은 현장형이 맞지만,
+  방치가 아니라 바쁜 생활의 흔적처럼 보여야 한다.
+- 실루엣 포인트는 허리에 걸린 갈고리, 등 뒤의 구조용 접이창,
+  그리고 무게 중심이 늘 앞으로 쏠려 있는 자세다.
+
 ### 겉으로 보이는 성격
 
 - 말은 직설적이고 비꼬는 맛이 있지만, 실제 행동은 누구보다 빠르다.
@@ -1882,6 +1966,19 @@
 - 소속: \`조율원\`
 - 기본 인상: 절제되어 있고 빈틈이 없으며, 감정보다 비용과 결과를 먼저 본다.
 
+### 외형 묘사
+
+- 유라는 멀리서도 단번에 구분되는 \`수직적 실루엣\`이 중요하다.
+  견고하게 재단된 긴 제복형 코트와 날 선 어깨선이 잘 어울린다.
+- 기본 팔레트는 흑청, 냉백색, 무광 금속색이 적합하다.
+  장식은 많지 않아야 하지만 각 장식의 기능과 계급감은 분명해야 한다.
+- 장갑, 견장, 허리 장치 모두 \`정리된 권한\`처럼 보여야 하고,
+  흐트러짐이나 우연성은 거의 없는 편이 좋다.
+- 얼굴 인상은 화려함보다 피로를 숨긴 절제에 가깝다.
+  눈밑에 옅은 그늘이나 잠을 줄여 버틴 흔적이 있으면 설득력이 높다.
+- 실루엣 포인트는 직선, 억제된 움직임,
+  그리고 주변 공기를 스스로 정렬시키는 듯한 정지 자세다.
+
 ### 겉으로 보이는 성격
 
 - 항상 상대의 말을 끝까지 듣고 난 뒤 핵심만 잘라 답한다.
@@ -1916,6 +2013,17 @@
 - 외형 인상: 성별과 나이를 특정하기 어려운 중성적 어린아이
 - 기본 인상: 시처럼 말하지만, 가장 아픈 진실을 정확히 찌른다.
 
+### 외형 묘사
+
+- 백야는 \`현실에 완전히 발 딛지 않은 존재\`처럼 보여야 한다.
+  맨발, 젖은 옷자락, 물과 새벽빛이 동시에 남은 머리결이 핵심이다.
+- 피부와 옷은 새하얗기보다 빛이 빠진 조개껍질 같은 색이 어울리고,
+  가장자리에는 옅은 청금색이나 분홍빛 새벽 톤이 스친다.
+- 눈동자는 또렷하게 그리기보다 빛이 맺혀 있는 수면처럼 표현하는 편이 좋다.
+- 아이 체형이지만 정확한 나이를 짐작하기 어렵도록 팔다리 비율이나 표정을 약간 비현실적으로 두면 좋다.
+- 실루엣 포인트는 발소리 없이 서 있는 자세,
+  그리고 배경에 따라 조금씩 흐려지거나 번지는 윤곽이다.
+
 ### 존재의 성격
 
 - 플레이어가 미래 파편을 들여다볼 때마다 반복해서 보게 되는 존재다.
@@ -1943,38 +2051,57 @@
 - 플레이어 ↔ 백야: 잊고 싶던 인간성을 끝까지 상기시키는 내면 관계
 - 사야 렌 ↔ 라오 템: 복구와 해방이 부딪히는 가치 충돌 관계
 - 사야 렌 ↔ 유라 베인: 같은 복구 논리를 공유하지만, 포기할 수 있는 선이 다른 관계
-`,f=Object.freeze({title:"반향해 연대기",subtitle:"내일이 결정으로 떠오르는 세계에서, 사라진 새벽을 추적하는 해양 판타지 RPG 설정집",pitch:"플레이어는 미래의 잔향을 들을 수 있는 여명 인양사가 되어, 도시 국가와 고대 장치가 얽힌 세계에서 내일의 소유권을 둘러싼 전쟁을 마주한다.",setting:"반향해 기반 해양 판타지",mood:"몽환적 서정성과 시간 재난",coreConflict:"미래를 통제할 것인가, 모두에게 되돌릴 것인가"}),S=Object.freeze([{label:"세계 키워드",value:"반향해, 내일결, 새벽종"},{label:"플레이어 역할",value:"미래 반향을 듣는 여명 인양사"},{label:"메인 목표",value:"일곱 개의 새벽 종편 회수"},{label:"메인 플레이타임",value:"약 8시간"},{label:"서사 테마",value:"강한 미래는 누군가의 가능성을 앗아간다"}]),I=Object.freeze([{title:"미래를 자원처럼 쓰는 세계",text:"전투와 탐험, 정치가 모두 내일결 배분 구조와 연결된다."},{title:"상실을 전제로 한 성장",text:"강력한 힘은 기억, 관계, 현재 감각을 대가로 요구한다."},{title:"항해형 지역 구조",text:"도시와 던전이 조류와 시간대에 따라 다른 규칙을 가진다."}]),E=Object.freeze([{era:"첫 역조",detail:"하늘과 바다의 경계가 뒤집히고 반향해가 생겨난다."},{era:"새벽종 시대",detail:"고대인들이 미래 배급 장치를 만들고 문명을 안정시킨다."},{era:"무월조 발발",detail:"내일결 생성이 멈추고 일부 지역에서 아침이 사라진다."},{era:"플레이어의 항해",detail:"종편 회수와 세계 질서 재구성의 선택이 시작된다."}]),m=Object.freeze([{id:"story-overview",title:"스토리 개요",category:"메인 설정",summary:"세계의 한 줄 콘셉트, 플레이어 역할, 메인 목표를 빠르게 파악하는 문서",fileName:"src/content/lore/story-overview.md",accent:"teal",content:w},{id:"main-story",title:"메인 스토리",category:"메인 설정",summary:"프롤로그부터 엔딩 선택까지의 3막 구조와 핵심 반전을 정리한 문서",fileName:"src/content/lore/main-story.md",accent:"gold",content:N},{id:"scenario-overview",title:"시나리오 개요",category:"시나리오 설계",summary:"메인 엔딩까지 약 8시간 기준의 챕터 수, 플레이타임, 대사 스크립트 작성 원칙을 정리한 문서",fileName:"src/content/scenario/00-overview.md",accent:"teal",content:_},{id:"scenario-prologue",title:"프롤로그",category:"챕터 시나리오",summary:"미라진에서 사라진 새벽을 목격하고 첫 항해를 시작하는 도입 챕터와 상세 대사 문서",fileName:"src/content/scenario/01-prologue.md",accent:"coral",content:P},{id:"scenario-chapter-1",title:"챕터 1",category:"챕터 시나리오",summary:"유리염 사구에서 생존 갈등을 체감하고 첫 두 개의 종편을 회수하는 장면별 스크립트 문서",fileName:"src/content/scenario/02-chapter-1.md",accent:"gold",content:j},{id:"scenario-chapter-2",title:"챕터 2",category:"챕터 시나리오",summary:"역항도 카델에서 유라 베인의 질서 논리와 두 개의 종편을 마주하는 장면별 스크립트 문서",fileName:"src/content/scenario/03-chapter-2.md",accent:"plum",content:L},{id:"scenario-chapter-3",title:"챕터 3",category:"챕터 시나리오",summary:"속삭임 과수원과 척추탑에서 진실과 플레이어 정체성을 드러내는 장면별 스크립트 문서",fileName:"src/content/scenario/04-chapter-3.md",accent:"slate",content:O},{id:"scenario-ending",title:"엔딩",category:"챕터 시나리오",summary:"침묵 산호궁 최종 던전과 세 가지 메인 엔딩 선택을 상세 스크립트로 정리한 문서",fileName:"src/content/scenario/05-ending.md",accent:"rose",content:A},{id:"world-rules",title:"세계 규칙",category:"시스템 설정",summary:"반향해, 내일결, 시간 균열, 여명 인양사의 규칙을 정의한 문서",fileName:"src/content/lore/world-rules.md",accent:"coral",content:C},{id:"regions",title:"지역 설정",category:"세부 설정",summary:"항구, 사막, 역중력 도시, 최종 던전 등 탐험 지역의 성격을 정리한 문서",fileName:"src/content/lore/regions.md",accent:"plum",content:q},{id:"factions",title:"세력 설정",category:"세부 설정",summary:"조율원, 염해 길드, 공백 법정 등 주요 집단의 논리와 강약점을 정의한 문서",fileName:"src/content/lore/factions.md",accent:"slate",content:D},{id:"characters",title:"인물 설정",category:"세부 설정",summary:"플레이어와 조력자, 대립 인물, 상징 인물의 역할을 정리한 문서",fileName:"src/content/lore/characters.md",accent:"rose",content:M}]),b=document.querySelector("#app");if(!b)throw new Error("앱 루트 요소를 찾을 수 없습니다.");function H(n){return n.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;")}function u(n){return H(n).replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/\*([^*]+)\*/g,"<em>$1</em>")}function T(n){const c=n.trim().split(/\r?\n/),o=[];let r=[],e=[],t="ul",i=[];const s=()=>{r.length&&(o.push(`<p>${r.map(u).join("<br />")}</p>`),r=[])},l=()=>{if(!e.length)return;const p=e.map(a=>`<li>${u(a)}</li>`).join("");o.push(`<${t}>${p}</${t}>`),e=[],t="ul"},d=()=>{i.length&&(o.push(`<blockquote><p>${i.map(u).join("<br />")}</p></blockquote>`),i=[])};for(const p of c){const a=p.trimEnd(),h=a.match(/^(#{1,3})\s+(.*)$/),g=a.match(/^-\s+(.*)$/),v=a.match(/^\d+\.\s+(.*)$/),y=a.match(/^>\s?(.*)$/);if(!a.trim()){s(),l(),d();continue}if(a==="---"){s(),l(),d(),o.push("<hr />");continue}if(h){s(),l(),d();const $=h[1].length;o.push(`<h${$}>${u(h[2])}</h${$}>`);continue}if(g){s(),d(),t!=="ul"&&e.length&&l(),t="ul",e.push(g[1]);continue}if(v){s(),d(),t!=="ol"&&e.length&&l(),t="ol",e.push(v[1]);continue}if(y){s(),l(),i.push(y[1]);continue}r.push(a)}return s(),l(),d(),o.join("")}function z(n,c){const o=document.querySelector("[data-document-nav]");o&&(o.innerHTML=m.map(r=>`
+
+## 아트 작업용 실루엣 체크
+
+- 플레이어, 라오 템은 \`현장 장비가 먼저 보이는 실루엣\`으로 차별화한다.
+- 사야 렌과 유라 베인은 둘 다 정돈된 인물이지만,
+  사야는 유연한 곡선과 얇은 장비선, 유라는 수직선과 권위적 재단선으로 구분한다.
+- 백야는 다른 인물과 달리 장비보다 \`빛의 번짐\`이 먼저 읽히도록 잡는다.
+- 다섯 인물 모두 후면 실루엣만 봐도 구분되게 외투 길이, 어깨선, 휴대 장비 위치를 다르게 설계한다.
+`,f=Object.freeze({title:"반향해 연대기",subtitle:"내일이 결정으로 떠오르는 세계에서, 사라진 새벽을 추적하는 해양 판타지 RPG 설정집",pitch:"플레이어는 미래의 잔향을 들을 수 있는 여명 인양사가 되어, 도시 국가와 고대 장치가 얽힌 세계에서 내일의 소유권을 둘러싼 전쟁을 마주한다.",setting:"반향해 기반 해양 판타지",mood:"몽환적 서정성과 시간 재난",coreConflict:"미래를 통제할 것인가, 모두에게 되돌릴 것인가"}),E=Object.freeze([{label:"세계 키워드",value:"반향해, 내일결, 새벽종"},{label:"플레이어 역할",value:"미래 반향을 듣는 여명 인양사"},{label:"메인 목표",value:"일곱 개의 새벽 종편 회수"},{label:"메인 플레이타임",value:"약 8시간"},{label:"문서 구성",value:"시나리오 6종 + 인물 외형 메모"},{label:"서사 테마",value:"강한 미래는 누군가의 가능성을 앗아간다"}]),z=Object.freeze([{title:"미래를 자원처럼 쓰는 세계",text:"전투와 탐험, 정치가 모두 내일결 배분 구조와 연결된다."},{title:"상실을 전제로 한 성장",text:"강력한 힘은 기억, 관계, 현재 감각을 대가로 요구한다."},{title:"항해형 지역 구조",text:"도시와 던전이 조류와 시간대에 따라 다른 규칙을 가진다."}]),T=Object.freeze([{era:"첫 역조",detail:"하늘과 바다의 경계가 뒤집히고 반향해가 생겨난다."},{era:"새벽종 시대",detail:"고대인들이 미래 배급 장치를 만들고 문명을 안정시킨다."},{era:"무월조 발발",detail:"내일결 생성이 멈추고 일부 지역에서 아침이 사라진다."},{era:"플레이어의 항해",detail:"종편 회수와 세계 질서 재구성의 선택이 시작된다."}]),u=Object.freeze([{id:"story-overview",title:"스토리 개요",category:"메인 설정",summary:"세계의 한 줄 콘셉트, 플레이어 역할, 메인 목표를 빠르게 파악하는 문서",fileName:"src/content/lore/story-overview.md",accent:"teal",content:j},{id:"main-story",title:"메인 스토리",category:"메인 설정",summary:"프롤로그부터 엔딩 선택까지의 3막 구조와 핵심 반전을 정리한 문서",fileName:"src/content/lore/main-story.md",accent:"gold",content:L},{id:"scenario-overview",title:"시나리오 개요",category:"시나리오 설계",summary:"메인 엔딩까지 약 8시간 기준의 챕터 수, 플레이타임, 대사 스크립트 작성 원칙을 정리한 문서",fileName:"src/content/scenario/00-overview.md",accent:"teal",content:P},{id:"scenario-prologue",title:"프롤로그",category:"챕터 시나리오",summary:"미라진에서 사라진 새벽을 목격하고 첫 항해를 시작하는 도입 챕터와 상세 대사 문서",fileName:"src/content/scenario/01-prologue.md",accent:"coral",content:O},{id:"scenario-chapter-1",title:"챕터 1",category:"챕터 시나리오",summary:"유리염 사구에서 생존 갈등을 체감하고 첫 두 개의 종편을 회수하는 장면별 스크립트 문서",fileName:"src/content/scenario/02-chapter-1.md",accent:"gold",content:A},{id:"scenario-chapter-2",title:"챕터 2",category:"챕터 시나리오",summary:"역항도 카델에서 유라 베인의 질서 논리와 두 개의 종편을 마주하는 장면별 스크립트 문서",fileName:"src/content/scenario/03-chapter-2.md",accent:"plum",content:C},{id:"scenario-chapter-3",title:"챕터 3",category:"챕터 시나리오",summary:"속삭임 과수원과 척추탑에서 진실과 플레이어 정체성을 드러내는 장면별 스크립트 문서",fileName:"src/content/scenario/04-chapter-3.md",accent:"slate",content:D},{id:"scenario-ending",title:"엔딩",category:"챕터 시나리오",summary:"침묵 산호궁 최종 던전과 세 가지 메인 엔딩 선택을 상세 스크립트로 정리한 문서",fileName:"src/content/scenario/05-ending.md",accent:"rose",content:q},{id:"world-rules",title:"세계 규칙",category:"시스템 설정",summary:"반향해, 내일결, 시간 균열, 여명 인양사의 규칙을 정의한 문서",fileName:"src/content/lore/world-rules.md",accent:"coral",content:S},{id:"regions",title:"지역 설정",category:"세부 설정",summary:"항구, 사막, 역중력 도시, 최종 던전 등 탐험 지역의 성격을 정리한 문서",fileName:"src/content/lore/regions.md",accent:"plum",content:H},{id:"factions",title:"세력 설정",category:"세부 설정",summary:"조율원, 염해 길드, 공백 법정 등 주요 집단의 논리와 강약점을 정의한 문서",fileName:"src/content/lore/factions.md",accent:"slate",content:I},{id:"characters",title:"인물 설정",category:"세부 설정",summary:"플레이어와 주요 인물의 역할, 감정선, 외형 디자인 포인트를 정리한 문서",fileName:"src/content/lore/characters.md",accent:"rose",content:M}]),N=document.querySelector("#app");if(!N)throw new Error("앱 루트 요소를 찾을 수 없습니다.");const x=Object.freeze(["scenario-overview","scenario-prologue","scenario-chapter-1","scenario-chapter-2","scenario-chapter-3","scenario-ending","characters"]),_=Object.freeze(x.map(n=>u.find(e=>e.id===n)).filter(Boolean));function g(n){return u.find(e=>e.id===n)}function w(){const n=decodeURIComponent(window.location.hash.replace(/^#/,""));return g(n)?n:""}function B(n){const e=`#${n}`;window.location.hash!==e&&window.history.replaceState(null,"",e)}function F(n){return n.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;")}function m(n){return F(n).replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/\*([^*]+)\*/g,"<em>$1</em>")}function R(n){const e=n.trim().split(/\r?\n/),c=[];let t=[],r=[],a="ul",s=[];const i=()=>{t.length&&(c.push(`<p>${t.map(m).join("<br />")}</p>`),t=[])},l=()=>{if(!r.length)return;const p=r.map(o=>`<li>${m(o)}</li>`).join("");c.push(`<${a}>${p}</${a}>`),r=[],a="ul"},d=()=>{s.length&&(c.push(`<blockquote><p>${s.map(m).join("<br />")}</p></blockquote>`),s=[])};for(const p of e){const o=p.trimEnd(),h=o.match(/^(#{1,3})\s+(.*)$/),y=o.match(/^-\s+(.*)$/),v=o.match(/^\d+\.\s+(.*)$/),$=o.match(/^>\s?(.*)$/);if(!o.trim()){i(),l(),d();continue}if(o==="---"){i(),l(),d(),c.push("<hr />");continue}if(h){i(),l(),d();const b=h[1].length;c.push(`<h${b}>${m(h[2])}</h${b}>`);continue}if(y){i(),d(),a!=="ul"&&r.length&&l(),a="ul",r.push(y[1]);continue}if(v){i(),d(),a!=="ol"&&r.length&&l(),a="ol",r.push(v[1]);continue}if($){i(),l(),s.push($[1]);continue}t.push(o)}return i(),l(),d(),c.join("")}function U(n,e){const c=document.querySelector("[data-document-nav]");c&&(c.innerHTML=u.map(t=>`
         <button
           type="button"
-          class="document-card${r.id===n?" is-active":""}"
-          data-document-trigger="${r.id}"
+          class="document-card${t.id===n?" is-active":""}"
+          data-document-trigger="${t.id}"
         >
-          <span class="document-card__category">${r.category}</span>
-          <strong>${r.title}</strong>
-          <span>${r.summary}</span>
+          <span class="document-card__category">${t.category}</span>
+          <strong>${t.title}</strong>
+          <span>${t.summary}</span>
         </button>
-      `).join(""),o.querySelectorAll("[data-document-trigger]").forEach(r=>{r.addEventListener("click",()=>{c(r.getAttribute("data-document-trigger")||n)})}))}function x(n){const c=m.find(r=>r.id===n)??m[0],o=document.querySelector("[data-document-viewer]");!o||!c||(o.innerHTML=`
+      `).join(""),c.querySelectorAll("[data-document-trigger]").forEach(t=>{t.addEventListener("click",()=>{e(t.getAttribute("data-document-trigger")||n)})}))}function k(n,e){const c=document.querySelector("[data-featured-links]");c&&(c.innerHTML=_.map(t=>`
+        <button
+          type="button"
+          class="spotlight-card spotlight-card--${t.accent}${t.id===n?" is-active":""}"
+          data-featured-trigger="${t.id}"
+        >
+          <span class="spotlight-card__category">${t.category}</span>
+          <strong>${t.title}</strong>
+          <span>${t.summary}</span>
+          <span class="spotlight-card__file">${t.fileName}</span>
+        </button>
+      `).join(""),c.querySelectorAll("[data-featured-trigger]").forEach(t=>{t.addEventListener("click",()=>{e(t.getAttribute("data-featured-trigger")||n)})}))}function G(n){const e=g(n)??u[0],c=document.querySelector("[data-document-viewer]");!c||!e||(c.innerHTML=`
     <div class="viewer-meta">
-      <span class="viewer-meta__badge viewer-meta__badge--${c.accent}">${c.category}</span>
-      <span class="viewer-meta__file">${c.fileName}</span>
+      <span class="viewer-meta__badge viewer-meta__badge--${e.accent}">${e.category}</span>
+      <span class="viewer-meta__file">${e.fileName}</span>
     </div>
     <header class="viewer-header">
-      <h2>${c.title}</h2>
-      <p>${c.summary}</p>
+      <h2>${e.title}</h2>
+      <p>${e.summary}</p>
     </header>
-    <article class="markdown-body">${T(c.content)}</article>
-  `)}function R(){b.innerHTML=`
+    <article class="markdown-body">${R(e.content)}</article>
+  `)}function V(){N.innerHTML=`
     <div class="page-shell">
       <header class="hero">
         <div class="hero__content">
-          <p class="eyebrow">Issue #55 · Scenario Docs</p>
+          <p class="eyebrow">Issue #57 · Main Scenario Docs</p>
           <h1>${f.title}</h1>
           <p class="hero__subtitle">${f.subtitle}</p>
           <p class="hero__pitch">${f.pitch}</p>
         </div>
         <div class="hero__panel">
           <dl class="hero-stats">
-            ${S.map(n=>`
+            ${E.map(n=>`
                   <div>
                     <dt>${n.label}</dt>
                     <dd>${n.value}</dd>
@@ -1985,8 +2112,19 @@
       </header>
 
       <main class="layout">
+        <section class="spotlight-section" aria-label="이번 브랜치 바로가기">
+          <div class="section-heading">
+            <p class="eyebrow">Branch Focus</p>
+            <h2>이번 브랜치에서 바로 볼 문서</h2>
+            <p class="section-copy">
+              메인 시나리오 6종과 캐릭터 디자인 참고 문서를 빠르게 열 수 있도록 묶었습니다.
+            </p>
+          </div>
+          <div class="spotlight-grid" data-featured-links></div>
+        </section>
+
         <section class="info-grid" aria-label="핵심 기둥">
-          ${I.map(n=>`
+          ${z.map(n=>`
                 <article class="info-card">
                   <h2>${n.title}</h2>
                   <p>${n.text}</p>
@@ -2000,7 +2138,7 @@
             <h2>세계 사건 흐름</h2>
           </div>
           <div class="timeline">
-            ${E.map(n=>`
+            ${T.map(n=>`
                   <article class="timeline__item">
                     <strong>${n.era}</strong>
                     <p>${n.detail}</p>
@@ -2011,8 +2149,11 @@
 
         <section class="viewer-section">
           <div class="section-heading">
-            <p class="eyebrow">Lore Documents</p>
-            <h2>스토리와 설정 문서</h2>
+            <p class="eyebrow">Story Viewer</p>
+            <h2>스토리와 설정 문서 전체 보기</h2>
+            <p class="section-copy">
+              왼쪽 전체 목록과 위 빠른 열기를 함께 써서 챕터 문서와 설정 문서를 오갈 수 있습니다.
+            </p>
           </div>
           <div class="viewer-layout">
             <nav class="document-nav" data-document-nav aria-label="문서 목록"></nav>
@@ -2021,4 +2162,4 @@
         </section>
       </main>
     </div>
-  `}function G(){let n=m[0]?.id??"";const c=o=>{n=o,z(n,c),x(n)};R(),c(n)}G();
+  `}function K(){let n=w()||_[0]?.id||u[0]?.id||"";const e=(c,{syncHash:t=!0}={})=>{n=g(c)?.id??n,k(n,e),U(n,e),G(n),t&&B(n)};V(),e(n),window.addEventListener("hashchange",()=>{const c=w();c&&c!==n&&e(c,{syncHash:!1})})}K();

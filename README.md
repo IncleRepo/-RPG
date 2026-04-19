@@ -127,9 +127,17 @@
 
 - [x] 프로젝트 구조 정의
 - [x] 워크플로우 구축
+- [x] 주인공 도트 모션 세트 초안 (`assets/sprites/player`)
 - [ ] 게임 시스템 설계
 - [ ] 핵심 기능 구현
 - [ ] 플레이 가능 상태
+
+---
+
+## 🎨 Art Assets
+
+- 주인공 기본 모션 세트: [`assets/sprites/player`](./assets/sprites/player)
+- 모션 목록과 규격 정리: [`assets/sprites/player/README.md`](./assets/sprites/player/README.md)
 
 ---
 

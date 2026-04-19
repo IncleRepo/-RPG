@@ -18,7 +18,7 @@ module.exports = [
     },
   },
   {
-    files: ['eslint.config.js'],
+    files: ['eslint.config.js', 'tools/**/*.mjs'],
     languageOptions: {
       globals: {
         ...globals.node,

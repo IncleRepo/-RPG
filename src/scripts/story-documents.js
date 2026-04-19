@@ -6,6 +6,7 @@ import scenarioChapter1 from '../content/scenario/02-chapter-1.md?raw';
 import scenarioChapter2 from '../content/scenario/03-chapter-2.md?raw';
 import scenarioChapter3 from '../content/scenario/04-chapter-3.md?raw';
 import scenarioEnding from '../content/scenario/05-ending.md?raw';
+import scenarioBgmPlan from '../content/audio/00-scenario-bgm-plan.md?raw';
 import worldRules from '../content/lore/world-rules.md?raw';
 import regions from '../content/lore/regions.md?raw';
 import factions from '../content/lore/factions.md?raw';
@@ -40,7 +41,7 @@ export const storyHighlights = Object.freeze([
   },
   {
     label: '문서 구성',
-    value: '시나리오 6종 + 인물 외형 메모',
+    value: '시나리오 6종 + 설정 5종 + BGM 설계 1종',
   },
   {
     label: '서사 테마',
@@ -100,6 +101,15 @@ export const storyDocuments = Object.freeze([
     fileName: 'src/content/lore/main-story.md',
     accent: 'gold',
     content: mainStory,
+  },
+  {
+    id: 'audio-scenario-plan',
+    title: '시나리오 기반 BGM 설계안',
+    category: '오디오 설계',
+    summary: '챕터와 장면 감정선에 맞춘 핵심 BGM 8곡의 용도, 분위기, 배치 기준을 정리한 문서',
+    fileName: 'src/content/audio/00-scenario-bgm-plan.md',
+    accent: 'gold',
+    content: scenarioBgmPlan,
   },
   {
     id: 'scenario-overview',

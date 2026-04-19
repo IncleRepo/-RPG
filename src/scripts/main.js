@@ -1,4 +1,5 @@
 import '../styles/main.css';
+import { soundtrackTracks } from './audio-tracks.js';
 import {
   storyDocuments,
   storyHighlights,
@@ -14,6 +15,7 @@ if (!app) {
 }
 
 const featuredDocumentIds = Object.freeze([
+  'audio-scenario-plan',
   'scenario-overview',
   'scenario-prologue',
   'scenario-chapter-1',
@@ -255,12 +257,108 @@ function renderActiveDocument(documentId) {
   `;
 }
 
+function createAudioState() {
+  return {
+    activeTrackId: soundtrackTracks[0]?.id ?? '',
+    isPlaying: false,
+  };
+}
+
+function getTrackById(trackId) {
+  return soundtrackTracks.find((track) => track.id === trackId);
+}
+
+function renderSoundtrackPlayer(audioState) {
+  const container = document.querySelector('[data-soundtrack-player]');
+  const audioElement = document.querySelector('[data-soundtrack-element]');
+  const activeTrack = getTrackById(audioState.activeTrackId) ?? soundtrackTracks[0];
+
+  if (!container || !audioElement || !activeTrack) {
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="soundtrack-player__content">
+      <p class="eyebrow">Music Player</p>
+      <h3>${activeTrack.koreanTitle}</h3>
+      <p>${activeTrack.summary}</p>
+      <dl class="soundtrack-player__meta">
+        <div>
+          <dt>분류</dt>
+          <dd>${activeTrack.category}</dd>
+        </div>
+        <div>
+          <dt>사용 장면</dt>
+          <dd>${activeTrack.sceneUse}</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="soundtrack-player__status">
+      <span class="viewer-meta__badge viewer-meta__badge--${activeTrack.accent}">
+        ${audioState.isPlaying ? '재생 중' : '준비됨'}
+      </span>
+      <span class="viewer-meta__file">${activeTrack.fileName}</span>
+    </div>
+  `;
+
+  audioElement.setAttribute('aria-label', `${activeTrack.koreanTitle} 재생기`);
+}
+
+function renderSoundtrackTrackList(audioState) {
+  const container = document.querySelector('[data-soundtrack-list]');
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = soundtrackTracks
+    .map(
+      (track) => `
+        <article class="audio-card audio-card--${track.accent}${track.id === audioState.activeTrackId ? ' is-active' : ''}">
+          <div class="audio-card__meta">
+            <span class="document-card__category">${track.category}</span>
+            <span>${track.durationLabel}</span>
+          </div>
+          <h3>${track.koreanTitle}</h3>
+          <p>${track.summary}</p>
+          <dl class="audio-card__details">
+            <div>
+              <dt>챕터</dt>
+              <dd>${track.chapters}</dd>
+            </div>
+            <div>
+              <dt>장면</dt>
+              <dd>${track.sceneUse}</dd>
+            </div>
+            <div>
+              <dt>정서</dt>
+              <dd>${track.mood}</dd>
+            </div>
+            <div>
+              <dt>주요 악기</dt>
+              <dd>${track.instrumentation}</dd>
+            </div>
+          </dl>
+          <div class="audio-card__actions">
+            <button type="button" class="audio-card__button" data-audio-toggle="${track.id}">
+              ${track.id === audioState.activeTrackId && audioState.isPlaying ? '일시정지' : '재생'}
+            </button>
+            <a class="audio-card__link" href="${track.src}" download>
+              파일 받기
+            </a>
+          </div>
+        </article>
+      `
+    )
+    .join('');
+}
+
 function createAppShell() {
   app.innerHTML = `
     <div class="page-shell">
       <header class="hero">
         <div class="hero__content">
-          <p class="eyebrow">Issue #57 · Main Scenario Docs</p>
+          <p class="eyebrow">Issue #59 · Scenario Soundtrack</p>
           <h1>${storyProject.title}</h1>
           <p class="hero__subtitle">${storyProject.subtitle}</p>
           <p class="hero__pitch">${storyProject.pitch}</p>
@@ -287,7 +385,8 @@ function createAppShell() {
             <p class="eyebrow">Branch Focus</p>
             <h2>이번 브랜치에서 바로 볼 문서</h2>
             <p class="section-copy">
-              메인 시나리오 6종과 캐릭터 디자인 참고 문서를 빠르게 열 수 있도록 묶었습니다.
+              메인 시나리오, 캐릭터 설정, 그리고 새로 추가한 시나리오 기반 BGM 설계안을 빠르게
+              열 수 있도록 묶었습니다.
             </p>
           </div>
           <div class="spotlight-grid" data-featured-links></div>
@@ -325,6 +424,27 @@ function createAppShell() {
           </div>
         </section>
 
+        <section class="soundtrack-section" aria-label="시나리오 기반 음악">
+          <div class="section-heading">
+            <p class="eyebrow">Soundtrack</p>
+            <h2>시나리오 기반 음악 아카이브</h2>
+            <p class="section-copy">
+              챕터 감정선과 장면 용도에 맞춰 설계한 BGM 8곡을 이 페이지에서 바로 들을 수 있습니다.
+              플레이어는 하나만 두고 관리해서 겹쳐 재생되지 않습니다.
+            </p>
+          </div>
+          <div class="soundtrack-layout">
+            <section class="soundtrack-player" data-soundtrack-player aria-live="polite"></section>
+            <audio
+              class="soundtrack-element"
+              data-soundtrack-element
+              controls
+              preload="none"
+            ></audio>
+            <div class="soundtrack-grid" data-soundtrack-list></div>
+          </div>
+        </section>
+
         <section class="viewer-section">
           <div class="section-heading">
             <p class="eyebrow">Story Viewer</p>
@@ -346,6 +466,7 @@ function createAppShell() {
 function bootstrap() {
   let activeDocumentId =
     getDocumentIdFromHash() || featuredDocuments[0]?.id || storyDocuments[0]?.id || '';
+  const audioState = createAudioState();
 
   const selectDocument = (documentId, { syncHash = true } = {}) => {
     activeDocumentId = getDocumentById(documentId)?.id ?? activeDocumentId;
@@ -359,7 +480,81 @@ function bootstrap() {
   };
 
   createAppShell();
+  const soundtrackElement = document.querySelector('[data-soundtrack-element]');
   selectDocument(activeDocumentId);
+  renderSoundtrackPlayer(audioState);
+  renderSoundtrackTrackList(audioState);
+
+  const syncAudioUi = () => {
+    renderSoundtrackPlayer(audioState);
+    renderSoundtrackTrackList(audioState);
+
+    document.querySelectorAll('[data-audio-toggle]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const trackId = button.getAttribute('data-audio-toggle');
+        const track = getTrackById(trackId);
+
+        if (!soundtrackElement || !track) {
+          return;
+        }
+
+        if (audioState.activeTrackId !== track.id) {
+          soundtrackElement.src = track.src;
+          soundtrackElement.dataset.trackId = track.id;
+          audioState.activeTrackId = track.id;
+        }
+
+        if (soundtrackElement.paused) {
+          try {
+            await soundtrackElement.play();
+          } catch {
+            audioState.isPlaying = false;
+            syncAudioUi();
+          }
+        } else if (soundtrackElement.dataset.trackId === track.id) {
+          soundtrackElement.pause();
+        } else {
+          soundtrackElement.pause();
+          soundtrackElement.src = track.src;
+          soundtrackElement.dataset.trackId = track.id;
+
+          try {
+            await soundtrackElement.play();
+          } catch {
+            audioState.isPlaying = false;
+            syncAudioUi();
+          }
+        }
+      });
+    });
+  };
+
+  if (soundtrackElement) {
+    const firstTrack = getTrackById(audioState.activeTrackId);
+
+    if (firstTrack) {
+      soundtrackElement.src = firstTrack.src;
+      soundtrackElement.dataset.trackId = firstTrack.id;
+    }
+
+    soundtrackElement.addEventListener('play', () => {
+      audioState.isPlaying = true;
+      audioState.activeTrackId = soundtrackElement.dataset.trackId || audioState.activeTrackId;
+      syncAudioUi();
+    });
+
+    soundtrackElement.addEventListener('pause', () => {
+      audioState.isPlaying = false;
+      syncAudioUi();
+    });
+
+    soundtrackElement.addEventListener('ended', () => {
+      audioState.isPlaying = false;
+      syncAudioUi();
+    });
+  }
+
+  syncAudioUi();
 
   window.addEventListener('hashchange', () => {
     const hashDocumentId = getDocumentIdFromHash();

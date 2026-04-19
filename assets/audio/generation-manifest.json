@@ -1,0 +1,186 @@
+[
+  {
+    "id": "main-theme",
+    "title": "반향해 연대기 메인 테마",
+    "prompt": "Create an original instrumental main theme for a story-heavy ocean fantasy RPG. High-fidelity AAA game soundtrack style, not chiptune, no vocals, no copyrighted melody references. Bittersweet wonder, tidal mystery, determined hope. Rich strings, piano, French horns, low percussion, glassy bell textures, subtle maritime pulse. Smooth highs, warm low end, cinematic depth, elegant mix, emotionally memorable, seamless loop feel.",
+    "taskId": "04c6ca36-4b5e-49a0-9ec2-98b0e92e53ab",
+    "savedAs": "assets/audio/01-tides-of-the-unarrived-dawn.mp3",
+    "sourceFile": "/v1/audio?path=%2FUsers%2Fchewing%2FACE-Step-1.5%2F.cache%2Facestep%2Ftmp%2Fapi_audio%2F4ac9e77f-f23b-f996-f975-bdec8c15fbcc.mp3",
+    "metas": {
+      "bpm": 77,
+      "duration": 110,
+      "genres": "N/A",
+      "keyscale": "G major",
+      "timesignature": "2",
+      "prompt": "Create an original instrumental main theme for a story-heavy ocean fantasy RPG. High-fidelity AAA game soundtrack style, not chiptune, no vocals, no copyrighted melody references. Bittersweet wonder, tidal mystery, determined hope. Rich strings, piano, French horns, low percussion, glassy bell textures, subtle maritime pulse. Smooth highs, warm low end, cinematic depth, elegant mix, emotionally memorable, seamless loop feel.",
+      "lyrics": ""
+    },
+    "generationInfo": "**🎵 Total generation time (2 songs): 33.69s**\n- 16.85s per song\n- LM phase (2 songs): 1.57s\n- DiT phase (2 songs): 32.12s",
+    "seedValue": "3390829956,4088177687",
+    "model": {
+      "lm": "acestep-5Hz-lm-0.6B",
+      "dit": "acestep-v15-turbo"
+    }
+  },
+  {
+    "id": "mirajin-hub",
+    "title": "미라진 황혼 허브",
+    "prompt": "Create an original instrumental background track for an eternal-twilight harbor hub in a fantasy RPG. High-fidelity, cinematic, gentle and melancholy, no vocals, no chiptune, no harsh piercing sounds. Felt piano, soft strings, distant bell, low woodwinds, sea-air ambience, suspended harmony, reflective but playable loop. The mood is a missing dawn, quiet guilt, and fragile resolve.",
+    "taskId": "5064fe6f-59c0-4814-9e07-5b9d201194b8",
+    "savedAs": "assets/audio/02-twilight-over-mirajin.mp3",
+    "sourceFile": "/v1/audio?path=%2FUsers%2Fchewing%2FACE-Step-1.5%2F.cache%2Facestep%2Ftmp%2Fapi_audio%2F113890a4-f874-3031-c14f-c664c16e3848.mp3",
+    "metas": {
+      "bpm": 30,
+      "duration": 160,
+      "genres": "N/A",
+      "keyscale": "E major",
+      "timesignature": "4",
+      "prompt": "Create an original instrumental background track for an eternal-twilight harbor hub in a fantasy RPG. High-fidelity, cinematic, gentle and melancholy, no vocals, no chiptune, no harsh piercing sounds. Felt piano, soft strings, distant bell, low woodwinds, sea-air ambience, suspended harmony, reflective but playable loop. The mood is a missing dawn, quiet guilt, and fragile resolve.",
+      "lyrics": ""
+    },
+    "generationInfo": "**🎵 Total generation time (2 songs): 57.24s**\n- 28.62s per song\n- LM phase (2 songs): 1.36s\n- DiT phase (2 songs): 55.88s",
+    "seedValue": "2847186684,630862635",
+    "model": {
+      "lm": "acestep-5Hz-lm-0.6B",
+      "dit": "acestep-v15-turbo"
+    }
+  },
+  {
+    "id": "glass-salt-exploration",
+    "title": "유리염 사구 탐험",
+    "prompt": "Create an original instrumental exploration theme for a glass-salt desert where the future has dried out. AAA fantasy RPG soundtrack, lush and immersive, no vocals, no chiptune, no plagiarism. Airy strings, dulcimer-like sparkle, soft frame percussion, low cello, distant pads, subtle rhythmic motion. Lonely horizon, buried memories, survival, mystery, moderate tempo, seamless loop feel.",
+    "taskId": "40d32f41-b905-4c1c-92c8-6048d3c233b7",
+    "savedAs": "assets/audio/03-saltglass-horizon.mp3",
+    "sourceFile": "/v1/audio?path=%2FUsers%2Fchewing%2FACE-Step-1.5%2F.cache%2Facestep%2Ftmp%2Fapi_audio%2F6fa199ed-8e66-a1a1-4919-123526690f95.mp3",
+    "metas": {
+      "bpm": 104,
+      "duration": 194,
+      "genres": "N/A",
+      "keyscale": "C minor",
+      "timesignature": "3",
+      "prompt": "Create an original instrumental exploration theme for a glass-salt desert where the future has dried out. AAA fantasy RPG soundtrack, lush and immersive, no vocals, no chiptune, no plagiarism. Airy strings, dulcimer-like sparkle, soft frame percussion, low cello, distant pads, subtle rhythmic motion. Lonely horizon, buried memories, survival, mystery, moderate tempo, seamless loop feel.",
+      "lyrics": ""
+    },
+    "generationInfo": "**🎵 Total generation time (2 songs): 72.04s**\n- 36.02s per song\n- LM phase (2 songs): 2.12s\n- DiT phase (2 songs): 69.92s",
+    "seedValue": "3493092936,2599899721",
+    "model": {
+      "lm": "acestep-5Hz-lm-0.6B",
+      "dit": "acestep-v15-turbo"
+    }
+  },
+  {
+    "id": "kadel-city",
+    "title": "역항도 카델",
+    "prompt": "Create an original instrumental city theme for an upside-down gravity-defying port ruled by strict order. High-quality cinematic RPG score, no vocals, no chiptune, no copyrighted similarity. Controlled tension with beauty: plucked pulses, marimba or mallet ostinato, elegant strings, restrained brass, mechanical heartbeat, refined atmosphere. The mood is political pressure, unstable balance, and awe inside a disciplined metropolis.",
+    "taskId": "093c702b-ef9a-4365-89bb-c28e8a3c6db3",
+    "savedAs": "assets/audio/04-inverted-harbor-of-kadel.mp3",
+    "sourceFile": "/v1/audio?path=%2FUsers%2Fchewing%2FACE-Step-1.5%2F.cache%2Facestep%2Ftmp%2Fapi_audio%2Fcc8c95df-3412-797c-5309-4a46115b9641.mp3",
+    "metas": {
+      "bpm": 30,
+      "duration": 245,
+      "genres": "N/A",
+      "keyscale": "G minor",
+      "timesignature": "4",
+      "prompt": "Create an original instrumental city theme for an upside-down gravity-defying port ruled by strict order. High-quality cinematic RPG score, no vocals, no chiptune, no copyrighted similarity. Controlled tension with beauty: plucked pulses, marimba or mallet ostinato, elegant strings, restrained brass, mechanical heartbeat, refined atmosphere. The mood is political pressure, unstable balance, and awe inside a disciplined metropolis.",
+      "lyrics": ""
+    },
+    "generationInfo": "**🎵 Total generation time (2 songs): 85.05s**\n- 42.53s per song\n- LM phase (2 songs): 2.70s\n- DiT phase (2 songs): 82.36s",
+    "seedValue": "1004822319,3269237673",
+    "model": {
+      "lm": "acestep-5Hz-lm-0.6B",
+      "dit": "acestep-v15-turbo"
+    }
+  },
+  {
+    "id": "crisis-pursuit",
+    "title": "붕괴 추적과 긴장",
+    "prompt": "Create an original instrumental tension and pursuit track for collapsing towers, chase escapes, and urgent rescue scenes in a fantasy RPG. AAA hybrid orchestral style, no vocals, no chiptune, no imitation of existing scores. Fast but not abrasive, energetic strings, deep toms, pulse synth support, brass stabs, rising urgency, clean mix, cinematic action, strong loop potential.",
+    "taskId": "2cf04487-17ef-47af-92b8-63e5f4ebc068",
+    "savedAs": "assets/audio/05-fracture-chase.mp3",
+    "sourceFile": "/v1/audio?path=%2FUsers%2Fchewing%2FACE-Step-1.5%2F.cache%2Facestep%2Ftmp%2Fapi_audio%2Fe59f94d0-c863-9a70-6284-838b1d33c1e1.mp3",
+    "metas": {
+      "bpm": 40,
+      "duration": 200,
+      "genres": "N/A",
+      "keyscale": "D minor",
+      "timesignature": "2",
+      "prompt": "Create an original instrumental tension and pursuit track for collapsing towers, chase escapes, and urgent rescue scenes in a fantasy RPG. AAA hybrid orchestral style, no vocals, no chiptune, no imitation of existing scores. Fast but not abrasive, energetic strings, deep toms, pulse synth support, brass stabs, rising urgency, clean mix, cinematic action, strong loop potential.",
+      "lyrics": ""
+    },
+    "generationInfo": "**🎵 Total generation time (2 songs): 68.30s**\n- 34.15s per song\n- LM phase (2 songs): 2.24s\n- DiT phase (2 songs): 66.06s",
+    "seedValue": "2815486531,1744697351",
+    "model": {
+      "lm": "acestep-5Hz-lm-0.6B",
+      "dit": "acestep-v15-turbo"
+    }
+  },
+  {
+    "id": "battle-skirmish",
+    "title": "일반 전투",
+    "prompt": "Create an original instrumental battle theme for a narrative-driven fantasy RPG. High-fidelity AAA action score, no vocals, no chiptune, no direct resemblance to famous game music. Confident momentum, rhythmic strings, powerful low percussion, noble brass, dark pulse, clear combat energy without excessive noise. Heroic but tragic undertone, suitable for regular battles, seamless loop feel.",
+    "taskId": "ed590f69-d11e-4dba-90a4-296da47286c3",
+    "savedAs": "assets/audio/06-bellshard-skirmish.mp3",
+    "sourceFile": "/v1/audio?path=%2FUsers%2Fchewing%2FACE-Step-1.5%2F.cache%2Facestep%2Ftmp%2Fapi_audio%2F1c865dcf-75e4-ca72-fc41-cb922e71acca.mp3",
+    "metas": {
+      "bpm": 70,
+      "duration": 172,
+      "genres": "N/A",
+      "keyscale": "C minor",
+      "timesignature": "4",
+      "prompt": "Create an original instrumental battle theme for a narrative-driven fantasy RPG. High-fidelity AAA action score, no vocals, no chiptune, no direct resemblance to famous game music. Confident momentum, rhythmic strings, powerful low percussion, noble brass, dark pulse, clear combat energy without excessive noise. Heroic but tragic undertone, suitable for regular battles, seamless loop feel.",
+      "lyrics": ""
+    },
+    "generationInfo": "**🎵 Total generation time (2 songs): 65.54s**\n- 32.77s per song\n- LM phase (2 songs): 2.05s\n- DiT phase (2 songs): 63.49s",
+    "seedValue": "4232648166,3326422410",
+    "model": {
+      "lm": "acestep-5Hz-lm-0.6B",
+      "dit": "acestep-v15-turbo"
+    }
+  },
+  {
+    "id": "orchard-revelation",
+    "title": "감정 이벤트와 진실",
+    "prompt": "Create an original instrumental emotional event theme for whispered memories, confession scenes, and truth revelation in a fantasy RPG. Rich cinematic production, no vocals, no chiptune, no plagiarism. Intimate piano, solo cello, soft harp, glass harmonics, slow breathing strings, delicate ambient depth. The mood is aching intimacy, grief, trust, and irreversible truth, with a gentle loopable ending.",
+    "taskId": "5e94853d-0d76-4082-916d-9c693a7bf9ea",
+    "savedAs": "assets/audio/07-whispers-beneath-the-orchard.mp3",
+    "sourceFile": "/v1/audio?path=%2FUsers%2Fchewing%2FACE-Step-1.5%2F.cache%2Facestep%2Ftmp%2Fapi_audio%2Fd2874005-9cf1-4385-29ed-0143ef3534dc.mp3",
+    "metas": {
+      "bpm": 30,
+      "duration": 185,
+      "genres": "N/A",
+      "keyscale": "D minor",
+      "timesignature": "4",
+      "prompt": "Create an original instrumental emotional event theme for whispered memories, confession scenes, and truth revelation in a fantasy RPG. Rich cinematic production, no vocals, no chiptune, no plagiarism. Intimate piano, solo cello, soft harp, glass harmonics, slow breathing strings, delicate ambient depth. The mood is aching intimacy, grief, trust, and irreversible truth, with a gentle loopable ending.",
+      "lyrics": ""
+    },
+    "generationInfo": "**🎵 Total generation time (2 songs): 74.78s**\n- 37.39s per song\n- LM phase (2 songs): 2.88s\n- DiT phase (2 songs): 71.90s",
+    "seedValue": "3290193877,2474862711",
+    "model": {
+      "lm": "acestep-5Hz-lm-0.6B",
+      "dit": "acestep-v15-turbo"
+    }
+  },
+  {
+    "id": "boss-ending",
+    "title": "최종 결전과 엔딩",
+    "prompt": "Create an original instrumental final boss and ending-credits theme for a mythic ocean fantasy RPG. Begin with immense dark grandeur and evolve toward bittersweet dawn. High-fidelity cinematic score, no vocals, no chiptune, no similarities to known franchises. Massive low strings, brass, deep percussion, tolling bells, then piano and hopeful strings after the climax. Emotional, polished, and suitable for a major ending sequence.",
+    "taskId": "87d729a8-e8ac-433b-b225-fc814a0ecbd7",
+    "savedAs": "assets/audio/08-abyssal-choir-reborn.mp3",
+    "sourceFile": "/v1/audio?path=%2FUsers%2Fchewing%2FACE-Step-1.5%2F.cache%2Facestep%2Ftmp%2Fapi_audio%2Fa3f7f550-bd39-b460-1ce6-41393c83e5d1.mp3",
+    "metas": {
+      "bpm": 100,
+      "duration": 185,
+      "genres": "N/A",
+      "keyscale": "G minor",
+      "timesignature": "4",
+      "prompt": "Create an original instrumental final boss and ending-credits theme for a mythic ocean fantasy RPG. Begin with immense dark grandeur and evolve toward bittersweet dawn. High-fidelity cinematic score, no vocals, no chiptune, no similarities to known franchises. Massive low strings, brass, deep percussion, tolling bells, then piano and hopeful strings after the climax. Emotional, polished, and suitable for a major ending sequence.",
+      "lyrics": ""
+    },
+    "generationInfo": "**🎵 Total generation time (2 songs): 70.07s**\n- 35.03s per song\n- LM phase (2 songs): 3.26s\n- DiT phase (2 songs): 66.80s",
+    "seedValue": "1951526309,810273876",
+    "model": {
+      "lm": "acestep-5Hz-lm-0.6B",
+      "dit": "acestep-v15-turbo"
+    }
+  }
+]

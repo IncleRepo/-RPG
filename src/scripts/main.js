@@ -1,4 +1,6 @@
 import '../styles/main.css';
+import { BGMManager } from './bgm-manager.js';
+import { BGM_TRACK_LIBRARY } from './bgm-track-library.js';
 import {
   storyDocuments,
   storyHighlights,
@@ -20,6 +22,7 @@ const featuredDocumentIds = Object.freeze([
   'scenario-chapter-2',
   'scenario-chapter-3',
   'scenario-ending',
+  'audio-scenario-bgm',
   'characters',
 ]);
 
@@ -31,6 +34,10 @@ const featuredDocuments = Object.freeze(
 
 function getDocumentById(documentId) {
   return storyDocuments.find((item) => item.id === documentId);
+}
+
+function getTrackById(trackId) {
+  return BGM_TRACK_LIBRARY.find((track) => track.id === trackId);
 }
 
 function getDocumentIdFromHash() {
@@ -255,12 +262,192 @@ function renderActiveDocument(documentId) {
   `;
 }
 
+function getAudioStatusText(snapshot) {
+  if (!snapshot.supported) {
+    return '이 브라우저는 Web Audio 렌더링을 지원하지 않습니다.';
+  }
+
+  switch (snapshot.status) {
+    case 'rendering':
+      return `${snapshot.pendingTrackTitle || '트랙'}을 브라우저에서 합성하고 있습니다.`;
+    case 'playing':
+      return `${snapshot.currentTrackTitle} 재생 중`;
+    case 'stopped':
+      return '재생이 멈췄습니다.';
+    case 'error':
+      return snapshot.errorMessage || '오디오를 준비하지 못했습니다.';
+    default:
+      return '재생 버튼을 눌러 첫 합성을 시작하세요.';
+  }
+}
+
+function renderMusicSection(manager, onSelectDocument) {
+  const consoleRoot = document.querySelector('[data-music-console]');
+  const trackRoot = document.querySelector('[data-music-track-list]');
+
+  if (!consoleRoot || !trackRoot) {
+    return;
+  }
+
+  const snapshot = manager.getSnapshot();
+  const activeTrack = getTrackById(snapshot.currentTrackId);
+  const pendingTrack = getTrackById(snapshot.pendingTrackId);
+
+  consoleRoot.innerHTML = `
+    <div class="music-console__topline">
+      <span class="eyebrow">Web Audio Score</span>
+      <span class="music-console__status music-console__status--${snapshot.status}">
+        ${getAudioStatusText(snapshot)}
+      </span>
+    </div>
+    <div class="music-console__hero">
+      <div>
+        <p class="music-console__label">Now Playing</p>
+        <h3>${activeTrack?.title ?? pendingTrack?.title ?? '대기 중'}</h3>
+        <p class="music-console__copy">
+          ${activeTrack?.summary ?? pendingTrack?.summary ?? '장면에 맞는 트랙을 선택하면 브라우저 안에서 직접 합성해 재생합니다.'}
+        </p>
+      </div>
+      <div class="music-console__chips">
+        <span>${activeTrack?.category ?? pendingTrack?.category ?? '시나리오 BGM'}</span>
+        <span>${activeTrack?.chapter ?? pendingTrack?.chapter ?? '전체 문서 기반 설계'}</span>
+        <span>${activeTrack ? `${activeTrack.tempo} BPM` : pendingTrack ? `${pendingTrack.tempo} BPM` : '10 Tracks'}</span>
+      </div>
+    </div>
+    <div class="music-console__controls">
+      <button
+        type="button"
+        class="music-action music-action--primary"
+        data-audio-stop
+        ${!snapshot.isPlaying ? 'disabled' : ''}
+      >
+        정지
+      </button>
+      <label class="music-volume">
+        <span>볼륨</span>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          step="1"
+          value="${Math.round(snapshot.volume * 100)}"
+          data-audio-volume
+        />
+        <strong>${Math.round(snapshot.volume * 100)}%</strong>
+      </label>
+      <button type="button" class="music-action" data-audio-open-doc>오디오 설계 문서</button>
+    </div>
+    <p class="music-console__note">
+      모든 트랙은 <code>Web Audio API</code>로 합성되며, 한 번에 하나만 재생됩니다. 첫 재생 시 브라우저 정책 때문에 버튼 클릭이 필요합니다.
+    </p>
+  `;
+
+  consoleRoot.querySelector('[data-audio-stop]')?.addEventListener('click', () => {
+    manager.stop();
+  });
+
+  consoleRoot.querySelector('[data-audio-open-doc]')?.addEventListener('click', () => {
+    onSelectDocument('audio-scenario-bgm');
+  });
+
+  consoleRoot.querySelector('[data-audio-volume]')?.addEventListener('input', (event) => {
+    const target = event.currentTarget;
+
+    if (!(target instanceof HTMLInputElement)) {
+      return;
+    }
+
+    manager.setVolume(Number(target.value) / 100);
+  });
+
+  trackRoot.innerHTML = BGM_TRACK_LIBRARY.map((track) => {
+    const isActive = snapshot.currentTrackId === track.id && snapshot.isPlaying;
+    const isPending = snapshot.pendingTrackId === track.id;
+    const referenceTitles = track.scenarioRefs
+      .map((documentId) => getDocumentById(documentId)?.title)
+      .filter(Boolean)
+      .slice(0, 3);
+
+    return `
+      <article class="music-card${isActive ? ' is-active' : ''}${isPending ? ' is-pending' : ''}">
+        <div class="music-card__header">
+          <div>
+            <span class="music-card__category">${track.category}</span>
+            <h3>${track.title}</h3>
+          </div>
+          <button
+            type="button"
+            class="music-action music-action--${isActive ? 'secondary' : 'primary'}"
+            data-audio-play="${track.id}"
+            ${!snapshot.supported || isPending ? 'disabled' : ''}
+          >
+            ${isPending ? '준비 중...' : isActive ? '재생 중' : '재생'}
+          </button>
+        </div>
+        <p class="music-card__summary">${track.summary}</p>
+        <dl class="music-card__meta">
+          <div>
+            <dt>챕터</dt>
+            <dd>${track.chapter}</dd>
+          </div>
+          <div>
+            <dt>분위기</dt>
+            <dd>${track.mood}</dd>
+          </div>
+          <div>
+            <dt>리듬</dt>
+            <dd>${track.tempo} BPM · ${track.meter}/4</dd>
+          </div>
+        </dl>
+        <div class="music-card__chips">
+          ${track.useCases.map((item) => `<span>${item}</span>`).join('')}
+        </div>
+        <div class="music-card__footer">
+          <span>${referenceTitles.join(' · ')}</span>
+          <button type="button" class="music-link" data-audio-ref="${track.scenarioRefs[0]}">
+            관련 문서 열기
+          </button>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  trackRoot.querySelectorAll('[data-audio-play]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const trackId = button.getAttribute('data-audio-play');
+
+      if (!trackId) {
+        return;
+      }
+
+      if (snapshot.currentTrackId === trackId && snapshot.isPlaying) {
+        manager.stop();
+        return;
+      }
+
+      manager.playTrack(trackId);
+    });
+  });
+
+  trackRoot.querySelectorAll('[data-audio-ref]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const documentId = button.getAttribute('data-audio-ref');
+
+      if (!documentId) {
+        return;
+      }
+
+      onSelectDocument(documentId);
+    });
+  });
+}
+
 function createAppShell() {
   app.innerHTML = `
     <div class="page-shell">
       <header class="hero">
         <div class="hero__content">
-          <p class="eyebrow">Issue #57 · Main Scenario Docs</p>
+          <p class="eyebrow">Issue #59 · Scenario BGM Suite</p>
           <h1>${storyProject.title}</h1>
           <p class="hero__subtitle">${storyProject.subtitle}</p>
           <p class="hero__pitch">${storyProject.pitch}</p>
@@ -287,10 +474,24 @@ function createAppShell() {
             <p class="eyebrow">Branch Focus</p>
             <h2>이번 브랜치에서 바로 볼 문서</h2>
             <p class="section-copy">
-              메인 시나리오 6종과 캐릭터 디자인 참고 문서를 빠르게 열 수 있도록 묶었습니다.
+              메인 시나리오와 새로 추가한 오디오 설계 문서를 빠르게 오갈 수 있도록 묶었습니다.
             </p>
           </div>
           <div class="spotlight-grid" data-featured-links></div>
+        </section>
+
+        <section class="music-section" aria-label="시나리오 기반 음악">
+          <div class="section-heading">
+            <p class="eyebrow">Scenario Score</p>
+            <h2>시나리오 기반 BGM 청취</h2>
+            <p class="section-copy">
+              문서에서 정리한 장면별 감정선을 기준으로 만든 트랙들입니다. 버튼을 누르면 브라우저 안에서 직접 합성해서 재생합니다.
+            </p>
+          </div>
+          <div class="music-layout">
+            <article class="music-console" data-music-console></article>
+            <div class="music-track-grid" data-music-track-list></div>
+          </div>
         </section>
 
         <section class="info-grid" aria-label="핵심 기둥">
@@ -330,7 +531,7 @@ function createAppShell() {
             <p class="eyebrow">Story Viewer</p>
             <h2>스토리와 설정 문서 전체 보기</h2>
             <p class="section-copy">
-              왼쪽 전체 목록과 위 빠른 열기를 함께 써서 챕터 문서와 설정 문서를 오갈 수 있습니다.
+              왼쪽 전체 목록과 위 빠른 열기를 함께 써서 챕터 문서, 설정 문서, 오디오 설계 문서를 오갈 수 있습니다.
             </p>
           </div>
           <div class="viewer-layout">
@@ -346,6 +547,7 @@ function createAppShell() {
 function bootstrap() {
   let activeDocumentId =
     getDocumentIdFromHash() || featuredDocuments[0]?.id || storyDocuments[0]?.id || '';
+  let bgmManager = null;
 
   const selectDocument = (documentId, { syncHash = true } = {}) => {
     activeDocumentId = getDocumentById(documentId)?.id ?? activeDocumentId;
@@ -356,10 +558,24 @@ function bootstrap() {
     if (syncHash) {
       syncLocationHash(activeDocumentId);
     }
+
+    if (bgmManager) {
+      renderMusicSection(bgmManager, selectDocument);
+    }
   };
 
   createAppShell();
+
+  bgmManager = new BGMManager({
+    initialTrackId: 'echoes-of-tomorrow',
+    initialVolume: 0.58,
+    onStateChange: () => {
+      renderMusicSection(bgmManager, selectDocument);
+    },
+  });
+
   selectDocument(activeDocumentId);
+  renderMusicSection(bgmManager, selectDocument);
 
   window.addEventListener('hashchange', () => {
     const hashDocumentId = getDocumentIdFromHash();
@@ -368,6 +584,14 @@ function bootstrap() {
       selectDocument(hashDocumentId, { syncHash: false });
     }
   });
+
+  window.addEventListener(
+    'beforeunload',
+    () => {
+      bgmManager?.destroy();
+    },
+    { once: true }
+  );
 }
 
 bootstrap();

@@ -4,6 +4,10 @@
 
 ## 이슈 하나로, RPG 세계를 함께 만든다
 
+
+![RPG issue workflow](./assets/readme-workflow.png)
+
+
 이 프로젝트는 **아이디어 단계부터 모두가 함께 만드는 웹 RPG**입니다.
 
 <br/>
@@ -13,7 +17,6 @@
 ![PRs](https://img.shields.io/github/issues-pr/IncleRepo/-RPG?style=for-the-badge)
 
 
-![RPG issue workflow](./assets/readme-workflow.png)
 
 <br/>
 

@@ -1,4 +1,5 @@
 import '../styles/main.css';
+import { BGMManager, bgmTrackCatalog } from './bgm-manager.js';
 import {
   storyDocuments,
   storyHighlights,
@@ -14,7 +15,8 @@ if (!app) {
 }
 
 const featuredDocumentIds = Object.freeze([
-  'scenario-overview',
+  'audio-score-map',
+  'audio-web-audio-production',
   'scenario-prologue',
   'scenario-chapter-1',
   'scenario-chapter-2',
@@ -31,6 +33,10 @@ const featuredDocuments = Object.freeze(
 
 function getDocumentById(documentId) {
   return storyDocuments.find((item) => item.id === documentId);
+}
+
+function getTrackById(trackId) {
+  return bgmTrackCatalog.find((item) => item.id === trackId);
 }
 
 function getDocumentIdFromHash() {
@@ -255,12 +261,113 @@ function renderActiveDocument(documentId) {
   `;
 }
 
+function renderAudioTrackGrid(activeTrackId, isPlaying, onPreview) {
+  const container = document.querySelector('[data-audio-track-grid]');
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = bgmTrackCatalog
+    .map((track) => {
+      const isActive = track.id === activeTrackId;
+      const buttonLabel = isPlaying && isActive ? '현재 재생 중' : '이 곡 듣기';
+
+      return `
+        <article class="audio-track-card audio-track-card--${track.accent}${isActive ? ' is-active' : ''}">
+          <div class="audio-track-card__meta">
+            <span>${track.chapter}</span>
+            <span>${track.tempo} BPM · ${track.mode}</span>
+          </div>
+          <h3>${track.title}</h3>
+          <p>${track.summary}</p>
+          <p class="audio-track-card__usage">${track.usage}</p>
+          <button
+            type="button"
+            class="audio-track-card__button"
+            data-track-preview="${track.id}"
+            ${isPlaying && isActive ? 'disabled' : ''}
+          >
+            ${buttonLabel}
+          </button>
+        </article>
+      `;
+    })
+    .join('');
+
+  container.querySelectorAll('[data-track-preview]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const trackId = button.getAttribute('data-track-preview');
+
+      if (!trackId) {
+        return;
+      }
+
+      await onPreview(trackId);
+    });
+  });
+}
+
+function renderAudioStatus(snapshot, activeTrackId) {
+  const status = document.querySelector('[data-audio-status]');
+  const toggleButton = document.querySelector('[data-audio-toggle]');
+  const stopButton = document.querySelector('[data-audio-stop]');
+  const volumeInput = document.querySelector('[data-audio-volume]');
+  const activeTrack = getTrackById(activeTrackId);
+
+  if (!status || !toggleButton || !stopButton || !volumeInput) {
+    return;
+  }
+
+  if (!snapshot.supported) {
+    status.innerHTML = `
+      <p class="audio-now-playing__label">Web Audio Status</p>
+      <strong>이 브라우저에서는 Web Audio API 미리듣기를 지원하지 않습니다.</strong>
+      <p>문서만 확인할 수 있으며, 실제 청음은 지원 브라우저에서 진행해야 합니다.</p>
+    `;
+    toggleButton.disabled = true;
+    stopButton.disabled = true;
+    volumeInput.disabled = true;
+    return;
+  }
+
+  status.innerHTML = `
+    <p class="audio-now-playing__label">Now Playing</p>
+    <strong>${snapshot.trackTitle}</strong>
+    <p>${snapshot.chapter} · ${snapshot.usage}</p>
+    <dl class="audio-now-playing__stats">
+      <div>
+        <dt>상태</dt>
+        <dd>${snapshot.status}</dd>
+      </div>
+      <div>
+        <dt>섹션</dt>
+        <dd>${snapshot.section}</dd>
+      </div>
+      <div>
+        <dt>템포</dt>
+        <dd>${snapshot.tempo} BPM</dd>
+      </div>
+      <div>
+        <dt>선택 트랙</dt>
+        <dd>${activeTrack?.title ?? snapshot.trackTitle}</dd>
+      </div>
+    </dl>
+    <p class="audio-now-playing__summary">${snapshot.summary}</p>
+  `;
+
+  toggleButton.disabled = snapshot.isPlaying;
+  stopButton.disabled = !snapshot.isPlaying;
+  volumeInput.disabled = false;
+  volumeInput.value = String(Math.round(snapshot.volume * 100));
+}
+
 function createAppShell() {
   app.innerHTML = `
     <div class="page-shell">
       <header class="hero">
         <div class="hero__content">
-          <p class="eyebrow">Issue #57 · Main Scenario Docs</p>
+          <p class="eyebrow">Issue #59 · Scenario BGM Suite</p>
           <h1>${storyProject.title}</h1>
           <p class="hero__subtitle">${storyProject.subtitle}</p>
           <p class="hero__pitch">${storyProject.pitch}</p>
@@ -282,12 +389,52 @@ function createAppShell() {
       </header>
 
       <main class="layout">
+        <section class="audio-section" aria-label="시나리오 BGM 아틀리에">
+          <div class="section-heading">
+            <p class="eyebrow">Scenario Score Atelier</p>
+            <h2>장면별 BGM을 바로 청음할 수 있는 Web Audio 스위트</h2>
+            <p class="section-copy">
+              시나리오 문서를 읽고 정리한 트랙 세트를 브라우저에서 바로 확인할 수 있도록 붙였습니다.
+              각 카드에서 곡을 재생하면 장면 용도와 감정 방향에 맞는 루프를 들을 수 있습니다.
+            </p>
+          </div>
+          <div class="audio-layout">
+            <aside class="audio-console">
+              <div class="audio-console__heading">
+                <p class="eyebrow">Live Preview</p>
+                <h3>시나리오 기반 BGM 미리듣기</h3>
+              </div>
+              <div class="audio-now-playing" data-audio-status></div>
+              <div class="audio-controls">
+                <button type="button" class="audio-button" data-audio-toggle>
+                  선택 트랙 재생
+                </button>
+                <button type="button" class="audio-button audio-button--ghost" data-audio-stop>
+                  정지
+                </button>
+                <label class="audio-volume">
+                  <span>볼륨</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value="42"
+                    data-audio-volume
+                  />
+                </label>
+              </div>
+            </aside>
+            <div class="audio-track-grid" data-audio-track-grid></div>
+          </div>
+        </section>
+
         <section class="spotlight-section" aria-label="이번 브랜치 바로가기">
           <div class="section-heading">
             <p class="eyebrow">Branch Focus</p>
-            <h2>이번 브랜치에서 바로 볼 문서</h2>
+            <h2>이번 브랜치에서 바로 볼 문서와 오디오 설계</h2>
             <p class="section-copy">
-              메인 시나리오 6종과 캐릭터 디자인 참고 문서를 빠르게 열 수 있도록 묶었습니다.
+              오디오 기획 문서와 메인 챕터 문서를 같은 화면에서 오가며 트랙 맵을 바로 확인할 수 있게 묶었습니다.
             </p>
           </div>
           <div class="spotlight-grid" data-featured-links></div>
@@ -328,9 +475,9 @@ function createAppShell() {
         <section class="viewer-section">
           <div class="section-heading">
             <p class="eyebrow">Story Viewer</p>
-            <h2>스토리와 설정 문서 전체 보기</h2>
+            <h2>스토리, 설정, 오디오 문서 전체 보기</h2>
             <p class="section-copy">
-              왼쪽 전체 목록과 위 빠른 열기를 함께 써서 챕터 문서와 설정 문서를 오갈 수 있습니다.
+              왼쪽 전체 목록과 위 빠른 열기를 함께 써서 시나리오 문서와 BGM 설계 문서를 오갈 수 있습니다.
             </p>
           </div>
           <div class="viewer-layout">
@@ -346,6 +493,16 @@ function createAppShell() {
 function bootstrap() {
   let activeDocumentId =
     getDocumentIdFromHash() || featuredDocuments[0]?.id || storyDocuments[0]?.id || '';
+  let activeTrackId = bgmTrackCatalog[0]?.id || '';
+
+  const bgmManager = new BGMManager({
+    initialTrackId: activeTrackId,
+    onStateChange: (snapshot) => {
+      activeTrackId = snapshot.trackId;
+      renderAudioStatus(snapshot, activeTrackId);
+      renderAudioTrackGrid(activeTrackId, snapshot.isPlaying, previewTrack);
+    },
+  });
 
   const selectDocument = (documentId, { syncHash = true } = {}) => {
     activeDocumentId = getDocumentById(documentId)?.id ?? activeDocumentId;
@@ -358,8 +515,35 @@ function bootstrap() {
     }
   };
 
+  const previewTrack = async (trackId) => {
+    activeTrackId = trackId;
+    renderAudioTrackGrid(activeTrackId, bgmManager.getSnapshot().isPlaying, previewTrack);
+    await bgmManager.playTrack(trackId);
+  };
+
   createAppShell();
   selectDocument(activeDocumentId);
+  renderAudioStatus(bgmManager.getSnapshot(), activeTrackId);
+  renderAudioTrackGrid(activeTrackId, false, previewTrack);
+
+  const toggleButton = document.querySelector('[data-audio-toggle]');
+  const stopButton = document.querySelector('[data-audio-stop]');
+  const volumeInput = document.querySelector('[data-audio-volume]');
+
+  toggleButton?.addEventListener('click', async () => {
+    await bgmManager.playTrack(activeTrackId);
+  });
+
+  stopButton?.addEventListener('click', async () => {
+    await bgmManager.stop();
+    renderAudioStatus(bgmManager.getSnapshot(), activeTrackId);
+    renderAudioTrackGrid(activeTrackId, false, previewTrack);
+  });
+
+  volumeInput?.addEventListener('input', (event) => {
+    const nextVolume = Number(event.currentTarget?.value ?? 42) / 100;
+    bgmManager.setVolume(nextVolume);
+  });
 
   window.addEventListener('hashchange', () => {
     const hashDocumentId = getDocumentIdFromHash();
@@ -367,6 +551,10 @@ function bootstrap() {
     if (hashDocumentId && hashDocumentId !== activeDocumentId) {
       selectDocument(hashDocumentId, { syncHash: false });
     }
+  });
+
+  window.addEventListener('beforeunload', () => {
+    bgmManager.destroy();
   });
 }
 

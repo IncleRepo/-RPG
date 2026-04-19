@@ -10,6 +10,8 @@ import worldRules from '../content/lore/world-rules.md?raw';
 import regions from '../content/lore/regions.md?raw';
 import factions from '../content/lore/factions.md?raw';
 import characters from '../content/lore/characters.md?raw';
+import audioScoreMap from '../content/audio/01-score-map.md?raw';
+import webAudioProduction from '../content/audio/02-web-audio-production.md?raw';
 
 export const storyProject = Object.freeze({
   title: '반향해 연대기',
@@ -40,7 +42,7 @@ export const storyHighlights = Object.freeze([
   },
   {
     label: '문서 구성',
-    value: '시나리오 6종 + 인물 외형 메모',
+    value: '시나리오 6종 + 설정 6종 + 오디오 2종',
   },
   {
     label: '서사 테마',
@@ -155,6 +157,24 @@ export const storyDocuments = Object.freeze([
     fileName: 'src/content/scenario/05-ending.md',
     accent: 'rose',
     content: scenarioEnding,
+  },
+  {
+    id: 'audio-score-map',
+    title: 'BGM 설계 맵',
+    category: '오디오 설계',
+    summary: '챕터, 장면, 상황별로 어떤 BGM이 필요한지와 전체 트랙 세트를 정리한 문서',
+    fileName: 'src/content/audio/01-score-map.md',
+    accent: 'teal',
+    content: audioScoreMap,
+  },
+  {
+    id: 'audio-web-audio-production',
+    title: 'Web Audio 제작 노트',
+    category: '오디오 설계',
+    summary: 'Web Audio API 기반으로 실제 BGM을 제작하고 운영하는 방식과 품질 기준을 정리한 문서',
+    fileName: 'src/content/audio/02-web-audio-production.md',
+    accent: 'gold',
+    content: webAudioProduction,
   },
   {
     id: 'world-rules',

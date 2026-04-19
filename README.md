@@ -127,6 +127,7 @@
 
 - [x] 프로젝트 구조 정의
 - [x] 워크플로우 구축
+- [x] 주인공 기본 모션 스프라이트 초안
 - [ ] 게임 시스템 설계
 - [ ] 핵심 기능 구현
 - [ ] 플레이 가능 상태
@@ -139,6 +140,16 @@
 - Vite
 - GitHub Issues
 - LLM 기반 자동화
+
+---
+
+## 🖼 Player Sprite Assets
+
+주인공 기본 모션 스프라이트 초안은 [`assets/sprites/player`](./assets/sprites/player)에 정리되어 있습니다.
+
+- 기준 콘셉트: `여명 인양사`
+- 포함 모션: `idle`, `walk`, `run`, `jump`, `fall`, `attack`, `hurt`, `death`
+- 재생성 명령: `npm run generate:player-sprites`
 
 ---
 

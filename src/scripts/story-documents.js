@@ -1,5 +1,8 @@
 import storyOverview from '../content/lore/story-overview.md?raw';
 import mainStory from '../content/lore/main-story.md?raw';
+import audioDirection from '../content/audio/00-audio-direction.md?raw';
+import audioCueSheet from '../content/audio/01-bgm-cue-sheet.md?raw';
+import audioProductionNotes from '../content/audio/02-production-notes.md?raw';
 import scenarioOverview from '../content/scenario/00-overview.md?raw';
 import scenarioPrologue from '../content/scenario/01-prologue.md?raw';
 import scenarioChapter1 from '../content/scenario/02-chapter-1.md?raw';
@@ -40,7 +43,11 @@ export const storyHighlights = Object.freeze([
   },
   {
     label: '문서 구성',
-    value: '시나리오 6종 + 인물 외형 메모',
+    value: '시나리오 6종 + 설정 6종 + 오디오 3종',
+  },
+  {
+    label: 'BGM 구성',
+    value: '고음질 트랙 14종',
   },
   {
     label: '서사 테마',
@@ -100,6 +107,33 @@ export const storyDocuments = Object.freeze([
     fileName: 'src/content/lore/main-story.md',
     accent: 'gold',
     content: mainStory,
+  },
+  {
+    id: 'audio-direction',
+    title: 'BGM 설계',
+    category: '오디오 기획',
+    summary: '시나리오 전체를 기준으로 챕터별 정서와 필요한 음악 범주를 정리한 문서',
+    fileName: 'src/content/audio/00-audio-direction.md',
+    accent: 'gold',
+    content: audioDirection,
+  },
+  {
+    id: 'audio-cue-sheet',
+    title: 'BGM 큐시트',
+    category: '오디오 기획',
+    summary: '14개 트랙의 파일명, 용도, 장면 매핑을 한 번에 확인하는 큐시트 문서',
+    fileName: 'src/content/audio/01-bgm-cue-sheet.md',
+    accent: 'coral',
+    content: audioCueSheet,
+  },
+  {
+    id: 'audio-production',
+    title: 'BGM 제작 메모',
+    category: '오디오 제작',
+    summary: '렌더링 방식, 파일 관리 구조, 재생성 명령을 정리한 제작 메모 문서',
+    fileName: 'src/content/audio/02-production-notes.md',
+    accent: 'teal',
+    content: audioProductionNotes,
   },
   {
     id: 'scenario-overview',

@@ -14,13 +14,12 @@ if (!app) {
 }
 
 const featuredDocumentIds = Object.freeze([
+  'audio-direction',
+  'audio-cue-sheet',
+  'audio-production',
   'scenario-overview',
-  'scenario-prologue',
-  'scenario-chapter-1',
-  'scenario-chapter-2',
   'scenario-chapter-3',
   'scenario-ending',
-  'characters',
 ]);
 
 const featuredDocuments = Object.freeze(
@@ -260,7 +259,7 @@ function createAppShell() {
     <div class="page-shell">
       <header class="hero">
         <div class="hero__content">
-          <p class="eyebrow">Issue #57 · Main Scenario Docs</p>
+          <p class="eyebrow">Issue #59 · Scenario BGM Library</p>
           <h1>${storyProject.title}</h1>
           <p class="hero__subtitle">${storyProject.subtitle}</p>
           <p class="hero__pitch">${storyProject.pitch}</p>
@@ -287,7 +286,7 @@ function createAppShell() {
             <p class="eyebrow">Branch Focus</p>
             <h2>이번 브랜치에서 바로 볼 문서</h2>
             <p class="section-copy">
-              메인 시나리오 6종과 캐릭터 디자인 참고 문서를 빠르게 열 수 있도록 묶었습니다.
+              시나리오 기반 BGM 설계 문서와 최종 챕터 기준 레퍼런스 문서를 함께 묶었습니다.
             </p>
           </div>
           <div class="spotlight-grid" data-featured-links></div>

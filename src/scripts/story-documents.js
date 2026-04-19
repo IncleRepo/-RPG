@@ -6,6 +6,7 @@ import scenarioChapter1 from '../content/scenario/02-chapter-1.md?raw';
 import scenarioChapter2 from '../content/scenario/03-chapter-2.md?raw';
 import scenarioChapter3 from '../content/scenario/04-chapter-3.md?raw';
 import scenarioEnding from '../content/scenario/05-ending.md?raw';
+import scenarioBgmDirection from '../content/audio/scenario-bgm-direction.md?raw';
 import worldRules from '../content/lore/world-rules.md?raw';
 import regions from '../content/lore/regions.md?raw';
 import factions from '../content/lore/factions.md?raw';
@@ -155,6 +156,16 @@ export const storyDocuments = Object.freeze([
     fileName: 'src/content/scenario/05-ending.md',
     accent: 'rose',
     content: scenarioEnding,
+  },
+  {
+    id: 'audio-scenario-bgm',
+    title: '시나리오 기반 BGM 기획',
+    category: '오디오 설계',
+    summary:
+      '시나리오를 읽고 정리한 장면별 음악 요구, 트랙 매핑, Web Audio 제작 구조를 정리한 문서',
+    fileName: 'src/content/audio/scenario-bgm-direction.md',
+    accent: 'gold',
+    content: scenarioBgmDirection,
   },
   {
     id: 'world-rules',

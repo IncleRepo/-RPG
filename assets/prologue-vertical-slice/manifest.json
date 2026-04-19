@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-04-19T23:30:56.668Z",
+  "outputDirectory": "assets/prologue-vertical-slice",
+  "sheets": [
+    {
+      "file": "sheets/hero-sheet.svg",
+      "role": "플레이어 스프라이트 시트",
+      "frameSize": "24x40",
+      "frames": ["idle-a", "idle-b", "walk-a", "walk-b", "attack-a", "attack-b", "dash", "hit"]
+    },
+    {
+      "file": "sheets/allies-sheet.svg",
+      "role": "사야 렌 / 라오 템 / 백야 주요 동료 시트",
+      "frameSize": "24x40",
+      "frames": ["saya-idle", "saya-gesture", "lao-idle", "baekya-aura"]
+    },
+    {
+      "file": "sheets/citizens-sheet.svg",
+      "role": "어시장 조사 NPC 시트",
+      "frameSize": "24x40",
+      "frames": ["fisher", "apothecary", "keeper"]
+    },
+    {
+      "file": "sheets/enemies-sheet.svg",
+      "role": "균열 갈매기 / 하역 인형 / 황혼 파수체 시트",
+      "frameSize": "40x40",
+      "frames": [
+        "gull-a",
+        "gull-b",
+        "husk-a",
+        "husk-b",
+        "husk-attack",
+        "watcher-idle",
+        "watcher-attack",
+        "watcher-stagger"
+      ]
+    },
+    {
+      "file": "sheets/harbor-tiles.svg",
+      "role": "미라진 항구 타일/오브젝트 시트",
+      "frameSize": "16x16",
+      "frames": ["dock-floor", "dock-wall", "water", "recorder", "crate", "lantern"]
+    },
+    {
+      "file": "sheets/tower-tiles.svg",
+      "role": "시계탑 타일/오브젝트 시트",
+      "frameSize": "16x16",
+      "frames": ["tower-floor", "tower-wall", "sealed-door", "anchor", "bell-core", "rift"]
+    }
+  ]
+}

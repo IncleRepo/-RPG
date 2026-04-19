@@ -1,6 +1,7 @@
 import storyOverview from '../content/lore/story-overview.md?raw';
 import mainStory from '../content/lore/main-story.md?raw';
 import coreSystems from '../content/game-design/00-core-systems.md?raw';
+import prologuePlayflow from '../content/game-design/01-prologue-playflow.md?raw';
 import scenarioOverview from '../content/scenario/00-overview.md?raw';
 import scenarioPrologue from '../content/scenario/01-prologue.md?raw';
 import scenarioChapter1 from '../content/scenario/02-chapter-1.md?raw';
@@ -42,7 +43,7 @@ export const storyHighlights = Object.freeze([
   },
   {
     label: '문서 구성',
-    value: '시나리오 6종 + 설정/설계 7종 + BGM 설계 1종',
+    value: '시나리오 6종 + 설정/설계 8종 + BGM 설계 1종',
   },
   {
     label: '서사 테마',
@@ -112,6 +113,16 @@ export const storyDocuments = Object.freeze([
     fileName: 'src/content/game-design/00-core-systems.md',
     accent: 'slate',
     content: coreSystems,
+  },
+  {
+    id: 'prologue-playflow',
+    title: '프롤로그 플레이 구성',
+    category: '플레이 설계',
+    summary:
+      '프롤로그를 실제 구현 가능한 구간 단위로 재구성해 맵 흐름, 조사, 대화, 전투, 연출, UI 요구사항을 정리한 문서',
+    fileName: 'src/content/game-design/01-prologue-playflow.md',
+    accent: 'coral',
+    content: prologuePlayflow,
   },
   {
     id: 'audio-scenario-plan',

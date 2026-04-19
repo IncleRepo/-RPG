@@ -1,5 +1,11 @@
 import storyOverview from '../content/lore/story-overview.md?raw';
 import mainStory from '../content/lore/main-story.md?raw';
+import scenarioOverview from '../content/scenario/00-overview.md?raw';
+import scenarioPrologue from '../content/scenario/01-prologue.md?raw';
+import scenarioChapter1 from '../content/scenario/02-chapter-1.md?raw';
+import scenarioChapter2 from '../content/scenario/03-chapter-2.md?raw';
+import scenarioChapter3 from '../content/scenario/04-chapter-3.md?raw';
+import scenarioEnding from '../content/scenario/05-ending.md?raw';
 import worldRules from '../content/lore/world-rules.md?raw';
 import regions from '../content/lore/regions.md?raw';
 import factions from '../content/lore/factions.md?raw';
@@ -27,6 +33,14 @@ export const storyHighlights = Object.freeze([
   {
     label: '메인 목표',
     value: '일곱 개의 새벽 종편 회수',
+  },
+  {
+    label: '메인 플레이타임',
+    value: '약 8시간',
+  },
+  {
+    label: '문서 구성',
+    value: '시나리오 6종 + 인물 외형 메모',
   },
   {
     label: '서사 테마',
@@ -88,6 +102,61 @@ export const storyDocuments = Object.freeze([
     content: mainStory,
   },
   {
+    id: 'scenario-overview',
+    title: '시나리오 개요',
+    category: '시나리오 설계',
+    summary:
+      '메인 엔딩까지 약 8시간 기준의 챕터 수, 플레이타임, 대사 스크립트 작성 원칙을 정리한 문서',
+    fileName: 'src/content/scenario/00-overview.md',
+    accent: 'teal',
+    content: scenarioOverview,
+  },
+  {
+    id: 'scenario-prologue',
+    title: '프롤로그',
+    category: '챕터 시나리오',
+    summary: '미라진에서 사라진 새벽을 목격하고 첫 항해를 시작하는 도입 챕터와 상세 대사 문서',
+    fileName: 'src/content/scenario/01-prologue.md',
+    accent: 'coral',
+    content: scenarioPrologue,
+  },
+  {
+    id: 'scenario-chapter-1',
+    title: '챕터 1',
+    category: '챕터 시나리오',
+    summary: '유리염 사구에서 생존 갈등을 체감하고 첫 두 개의 종편을 회수하는 장면별 스크립트 문서',
+    fileName: 'src/content/scenario/02-chapter-1.md',
+    accent: 'gold',
+    content: scenarioChapter1,
+  },
+  {
+    id: 'scenario-chapter-2',
+    title: '챕터 2',
+    category: '챕터 시나리오',
+    summary: '역항도 카델에서 유라 베인의 질서 논리와 두 개의 종편을 마주하는 장면별 스크립트 문서',
+    fileName: 'src/content/scenario/03-chapter-2.md',
+    accent: 'plum',
+    content: scenarioChapter2,
+  },
+  {
+    id: 'scenario-chapter-3',
+    title: '챕터 3',
+    category: '챕터 시나리오',
+    summary: '속삭임 과수원과 척추탑에서 진실과 플레이어 정체성을 드러내는 장면별 스크립트 문서',
+    fileName: 'src/content/scenario/04-chapter-3.md',
+    accent: 'slate',
+    content: scenarioChapter3,
+  },
+  {
+    id: 'scenario-ending',
+    title: '엔딩',
+    category: '챕터 시나리오',
+    summary: '침묵 산호궁 최종 던전과 세 가지 메인 엔딩 선택을 상세 스크립트로 정리한 문서',
+    fileName: 'src/content/scenario/05-ending.md',
+    accent: 'rose',
+    content: scenarioEnding,
+  },
+  {
     id: 'world-rules',
     title: '세계 규칙',
     category: '시스템 설정',
@@ -118,7 +187,7 @@ export const storyDocuments = Object.freeze([
     id: 'characters',
     title: '인물 설정',
     category: '세부 설정',
-    summary: '플레이어와 조력자, 대립 인물, 상징 인물의 역할을 정리한 문서',
+    summary: '플레이어와 주요 인물의 역할, 감정선, 외형 디자인 포인트를 정리한 문서',
     fileName: 'src/content/lore/characters.md',
     accent: 'rose',
     content: characters,

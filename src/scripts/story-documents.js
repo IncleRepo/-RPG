@@ -141,7 +141,7 @@ export const storyDocuments = Object.freeze([
     title: '아트 기준 및 플레이어 스펙',
     category: '비주얼 설계',
     summary:
-      '타일 크기, 플레이어/NPC/적 비율, 카메라 구도, 필수 모션, 프롤로그 최소 아트 목록을 구현 가능한 수치로 정리한 문서',
+      '게임 로직 격자와 아트 캔버스를 분리하고, 캐릭터 픽셀 밀도·배경 레이어·애니메이션 프레임 기준까지 재정의한 고밀도 도트 아트 문서',
     fileName: 'src/content/game-design/03-art-and-player-spec.md',
     accent: 'teal',
     content: artAndPlayerSpec,

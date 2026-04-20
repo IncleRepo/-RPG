@@ -559,3 +559,66 @@
 9. 걷기 `8`, 달리기 `10`, 공격 `6~8` 프레임을 기본 기준으로 한다.
 10. 탐험 모션은 `10~12 FPS`, 전투 모션은 `12~16 FPS` 체감으로 제작한다.
 11. 디테일 배분 우선순위는 `실루엣 -> 포즈 차이 -> 2차 모션 -> FX`다.
+
+## 18. 이슈 #80 프롤로그 플레이어 마스터 스프라이트 확정안
+
+### 정지 기본 포즈 3안
+
+- A안: 정면에 가까운 `3/4` 시선과 열린 외투 전면 트임을 우선한 기본안
+- B안: 어깨를 조금 더 세우고 등 쪽 무게 중심을 뒤로 둔 보수적 대기 자세
+- C안: 왼손을 더 전진시키고 외투 전면 비대칭을 키운 적극적 준비 자세
+
+### 마스터 스프라이트 확정
+
+- 이번 이슈의 마스터는 `A안`으로 확정한다.
+- 확정 이유:
+  얼굴과 목선이 가장 먼저 읽히고, 외투 전면 트임과 하체 분리가 가장 안정적이다.
+- 확정 파일:
+  `assets/player/prologue/player-master-stand.png`
+
+### Idle 키포즈
+
+- 기준 포즈는 `settle -> breathe-in -> ready`의 3키 구조로 제작한다.
+- 외투, 가슴 호흡, 손등 불빛, 랜턴 흔들림이 동시에 무너지지 않도록 `1 px` 안쪽 변화만 사용한다.
+- 파일:
+  `assets/player/prologue/player-idle-keyposes.png`
+
+### 기본 팔레트
+
+- 외곽선: `#0f1b27`
+- 머리카락: `#23323f`, `#425869`, `#7d98a5`
+- 피부: `#f4c6a3`, `#d99c77`
+- 외투: `#14324a`, `#275271`, `#4b7c99`
+- 상의: `#1e5861`, `#4fa9b0`
+- 하의: `#607386`, `#91a5b6`
+- 장비 / 랜턴: `#684328`, `#b57d46`, `#57e3e9`, `#dab865`
+
+### 제출 파일
+
+- 정지 기본 포즈:
+  `assets/player/prologue/player-stand-option-a.png`
+- 정지 기본 포즈:
+  `assets/player/prologue/player-stand-option-b.png`
+- 정지 기본 포즈:
+  `assets/player/prologue/player-stand-option-c.png`
+- 마스터 스프라이트:
+  `assets/player/prologue/player-master-stand.png`
+- Idle 키포즈:
+  `assets/player/prologue/player-idle-keyposes.png`
+- 팔레트:
+  `assets/player/prologue/player-palette.png`
+- `100%` 검수 보드:
+  `assets/player/prologue/player-review-100.png`
+- `400%` 검수 보드:
+  `assets/player/prologue/player-review-400.png`
+- 밝은 배경 미리보기:
+  `assets/player/prologue/player-preview-light.png`
+- 어두운 배경 미리보기:
+  `assets/player/prologue/player-preview-dark.png`
+
+### 이번 확정안에서 유지할 읽기 우선순위
+
+- 얼굴 중심, 앞머리, 목선이 먼저 읽히도록 상단 실루엣을 과하게 부풀리지 않는다.
+- 외투는 긴 실루엣을 유지하되 하체 중앙과 부츠 앞부분이 반드시 남도록 전면 트임을 유지한다.
+- 피부색은 머리카락과 외투 사이에 직접 붙여 두지 않고, 눈과 목선에 밝기 대비를 남긴다.
+- 랜턴과 대각 스트랩은 캐릭터 정체성을 보조하는 수준으로 두고 얼굴보다 먼저 튀지 않게 제어한다.

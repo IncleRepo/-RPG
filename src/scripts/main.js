@@ -1,5 +1,6 @@
 import '../styles/main.css';
 import { soundtrackTracks } from './audio-tracks.js';
+import { prologuePlayerArt } from './prologue-player-art.js';
 import {
   storyDocuments,
   storyHighlights,
@@ -15,15 +16,13 @@ if (!app) {
 }
 
 const featuredDocumentIds = Object.freeze([
-  'core-systems',
-  'audio-scenario-plan',
-  'scenario-overview',
-  'scenario-prologue',
-  'scenario-chapter-1',
-  'scenario-chapter-2',
-  'scenario-chapter-3',
-  'scenario-ending',
+  'art-and-player-spec',
   'characters',
+  'prologue-playflow',
+  'core-systems',
+  'scenario-prologue',
+  'scenario-overview',
+  'audio-scenario-plan',
 ]);
 
 const featuredDocuments = Object.freeze(
@@ -256,6 +255,110 @@ function renderActiveDocument(documentId) {
     </header>
     <article class="markdown-body">${markdownToHtml(activeDocument.content)}</article>
   `;
+
+  renderDocumentSupplement(activeDocument.id, viewer);
+}
+
+function renderArtReview(viewer) {
+  const paletteMarkup = prologuePlayerArt.palette
+    .map(
+      (color) => `
+        <li class="art-palette__item">
+          <span class="art-palette__swatch" style="--swatch:${color.hex}"></span>
+          <span>
+            <strong>${color.name}</strong>
+            <span>${color.hex} · ${color.role}</span>
+          </span>
+        </li>
+      `
+    )
+    .join('');
+
+  const poseMarkup = prologuePlayerArt.poseOptions
+    .map(
+      (pose) => `
+        <figure class="art-card">
+          <img src="${pose.image}" alt="${pose.label} 플레이어 정지 기본 포즈" loading="lazy" />
+          <figcaption>
+            <strong>${pose.label}</strong>
+            <p>${pose.note}</p>
+          </figcaption>
+        </figure>
+      `
+    )
+    .join('');
+
+  const deliverableMarkup = prologuePlayerArt.deliverables
+    .map(
+      (item) => `
+        <figure class="art-card art-card--wide">
+          <img src="${item.image}" alt="${item.label}" loading="lazy" />
+          <figcaption>
+            <strong>${item.label}</strong>
+            <p>${item.note}</p>
+          </figcaption>
+        </figure>
+      `
+    )
+    .join('');
+
+  viewer.insertAdjacentHTML(
+    'beforeend',
+    `
+      <section class="art-review" aria-label="프롤로그 플레이어 아트 결과물">
+        <div class="art-review__header">
+          <p class="eyebrow">${prologuePlayerArt.eyebrow}</p>
+          <h3>${prologuePlayerArt.title}</h3>
+          <p>${prologuePlayerArt.summary}</p>
+        </div>
+
+        <div class="art-review__meta">
+          <div>
+            <strong>${prologuePlayerArt.decision.selectedLabel}</strong>
+            <span>${prologuePlayerArt.decision.canvas}</span>
+          </div>
+          <div>
+            <strong>검수 범위</strong>
+            <span>${prologuePlayerArt.decision.review}</span>
+          </div>
+        </div>
+
+        <ul class="art-review__notes">
+          ${prologuePlayerArt.rationale.map((item) => `<li>${item}</li>`).join('')}
+        </ul>
+
+        <div class="art-review__section">
+          <div class="art-review__section-head">
+            <h4>정지 기본 포즈 3안</h4>
+            <p>얼굴 가독성, 상하체 분리, 다리 노출을 비교하기 위한 초안입니다.</p>
+          </div>
+          <div class="art-grid art-grid--options">${poseMarkup}</div>
+        </div>
+
+        <div class="art-review__section">
+          <div class="art-review__section-head">
+            <h4>확정 결과물</h4>
+            <p>마스터 스프라이트, idle 키포즈, 100%/400% 검수 시트, 밝은/어두운 720p 프리뷰를 함께 제공합니다.</p>
+          </div>
+          <div class="art-grid art-grid--deliverables">${deliverableMarkup}</div>
+        </div>
+
+        <div class="art-review__section">
+          <div class="art-review__section-head">
+            <h4>기본 팔레트</h4>
+            <p>피부가 머리와 외투 사이에서 묻히지 않도록 피부, 머리, 의상의 간격을 우선 벌린 15색 구성입니다.</p>
+          </div>
+          <ul class="art-palette">${paletteMarkup}</ul>
+        </div>
+      </section>
+    `
+  );
+}
+
+function renderDocumentSupplement(documentId, viewer) {
+  if (documentId === 'art-and-player-spec') {
+    renderArtReview(viewer);
+  }
 }
 
 function createAudioState() {
@@ -359,7 +462,7 @@ function createAppShell() {
     <div class="page-shell">
       <header class="hero">
         <div class="hero__content">
-          <p class="eyebrow">Issue #59 · Scenario Soundtrack</p>
+          <p class="eyebrow">Issue #80 · Prologue Player Art</p>
           <h1>${storyProject.title}</h1>
           <p class="hero__subtitle">${storyProject.subtitle}</p>
           <p class="hero__pitch">${storyProject.pitch}</p>
@@ -384,10 +487,10 @@ function createAppShell() {
         <section class="spotlight-section" aria-label="이번 브랜치 바로가기">
           <div class="section-heading">
             <p class="eyebrow">Branch Focus</p>
-            <h2>이번 브랜치에서 바로 볼 문서</h2>
+            <h2>이번 브랜치에서 바로 볼 아트 기준</h2>
             <p class="section-copy">
-              메인 시나리오, 캐릭터 설정, 그리고 새로 추가한 시나리오 기반 BGM 설계안을 빠르게
-              열 수 있도록 묶었습니다.
+              플레이어 마스터 스프라이트 검수에 직접 연결되는 아트 기준, 캐릭터 설정, 프롤로그
+              문서를 먼저 묶었습니다.
             </p>
           </div>
           <div class="spotlight-grid" data-featured-links></div>

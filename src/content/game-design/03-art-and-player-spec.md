@@ -513,3 +513,54 @@
 9. 걷기 `8`, 달리기 `10`, 공격 `6~8` 프레임을 기본 기준으로 한다.
 10. 탐험 모션은 `10~12 FPS`, 전투 모션은 `12~16 FPS` 체감으로 제작한다.
 11. 디테일 배분 우선순위는 `실루엣 -> 포즈 차이 -> 2차 모션 -> FX`다.
+
+## 18. 이슈 #80 1차 산출물
+
+이번 이슈는 트리거 코멘트 기준으로 범위를 축소한다.
+
+- `정지 기본 포즈 3안`
+- `마스터 스프라이트 1안 확정`
+- `idle` 키포즈 시트만 제작
+
+전체 모션 시트와 `48 x 48` 이상 확장 액션 시트는 이번 커밋 범위에 포함하지 않는다.
+
+### 확정안
+
+- 마스터 스프라이트: `A안`
+- 기준 캔버스: `32 x 48 px`
+- `idle` 프레임 수: `8`
+- 검수 보드: `1280 x 720 px`
+
+### 산출물 경로
+
+- `assets/sprites/player/prologue/player-master-pose-options.png`
+- `assets/sprites/player/prologue/player-master-sprite.png`
+- `assets/sprites/player/prologue/player-idle-sheet.png`
+- `assets/sprites/player/prologue/player-master-preview-light.png`
+- `assets/sprites/player/prologue/player-master-preview-dark.png`
+- `assets/sprites/player/prologue/player-review-board-720p.png`
+
+### 이번 확정안의 읽힘 포인트
+
+- 길게 떨어지는 남청 외투와 앞쪽으로 무게가 실린 보행 축
+- 한쪽으로 기운 장비 벨트와 허리 도구 실루엣
+- 등 뒤 휴대 등불과 이어 피스 포인트
+- 손등 / 목선 근처의 약한 새벽빛 악센트
+
+### 사용 팔레트
+
+- 외곽 / 암부: `#11242f`
+- 외투 암부: `#17394c`
+- 외투 기본: `#2b5e76`
+- 외투 하이라이트: `#5a91a4`
+- 외투 트림 / 염분빛: `#b1c6cb`
+- 가죽 벨트: `#836552`
+- 금속 장비: `#b0c2c7`
+- 등불 코어: `#f7d279`
+- 새벽빛 악센트: `#68c9d7`
+
+### 확인 메모
+
+- `player-master-pose-options.png`는 `100%` 기본 포즈 3안 비교용이다.
+- `player-master-preview-light.png`, `player-master-preview-dark.png`는 `400%` 확대 검수용이다.
+- `player-review-board-720p.png`는 `720p` 기준 한 장 검수용 보드다.

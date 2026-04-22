@@ -4,6 +4,7 @@ import coreSystems from '../content/game-design/00-core-systems.md?raw';
 import prologuePlayflow from '../content/game-design/01-prologue-playflow.md?raw';
 import uiUxGuide from '../content/game-design/02-ui-ux.md?raw';
 import artAndPlayerSpec from '../content/game-design/03-art-and-player-spec.md?raw';
+import prologuePlayerSpritePack from '../content/game-design/04-prologue-player-sprite-pack.md?raw';
 import scenarioOverview from '../content/scenario/00-overview.md?raw';
 import scenarioPrologue from '../content/scenario/01-prologue.md?raw';
 import scenarioChapter1 from '../content/scenario/02-chapter-1.md?raw';
@@ -45,7 +46,7 @@ export const storyHighlights = Object.freeze([
   },
   {
     label: '문서 구성',
-    value: '시나리오 6종 + 설정/설계 10종 + BGM 설계 1종',
+    value: '시나리오 6종 + 설정/설계 11종 + BGM 설계 1종',
   },
   {
     label: '서사 테마',
@@ -145,6 +146,16 @@ export const storyDocuments = Object.freeze([
     fileName: 'src/content/game-design/03-art-and-player-spec.md',
     accent: 'teal',
     content: artAndPlayerSpec,
+  },
+  {
+    id: 'prologue-player-sprite-pack',
+    title: '프롤로그 플레이어 스프라이트 팩',
+    category: '비주얼 산출물',
+    summary:
+      '이슈 #80 기준으로 제작한 플레이어 1종의 실루엣, 팔레트, 핵심 모션 시트와 720p 검수 산출물을 정리한 문서',
+    fileName: 'src/content/game-design/04-prologue-player-sprite-pack.md',
+    accent: 'gold',
+    content: prologuePlayerSpritePack,
   },
   {
     id: 'audio-scenario-plan',

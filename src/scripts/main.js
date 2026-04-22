@@ -1,5 +1,6 @@
 import '../styles/main.css';
 import { soundtrackTracks } from './audio-tracks.js';
+import { playerArtArchive } from './player-art-archive.js';
 import {
   storyDocuments,
   storyHighlights,
@@ -24,6 +25,7 @@ const featuredDocumentIds = Object.freeze([
   'scenario-chapter-3',
   'scenario-ending',
   'characters',
+  'prologue-player-sprite-pack',
 ]);
 
 const featuredDocuments = Object.freeze(
@@ -258,6 +260,80 @@ function renderActiveDocument(documentId) {
   `;
 }
 
+function renderArtArchive() {
+  const container = document.querySelector('[data-art-archive]');
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = `
+    <article class="art-overview-card">
+      <div class="art-overview-card__content">
+        <p class="eyebrow">${playerArtArchive.eyebrow}</p>
+        <h3>${playerArtArchive.title}</h3>
+        <p>${playerArtArchive.summary}</p>
+        <dl class="art-metrics">
+          ${playerArtArchive.metrics
+            .map(
+              (metric) => `
+                <div>
+                  <dt>${metric.label}</dt>
+                  <dd>${metric.value}</dd>
+                </div>
+              `
+            )
+            .join('')}
+        </dl>
+        <div class="art-tags">
+          ${playerArtArchive.silhouetteNotes
+            .map((note) => `<span class="art-tag">${note}</span>`)
+            .join('')}
+        </div>
+        <div class="art-palette">
+          ${playerArtArchive.palette
+            .map(
+              (swatch) => `
+                <div class="art-swatch">
+                  <span class="art-swatch__chip" style="background:${swatch.hex}"></span>
+                  <span>${swatch.name}</span>
+                  <code>${swatch.hex}</code>
+                </div>
+              `
+            )
+            .join('')}
+        </div>
+      </div>
+      <div class="art-overview-card__preview">
+        <figure class="pixel-frame pixel-frame--preview">
+          <img src="${playerArtArchive.overviewImage}" alt="프롤로그 플레이어 720p 검수 미리보기" loading="lazy" />
+        </figure>
+        <figure class="pixel-frame">
+          <img src="${playerArtArchive.atlasImage}" alt="프롤로그 플레이어 모션 통합 아틀라스" loading="lazy" />
+        </figure>
+      </div>
+    </article>
+    <div class="art-motion-grid">
+      ${playerArtArchive.motions
+        .map(
+          (motion) => `
+            <article class="art-motion-card">
+              <div class="art-motion-card__meta">
+                <span class="document-card__category">${motion.title}</span>
+                <span>${motion.frameCount} frames · ${motion.canvas}</span>
+              </div>
+              <p>${motion.fps}</p>
+              <figure class="pixel-frame">
+                <img src="${motion.sheet}" alt="${motion.title} 모션 시트" loading="lazy" />
+              </figure>
+            </article>
+          `
+        )
+        .join('')}
+    </div>
+  `;
+}
+
 function createAudioState() {
   return {
     activeTrackId: soundtrackTracks[0]?.id ?? '',
@@ -359,7 +435,7 @@ function createAppShell() {
     <div class="page-shell">
       <header class="hero">
         <div class="hero__content">
-          <p class="eyebrow">Issue #59 · Scenario Soundtrack</p>
+          <p class="eyebrow">Issue #80 · Prologue Player Sprite Pack</p>
           <h1>${storyProject.title}</h1>
           <p class="hero__subtitle">${storyProject.subtitle}</p>
           <p class="hero__pitch">${storyProject.pitch}</p>
@@ -386,8 +462,8 @@ function createAppShell() {
             <p class="eyebrow">Branch Focus</p>
             <h2>이번 브랜치에서 바로 볼 문서</h2>
             <p class="section-copy">
-              메인 시나리오, 캐릭터 설정, 그리고 새로 추가한 시나리오 기반 BGM 설계안을 빠르게
-              열 수 있도록 묶었습니다.
+              프롤로그 플레이어 스프라이트 팩과 실루엣 기준 문서를 먼저 열고, 이어서 관련 시나리오와
+              캐릭터 설정을 빠르게 오갈 수 있게 묶었습니다.
             </p>
           </div>
           <div class="spotlight-grid" data-featured-links></div>
@@ -423,6 +499,19 @@ function createAppShell() {
               )
               .join('')}
           </div>
+        </section>
+
+        <section class="art-archive-section" aria-label="프롤로그 플레이어 아트 산출물">
+          <div class="section-heading">
+            <p class="eyebrow">Art Archive</p>
+            <h2>프롤로그 플레이어 아트 산출물</h2>
+            <p class="section-copy">
+              <code>32x48</code> 기본 캔버스와 <code>48x48</code>, <code>48x64</code> 확장
+              캔버스로 제작한 핵심 모션 시트와 <code>720p</code> 검수 프리뷰를 한 번에 확인할 수
+              있습니다.
+            </p>
+          </div>
+          <div class="art-archive" data-art-archive></div>
         </section>
 
         <section class="soundtrack-section" aria-label="시나리오 기반 음악">
@@ -483,6 +572,7 @@ function bootstrap() {
   createAppShell();
   const soundtrackElement = document.querySelector('[data-soundtrack-element]');
   selectDocument(activeDocumentId);
+  renderArtArchive();
   renderSoundtrackPlayer(audioState);
   renderSoundtrackTrackList(audioState);
 
